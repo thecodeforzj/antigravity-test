@@ -1,18 +1,14 @@
-# Antigravity AI Native SDLC Rules (V2.0)
+# Antigravity AI Native SDLC Rules (V2.1 - Enterprise)
 
 ## 1. 核心架构协议 (Hub & Spoke)
-- **知识隔离区 (.flow/)**：所有的项目脑暴、架构、任务和日志均存放于此。
-- **工程执行区 (app/)**：所有的源代码、依赖和构建产物均存放于此。
-- **全局参考 (Global_Brain)**：若涉及跨项目 Skill，参考外部全局库。
+- **知识隔离区 (flow/)**：00-04 五大阶段。
+- **工程执行区 (app/)**：业务代码。
+- **全局参考 (Global_Brain)**：优先调用 `global_brain/01_Universal_Skills` 里的成熟模式。
 
-## 2. 交互流程 (The Five Chapters)
-- **00_Mission_Control**：任务原点。修改前必查。
-- **01_Ideation_Threads**：对话摘要。记录“构思流”的关键结论。
-- **02_Crystallized_Specs**：逻辑契约。生成的 PRD/API 必须满足 YAML 属性规范。
-- **03_Active_Sprints**：动态行动。与 ClickUp 任务强映射。
-- **04_Engineering_Log**：根因复盘。记录报错回溯和知识沉淀。
+## 2. 交互协议 (Advanced Ops)
+- **[DISTILL] 提纯要求**：每个项目 Milestone 结束必须同步全局中枢。
+- **验收基准**：`flow/02` 必须包含 `Acceptance Criteria (AC)`，AI 生成代码后需通过 `[VERIFY]` 自检。
 
-## 3. 行为边界
-- **YAML 属性**：所有 .flow 下的文档必须包含 task_id, clickup_url, status。
-- **人机共创**：Agent 负责写入，用户通过对话确认。
-- **Commit 规范**：`[Task-ID] 说明` (e.g. `feat: implement login [86b9g3me2]`)
+## 3. 防护边界 (Guardrails)
+- **无感漂移防护**：每 10 条对话自动触发一次 P1 摘要更新。
+- **代码完整性**：严禁覆盖用户手动修改的逻辑，必须采用 Surgical Patch 模式。

@@ -1,10 +1,18 @@
-# Antigravity AI Native SDLC Rules
+# Antigravity AI Native SDLC Rules (V2.0)
 
-## 1. 核心交互协议
-- **Obsidian 优先**：开始任务前必查 `Obsidian/` 下的 PRD/Task。
-- **状态同步**：任务状态变更通过命令行日志或 API 汇报。
-- **复盘记录**：完成后在 `Obsidian/04_Logs/Dev_Journal/` 记录。
+## 1. 核心架构协议 (Hub & Spoke)
+- **知识隔离区 (.flow/)**：所有的项目脑暴、架构、任务和日志均存放于此。
+- **工程执行区 (app/)**：所有的源代码、依赖和构建产物均存放于此。
+- **全局参考 (Global_Brain)**：若涉及跨项目 Skill，参考外部全局库。
 
-## 2. 行为边界
-- 报错 > 3 次必停并记录于 `Obsidian/Internal_Decisions.md`。
-- Commit 规范：`[Task-ID] 说明`。
+## 2. 交互流程 (The Five Chapters)
+- **00_Mission_Control**：任务原点。修改前必查。
+- **01_Ideation_Threads**：对话摘要。记录“构思流”的关键结论。
+- **02_Crystallized_Specs**：逻辑契约。生成的 PRD/API 必须满足 YAML 属性规范。
+- **03_Active_Sprints**：动态行动。与 ClickUp 任务强映射。
+- **04_Engineering_Log**：根因复盘。记录报错回溯和知识沉淀。
+
+## 3. 行为边界
+- **YAML 属性**：所有 .flow 下的文档必须包含 task_id, clickup_url, status。
+- **人机共创**：Agent 负责写入，用户通过对话确认。
+- **Commit 规范**：`[Task-ID] 说明` (e.g. `feat: implement login [86b9g3me2]`)

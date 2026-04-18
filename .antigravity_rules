@@ -1,0 +1,10 @@
+# Antigravity AI Native SDLC Rules
+
+## 1. 核心交互协议
+- **Obsidian 优先**：开始任务前必查 `Obsidian/` 下的 PRD/Task。
+- **状态同步**：任务状态变更通过命令行日志或 API 汇报。
+- **复盘记录**：完成后在 `Obsidian/04_Logs/Dev_Journal/` 记录。
+
+## 2. 行为边界
+- 报错 > 3 次必停并记录于 `Obsidian/Internal_Decisions.md`。
+- Commit 规范：`[Task-ID] 说明`。

@@ -1,12 +1,15 @@
 # 忽略本地编辑器与环境缓存
 .obsidian/
-.flow/.obsidian/
+flow/.obsidian/
 .DS_Store
 node_modules/
 __pycache__/
 *.log
 
 # 个人私有区域（不进 Git）
-.flow/00_Mission_Control/Private/
-.flow/03_Active_Sprints/Drafts/
-.flow/05_Assets/Private/
+flow/00_Mission_Control/Private/
+flow/03_Active_Sprints/Drafts/
+flow/05_Assets/Private/
+
+# 重点：排除外部全局中枢（知识虫洞）
+global_brain/

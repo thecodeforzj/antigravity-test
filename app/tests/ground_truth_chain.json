@@ -1,0 +1,9 @@
+[
+  { "id": "R0", "op": "ur_read", "bank": 0 },
+  { "id": "OV1", "op": "rtovr", "deps": [ ["R0", 0] ] },
+  { "id": "ADD", "op": "fpadd", "deps": [ ["OV1", 0] ] },
+  { "id": "OV2", "op": "rtovr", "deps": [ ["ADD", 0] ] },
+  { "id": "MUL", "op": "fpmul", "deps": [ ["OV2", 0] ] },
+  { "id": "OV3", "op": "rtovr", "deps": [ ["MUL", 0] ] },
+  { "id": "W0", "op": "ur_write", "bank": 0, "deps": [ ["OV3", 0] ] }
+]

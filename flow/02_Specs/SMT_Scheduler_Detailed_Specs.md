@@ -20,11 +20,22 @@
 4.  **硬件配置映射**:
     - 最终输出必须生成具象的 `{embed, loop, inc, dely}` 字段值，其中 `dely` 映射为求解出的最优 $II$。
 
-## 2. 验收标准 (Acceptance Criteria - AC)
+### C4: RT-OVR Port Tying (端口强绑定约束)
+`rtovr` 的输入端口编号必须与其对应的 Crossbar 输入端口索引对齐。在 SMT 建模中，必须建立映射关系：
+- `rtovr_index` -> `tied_to_input_port_index`
 
-- **AC-1 (Correctness)**: 基于 Modulo $II$ 的资源分布无冲突。
-- **AC-2 (Optimality)**: 求解结果必须使 $II$ 最小化。
-- **AC-3 (Hardware Tracking)**: $inc$ 字段需正确描述指针在迭代间的位移。
+### C5: Loop Engine Controls (循环引擎控制)
+最终生成的调度序列必须能映射到硬件控制器属性：
+- `addr_inc`: 每轮递归的地址增量。
+- `initiation_interval_dely`: 模周期间隔周期。
+
+## 2. 验收标准 (Acceptance Criteria - 100/100 Mandatory)
+
+- **[AC-MOD-01]**: 周期与资源约束验证（含 fpadd/fpmul 1x1 限制）。
+- **[AC-MOD-02]**: 验证 `ur_read/write` 在同 Bank 冲突下的调度拦截。
+- **[AC-MOD-03]**: 100% 测试覆盖率。
+- **[AC-MOD-04]**: **[针对 RT-OVR]** 验证生成的指令流中，`rtovr` 的配置能够正确反映输入端口的绑定索引。
+- **[AC-MOD-05]**: **[针对 Loop Engine]** 验证调度器输出的 `initiation_interval_dely` 等于求解出的最小 II。
 
 ## 3. 标准测试用例 (Benchmark)
 

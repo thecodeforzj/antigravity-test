@@ -1,0 +1,16 @@
+[
+  { "id": "R_C", "op": "ur_read", "bank": 0 },
+  { "id": "R_X_1", "op": "ur_read", "bank": 1 },
+  { "id": "M1", "op": "fpmul", "deps": [ ["R_C", 0], ["R_X_1", 0] ] },
+  
+  { "id": "R_B", "op": "ur_read", "bank": 2 },
+  { "id": "A1", "op": "fpadd", "deps": [ ["R_B", 0], ["M1", 0] ] },
+  
+  { "id": "R_X_2", "op": "ur_read", "bank": 3 },
+  { "id": "M2", "op": "fpmul", "deps": [ ["R_X_2", 0], ["A1", 0] ] },
+  
+  { "id": "R_A", "op": "ur_read", "bank": 4 },
+  { "id": "A2", "op": "fpadd", "deps": [ ["R_A", 0], ["M2", 0] ] },
+  
+  { "id": "W_RES", "op": "ur_write", "bank": 5, "deps": [ ["A2", 0] ] }
+]

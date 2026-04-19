@@ -1,67 +1,41 @@
 {
-  "project": "SMT_Scheduler_Pilot",
   "hardware": {
     "units": [
       {
         "name": "fpadd",
         "latency": 4,
-        "inputs": [0, 1],
-        "outputs": [0],
         "count": 1,
-        "type": "compute"
+        "input_ports": [0, 1]
       },
       {
         "name": "fpmul",
         "latency": 4,
-        "inputs": [2, 3],
-        "outputs": [1],
         "count": 1,
-        "type": "compute"
+        "input_ports": [2, 3]
       },
       {
         "name": "ur_read",
         "latency": 1,
-        "inputs": [],
-        "outputs": [2, 3, 4, 5],
         "count": 4,
-        "type": "memory_read"
+        "input_ports": []
       },
       {
         "name": "ur_write",
         "latency": 1,
-        "inputs": [4, 5, 6, 7],
-        "outputs": [],
         "count": 4,
-        "type": "memory_write"
+        "port_map": [4, 5, 6, 7],
+        "note": "ur_write_i is tied to port_map[i]"
       },
       {
         "name": "rtovr",
-        "latency": 1,
-        "inputs": "tied_to_input_port_index",
-        "outputs": [],
-        "count": 8,
-        "type": "crossbar_selector",
-        "characteristic": "pulse"
+        "latency": 0,
+        "is_pulse": true,
+        "count": 8
       }
     ],
     "memory": {
       "banks": 8,
-      "bank_size_bytes": 1024,
-      "conflict_rule": "ur_read_write_same_bank_conflict"
-    },
-    "registers": {
-      "note": "Inputs and outputs are reg-based except rtovr"
-    },
-    "loop_engine": {
-      "mode": "software_pipelining",
-      "controls": [
-        "embed",
-        "loop_count",
-        "addr_inc",
-        "initiation_interval_dely"
-      ],
-      "max_loop_count": 1024,
-      "description": "Supports repeating an instruction bundle with automatic address increment and specified cycle delay between starts."
+      "size_per_bank": 1024
     }
   }
 }

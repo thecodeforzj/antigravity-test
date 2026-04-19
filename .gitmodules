@@ -1,0 +1,3 @@
+[submodule "global_brain"]
+	path = global_brain
+	url = https://github.com/thecodeforzj/aos-global-brain.git

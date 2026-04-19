@@ -12,4 +12,4 @@ flow/03_Active_Sprints/Drafts/
 flow/05_Assets/Private/
 
 # 重点：排除外部全局中枢（知识虫洞）
-global_brain/
+# global_brain 现在作为子模块进行管理

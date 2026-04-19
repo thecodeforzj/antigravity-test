@@ -1,14 +1,18 @@
-# Antigravity AI Native SDLC Rules (V2.1 - Enterprise)
+# 📜 Antigravity AI Native SDLC Rules (V2.2 - "Lockdown" Version)
 
-## 1. 核心架构协议 (Hub & Spoke)
-- **知识隔离区 (flow/)**：00-04 五大阶段。
-- **工程执行区 (app/)**：业务代码。
-- **全局参考 (Global_Brain)**：优先调用 `global_brain/01_Universal_Skills` 里的成熟模式。
+## 0. 引导协议 (Boot Loader - CRITICAL)
+- **Auto-Sync**: 任何新会话的第一步，必须先读取 `flow/00_Mission_Control` 和 `global_brain/03_AOS_Core/Agent_System_Manifest.md`。
+- **Status Check**: 判定当前项目处于 P0-P4 的哪个阶段。
 
-## 2. 交互协议 (Advanced Ops)
-- **[DISTILL] 提纯要求**：每个项目 Milestone 结束必须同步全局中枢。
-- **验收基准**：`flow/02` 必须包含 `Acceptance Criteria (AC)`，AI 生成代码后需通过 `[VERIFY]` 自检。
+## 1. 关键词中断指令 (Keyword Interruption Hooks)
+一旦识别到以下关键词，必须严格按照 `global_brain/02_Template_Library/AOS_Modules/` 下的对应 Workflow 执行，严禁发散：
+- **`[INIT]`** -> 调用 Workflow_INIT
+- **`[SYNC]`** -> 调用 Workflow_SYNC
+- **`[FREEZE]`** -> 调用 Workflow_FREEZE
+- **`[EXEC]`** -> 调用 Workflow_EXEC
+- **`[DISTILL]`** -> 调用 Workflow_DISTILL
 
-## 3. 防护边界 (Guardrails)
-- **无感漂移防护**：每 10 条对话自动触发一次 P1 摘要更新。
-- **代码完整性**：严禁覆盖用户手动修改的逻辑，必须采用 Surgical Patch 模式。
+## 2. 工程红线 (Engineering Red Lines)
+- **AI 失控 = 0 AI**：禁止跳过设计（02）直接写代码（app/）。禁止在未自检（VERIFY）的情况下提交。
+- **输出标准化**：所有输出必须符合 `global_brain/02_Template_Library/AOS_Modules` 中的 [OUTPUT] 契约。
+- **路径强制**：代码永远在 `app/`，知识永远在 `flow/`。

@@ -43,6 +43,8 @@ def generate_manifest(hw_dir):
                 count = global_cfg.get("hardware_params", {}).get("UR_READ_PORTS", 1)
             elif u_name == "UR_WRITE":
                 count = global_cfg.get("hardware_params", {}).get("UR_WRITE_PORTS", 1)
+            elif u_name == "RTOVR":
+                count = global_cfg.get("rtovr_fabric", {}).get("total_routers", 8)
             else:
                 count = global_cfg.get("hardware_params", {}).get("unit_capacity", {}).get(u_name, 1)
 

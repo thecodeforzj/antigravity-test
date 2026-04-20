@@ -3,6 +3,7 @@ import sys
 import subprocess
 import re
 import time
+import hashlib
 
 def print_result(check_name, status, message=""):
     color = "\033[92m[PASS]\033[0m" if status else "\033[91m[FAIL]\033[0m"
@@ -131,12 +132,49 @@ def run_physical_audit():
         print_result("Physical Compliance", False, f"Audit script error: {str(e)}")
         return False
 
+def get_file_hash(path):
+    if not os.path.exists(path): return None
+    with open(path, 'rb') as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+def check_truth_fingerprints():
+    print("\n--- Running Truth Fingerprint Audit (V2.5) ---")
+    mission_path = 'flow/00_Mission_Control/Current_Mission.md'
+    # 核心监控文档清单
+    monitored_files = {
+        "Hardware_Manifest": "flow/02_Specs/Hardware_Manifest.json",
+        "AOS_Rules": ".antigravity_rules",
+        "Modulo_Spec": "flow/02_Specs/SMT_Scheduler_Detailed_Specs.md"
+    }
+    
+    with open(mission_path, 'r', encoding='utf-8') as f:
+        mission_content = f.read()
+    
+    all_matched = True
+    for name, path in monitored_files.items():
+        current_hash = get_file_hash(path)
+        # 在 Mission 文件中寻找记录的指纹 (DNA-Fingerprint: <name>|<hash>)
+        pattern = fr'DNA-Fingerprint:\s*{name}\|([a-f0-9]+)'
+        match = re.search(pattern, mission_content)
+        
+        if not match:
+            print_result(f"Fingerprint: {name}", False, "WARNING: No baseline fingerprint found in Mission Control!")
+            all_matched = False
+        elif match.group(1) != current_hash:
+            print_result(f"Fingerprint: {name}", False, "CRITICAL: Truth Drift Detected! Document has been tampered with.")
+            all_matched = False
+        else:
+            print_result(f"Fingerprint: {name}", True, "Integrity Verified.")
+            
+    return all_matched
+
 def main():
-    print("💠 AOS 2.3 [Industrial Baseline] Semantic Diagnostic\n")
+    print("💠 AOS 2.5 [Truth Guardian] Advanced Diagnostic\n")
     checks = [
         check_environment(),
         check_repo_structure(),
         check_mission_dna(),
+        check_truth_fingerprints(), # 新增指纹校验
         check_task_causality(),
         run_physical_audit()
     ]

@@ -1,6 +1,9 @@
-# 💠 Spec: AOS Status Tool (TSK-STAT)
+---
 status: "FROZEN"
 task_id: "AOS-PULSE-01"
+---
+
+# 💠 Spec: AOS Status Tool (TSK-STAT)
 
 ## 1. 业务逻辑
 脚本必须能够识别 `flow/00` 到 `flow/04` 的目录。

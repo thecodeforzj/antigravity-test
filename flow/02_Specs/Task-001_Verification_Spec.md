@@ -1,3 +1,9 @@
+---
+project: "AOS-Core-Verification"
+task_id: "Task-001"
+status: "Crystallized"
+---
+
 # [Task-001] AOS 核心流程验证规格说明书
 
 ## 1. 物理目的 (Physical Intent)

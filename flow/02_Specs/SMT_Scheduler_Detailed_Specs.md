@@ -1,3 +1,9 @@
+---
+type: "Detailed-Spec"
+aos_stage: "P2"
+status: "Crystallized"
+---
+
 # 💠 P2 Specifications: SMT Scheduler Detailed Contract
 
 ## 1. 约束模型定义 (SMT Logic Model)

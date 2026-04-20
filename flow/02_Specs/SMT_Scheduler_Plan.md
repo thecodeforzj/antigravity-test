@@ -1,3 +1,9 @@
+---
+type: "Project-Plan"
+aos_stage: "P2"
+status: "Active"
+---
+
 # SMT Compiler Scheduling Algorithm Implementation Plan
 
 ## 1. Requirement Refinement (P2 Specs)

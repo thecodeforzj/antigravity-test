@@ -1,0 +1,594 @@
+{
+  "metadata": {
+    "version": "4.0-REAL",
+    "source": "/home/zhangjun/2_code/NPU/aiacc_compiler/aiacc_smt_engine_v2/hw_specs",
+    "architecture": "AIACC_V5_Core"
+  },
+  "hardware": {
+    "params": {
+      "SMC_NUM": 32,
+      "SMC_VECTOR_WIDTH_BITS": 128,
+      "UR_BANK_NUM": 8,
+      "UR_READ_PORTS": 4,
+      "UR_WRITE_PORTS": 4,
+      "UR_BANK_DEPTH_ROWS": 256,
+      "EMBED_MAX_LEVEL": 6,
+      "SMC_AXI_EN": 1,
+      "unit_capacity": {
+        "FPMUL": 1,
+        "FPADD": 1,
+        "LOGIC": 1,
+        "FPTINT": 1,
+        "FPTFP": 1
+      }
+    },
+    "units": [
+      {
+        "name": "LOGIC",
+        "latency": 1,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "inst_typ",
+            "bits": 4,
+            "meaning": "0:and, 1:or, 2:xor, 3:not, 4:copy, 5:select_gt, 6:select_eq, 7:select_ls, 8:l_lshift, 9:a_lshift, 10:r_lshift, 11:l_rshift, 12:a_rshift, 13:r_rshift, 14:first_one, 15:first_zero"
+          },
+          {
+            "name": "prec",
+            "bits": 1,
+            "meaning": "0:16bit, 1:32bit"
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "FPMUL",
+        "latency": 4,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "src_prec",
+            "bits": 1,
+            "default": 1,
+            "meaning": "0:fp16, 1:fp32"
+          },
+          {
+            "name": "dst_prec",
+            "bits": 1,
+            "default": 1,
+            "meaning": "0:fp16, 1:fp32"
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "VIN1",
+        "latency": 1,
+        "count": 1,
+        "type": "router",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "INT8TOFP16",
+        "latency": 1,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "src_sign",
+            "bits": 1,
+            "meaning": "0:unsigned, 1:signed"
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "FP32ADDTREE8TO1",
+        "latency": 6,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "dst_id",
+            "bits": 2,
+            "meaning": "\u9009\u62e9\u76ee\u7684\u5bc4\u5b58\u566832bit\u5207\u7247 (0..3)"
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "FP16MUL_EXEC",
+        "latency": 4,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "pos": 0
+          },
+          {
+            "name": "src_0_id",
+            "bits": 1,
+            "meaning": "\u9009\u62e9 S3210 \u5185\u90e8\u5f71\u5b50\u5bc4\u5b58\u5668\u7ec4 (0: \u7ec40, 1: \u7ec41)"
+          },
+          {
+            "name": "src_1_id",
+            "bits": 1,
+            "meaning": "\u9009\u62e9 S7654 \u5185\u90e8\u5f71\u5b50\u5bc4\u5b58\u5668\u7ec4 (0: \u7ec40, 1: \u7ec41)"
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5
+          }
+        ]
+      },
+      {
+        "name": "INTADD",
+        "latency": 1,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "src_0_prec",
+            "bits": 2
+          },
+          {
+            "name": "src_1_prec",
+            "bits": 2
+          },
+          {
+            "name": "src_2_prec",
+            "bits": 2
+          },
+          {
+            "name": "src_0_sign",
+            "bits": 1
+          },
+          {
+            "name": "src_1_sign",
+            "bits": 1
+          },
+          {
+            "name": "src_2_sign",
+            "bits": 1
+          },
+          {
+            "name": "dst_sign",
+            "bits": 1
+          },
+          {
+            "name": "up_stat_en",
+            "bits": 1
+          },
+          {
+            "name": "add_or_sub",
+            "bits": 1
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5
+          }
+        ]
+      },
+      {
+        "name": "INTTOFP",
+        "latency": 1,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "src_prec",
+            "bits": 1
+          },
+          {
+            "name": "dst_prec",
+            "bits": 1
+          },
+          {
+            "name": "src_sign",
+            "bits": 1
+          },
+          {
+            "name": "src_high_or_low",
+            "bits": 1
+          },
+          {
+            "name": "dst_high_or_low",
+            "bits": 1
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "FP32ADDTREE5TO1",
+        "latency": 6,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "SHIFTDN",
+        "latency": 1,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1
+          },
+          {
+            "name": "shift_val",
+            "bits": 16
+          }
+        ]
+      },
+      {
+        "name": "UR_WRITE",
+        "latency": 1,
+        "count": 1,
+        "type": "memory_access",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "bank",
+            "bits": 3
+          },
+          {
+            "name": "addr",
+            "bits": 8
+          },
+          {
+            "name": "wbe",
+            "bits": 16
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "RTOVR",
+        "latency": 1,
+        "count": 1,
+        "type": "routing",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "sel",
+            "bits": 6,
+            "default": 30
+          }
+        ]
+      },
+      {
+        "name": "FPTOFP",
+        "latency": 1,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "src_prec",
+            "bits": 1,
+            "meaning": "0:fp16, 1:fp32"
+          },
+          {
+            "name": "dst_prec",
+            "bits": 1,
+            "meaning": "0:fp16, 1:fp32"
+          },
+          {
+            "name": "src_high_or_low",
+            "bits": 1
+          },
+          {
+            "name": "dst_high_or_low",
+            "bits": 1
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "FPADD",
+        "latency": 4,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "src_prec",
+            "bits": 1,
+            "default": 1,
+            "meaning": "0:fp16, 1:fp32"
+          },
+          {
+            "name": "dst_prec",
+            "bits": 1,
+            "default": 1,
+            "meaning": "0:fp16, 1:fp32"
+          },
+          {
+            "name": "up_stat_en",
+            "bits": 1
+          },
+          {
+            "name": "add_or_sub",
+            "bits": 1,
+            "meaning": "0:add, 1:sub"
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "UR_READ",
+        "latency": 1,
+        "count": 1,
+        "type": "memory_access",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "bank",
+            "bits": 3
+          },
+          {
+            "name": "addr",
+            "bits": 8
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "FP16MUL_S0123",
+        "latency": 1,
+        "count": 1,
+        "type": "router",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "pos": 0
+          },
+          {
+            "name": "src3210_high_id",
+            "bits": 1,
+            "meaning": "\u5f71\u5b50\u5bc4\u5b58\u5668\u7f16\u7801\u9ad8\u4f4d (0\u53f7\u7ec4\u62161\u53f7\u7ec4)"
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5
+          }
+        ]
+      },
+      {
+        "name": "VIN0",
+        "latency": 1,
+        "count": 1,
+        "type": "router",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "INTTOINT",
+        "latency": 1,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "src_prec",
+            "bits": 1
+          },
+          {
+            "name": "dst_prec",
+            "bits": 1
+          },
+          {
+            "name": "src_sign",
+            "bits": 1
+          },
+          {
+            "name": "dst_sign",
+            "bits": 1
+          },
+          {
+            "name": "src_high_or_low",
+            "bits": 1
+          },
+          {
+            "name": "dst_high_or_low",
+            "bits": 1
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      },
+      {
+        "name": "FP16MUL_S4567",
+        "latency": 1,
+        "count": 1,
+        "type": "router",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "pos": 0
+          },
+          {
+            "name": "src7654_high_id",
+            "bits": 1,
+            "meaning": "\u5f71\u5b50\u5bc4\u5b58\u5668\u7f16\u7801\u9ad8\u4f4d (0\u53f7\u7ec4\u62161\u53f7\u7ec4)"
+          },
+          {
+            "name": "src7654_low_id",
+            "bits": 2,
+            "meaning": "\u9009\u62e9\u5206\u53d1\u5230 S4(00), S5(01), S6(10), S7(11) \u5185\u90e8\u5bc4\u5b58\u5668"
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5
+          }
+        ]
+      },
+      {
+        "name": "FPTOINT",
+        "latency": 1,
+        "count": 1,
+        "type": "compute",
+        "fields": [
+          {
+            "name": "vld",
+            "bits": 1,
+            "default": 1
+          },
+          {
+            "name": "src_prec",
+            "bits": 1
+          },
+          {
+            "name": "dst_prec",
+            "bits": 1
+          },
+          {
+            "name": "src_high_or_low",
+            "bits": 1
+          },
+          {
+            "name": "dst_high_or_low",
+            "bits": 1
+          },
+          {
+            "name": "smc_id_en",
+            "bits": 5,
+            "default": 31
+          }
+        ]
+      }
+    ]
+  }
+}

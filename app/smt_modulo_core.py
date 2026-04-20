@@ -13,7 +13,7 @@ class SMTModuloScheduler:
             self.model_meta = data.get("model_meta", {})
         self.instructions = []
         
-    def add_instruction(self, inst_id, unit_name, bank_id=None):
+    def add_instruction(self, inst_id, unit_name, bank_id=None, **kwargs):
         unit_meta = next((u for u in self.manifest["units"] if u["name"] == unit_name), None)
         self.instructions.append({
             "id": inst_id, "unit": unit_name,
@@ -22,7 +22,13 @@ class SMTModuloScheduler:
             "u_idx": Int(f"u_idx_{inst_id}"), 
             "bank_id": bank_id,
             "input_ports": unit_meta.get("input_ports", []),
-            "port_map": unit_meta.get("port_map", [])
+            "port_map": unit_meta.get("port_map", []),
+            # 💠 AOS 3.5: Extended Compression Fields
+            "dly": kwargs.get("dly", 0),
+            "loops": kwargs.get("loops", 0),
+            "embed": kwargs.get("embed", 0),
+            "vld": kwargs.get("vld", 1),
+            "jump": kwargs.get("jump", 0)
         })
     def _pre_flight_check(self, ii):
         """🟢 AOS 2.6: Generic Resource Density Audit"""
@@ -62,8 +68,8 @@ class SMTModuloScheduler:
             for p_id, d in parents:
                 parent_obj = next((pi for pi in self.instructions if pi["id"] == p_id), None)
                 if parent_obj:
-                    # 🟢 AOS 3.0: High-Rigor Pulse Sync (Enforce +1 gap for Audit-compliance)
-                    s.add(i["t_var"] >= parent_obj["t_var"] + parent_obj["latency"] + d + 1)
+                    # 🟢 AOS 3.5: DLY-Aware Dependency Chain
+                    s.add(i["t_var"] + i["dly"] >= parent_obj["t_var"] + parent_obj["dly"] + parent_obj["latency"] + d + 1)
 
         for unit_meta in self.manifest["units"]:
             # AOS 3.0: 脉冲单元同样受到硬件并行度限制 (count 约束)
@@ -71,11 +77,20 @@ class SMTModuloScheduler:
             for idx in range(len(relevant)):
                 for jdx in range(idx + 1, len(relevant)):
                     i1, i2 = relevant[idx], relevant[jdx]
-                    s.add(Implies(i1["t_var"] % ii == i2["t_var"] % ii, i1["u_idx"] != i2["u_idx"]))
+                    # 🟢 AOS 3.5: Cyclic Expansion for LOOPS
+                    # If any of the expanded cycles of i1 conflicts with i2's expanded cycles
+                    for k1 in range(i1["loops"] + 1):
+                        for k2 in range(i2["loops"] + 1):
+                            s.add(Implies((i1["t_var"] + k1) % ii == (i2["t_var"] + k2) % ii, i1["u_idx"] != i2["u_idx"]))
 
         for b_id in range(self.manifest["memory_system"]["banks"]):
             for m_cycle in range(ii):
-                m_ops = [(i["t_var"] % ii == m_cycle, 1) for i in self.instructions if i["bank_id"] == b_id]
+                # 🟢 AOS 3.5: Bank Occupancy also expanded by LOOPS
+                m_ops = []
+                for i in self.instructions:
+                    if i["bank_id"] == b_id:
+                        for k in range(i["loops"] + 1):
+                            m_ops.append(((i["t_var"] + k) % ii == m_cycle, 1))
                 if m_ops: s.add(PbLe(m_ops, 1))
 
         if strict_compact:

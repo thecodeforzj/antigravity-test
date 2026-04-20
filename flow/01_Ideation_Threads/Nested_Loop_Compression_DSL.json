@@ -1,0 +1,22 @@
+[
+    {
+        "id": "R_A",
+        "op": "ur_read",
+        "bank": 0,
+        "loops": 1,
+        "comment": "Read A twice (loops=1 -> 2 times)"
+    },
+    {
+        "id": "R_B",
+        "op": "ur_read",
+        "bank": 1,
+        "dly": 2,
+        "comment": "Read B with delay 2"
+    },
+    {
+        "id": "M_1",
+        "op": "fpmul",
+        "deps": [["R_A", 0], ["R_B", 0]],
+        "comment": "Multiply A and B"
+    }
+]

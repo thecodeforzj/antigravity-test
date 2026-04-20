@@ -29,7 +29,13 @@ class SMTDSLParser:
             self.scheduler.add_instruction(
                 inst_id=inst_id,
                 unit_name=op,
-                bank_id=bank
+                bank_id=bank,
+                # 💠 AOS 3.5: Support Compression Fields
+                dly=inst.get("dly", 0),
+                loops=inst.get("loops", 0),
+                embed=inst.get("embed", 0),
+                vld=inst.get("vld", 1),
+                jump=inst.get("jump", 0)
             )
 
     def check_integrity(self):

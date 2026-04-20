@@ -1,0 +1,37 @@
+[
+  {"id": "L_X",   "op": "ur_read",  "latency": 1},
+  {"id": "L_C4",  "op": "ur_read",  "latency": 1},
+  {"id": "L_C3",  "op": "ur_read",  "latency": 1},
+  {"id": "L_C2",  "op": "ur_read",  "latency": 1},
+  {"id": "L_C1",  "op": "ur_read",  "latency": 1},
+  {"id": "L_C0",  "op": "ur_read",  "latency": 1},
+
+  {"id": "R_X",   "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["L_X", 1]]},
+  {"id": "R_C4",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["L_C4", 1]]},
+  {"id": "R_C3",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["L_C3", 1]]},
+
+  {"id": "M1",    "op": "fpmul",    "latency": 4, "deps": [["R_C4", 0], ["R_X", 0]]},
+  {"id": "R_M1",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["M1", 4]]},
+  {"id": "A1",    "op": "fpadd",    "latency": 4, "deps": [["R_M1", 0], ["R_C3", 0]]},
+
+  {"id": "R_A1",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["A1", 4]]},
+  {"id": "R_C2",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["L_C2", 1]]},
+  {"id": "M2",    "op": "fpmul",    "latency": 4, "deps": [["R_A1", 0], ["R_X", 0]]},
+  {"id": "R_M2",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["M2", 4]]},
+  {"id": "A2",    "op": "fpadd",    "latency": 4, "deps": [["R_M2", 0], ["R_C2", 0]]},
+
+  {"id": "R_A2",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["A2", 4]]},
+  {"id": "R_C1",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["L_C1", 1]]},
+  {"id": "M3",    "op": "fpmul",    "latency": 4, "deps": [["R_A2", 0], ["R_X", 0]]},
+  {"id": "R_M3",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["M3", 4]]},
+  {"id": "A3",    "op": "fpadd",    "latency": 4, "deps": [["R_M3", 0], ["R_C1", 0]]},
+
+  {"id": "R_A3",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["A3", 4]]},
+  {"id": "R_C0",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["L_C0", 1]]},
+  {"id": "M4",    "op": "fpmul",    "latency": 4, "deps": [["R_A3", 0], ["R_X", 0]]},
+  {"id": "R_M4",  "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["M4", 4]]},
+  {"id": "A4",    "op": "fpadd",    "latency": 4, "deps": [["R_M4", 0], ["R_C0", 0]]},
+
+  {"id": "R_OUT", "op": "rtovr",    "latency": 0, "is_pulse": true, "deps": [["A4", 4]]},
+  {"id": "S_RES", "op": "ur_write", "latency": 1, "deps": [["R_OUT", 0]]}
+]

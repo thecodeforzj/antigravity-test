@@ -98,16 +98,19 @@ def check_truth_fingerprints():
 def check_hardware_field_coverage(task_id):
     print(f"\n--- Running V3.5 Physical Coverage Audit [Task: {task_id}] ---")
     
-    # 1. 定位 Spec 与 DSL
-    spec_path = f"flow/02_Specs/Instruction_Compression_Spec.md" # 示例，实际应从 TSK 解析
+    # 1. 定位 Spec 与 DSL (AOS 3.5 泛化逻辑)
+    spec_mapping = {
+        "TSK-006": "flow/02_Specs/Instruction_Compression_Spec.md",
+        "TSK-007": "flow/02_Specs/TSK-007_Spec.md",
+        "TSK-008": "flow/02_Specs/TSK-008_Spec.md",
+    }
+    
+    spec_path = spec_mapping.get(task_id) or f"flow/02_Specs/{task_id}_Spec.md"
+    dsl_pattern = f"flow/01_Ideation_Threads/{task_id.replace('TSK-0', 'Compression_Test')}_DSL.json" if task_id == "TSK-006" else f"flow/01_Ideation_Threads/{task_id}_DSL.json"
+
+    # 如果是标准的 Compression_Test 命名
     if task_id == "TSK-006":
-        spec_path = "flow/02_Specs/Instruction_Compression_Spec.md"
-        dsl_pattern = "flow/01_Ideation_Threads/Nested_Loop_Compression_DSL.json"
-    else:
-        # 默认匹配逻辑
-        spec_candidate = f"flow/02_Specs/{task_id}_Spec.md"
-        spec_path = spec_candidate if os.path.exists(spec_candidate) else None
-        dsl_pattern = f"flow/01_Ideation_Threads/{task_id}_DSL.json"
+        dsl_pattern = "flow/01_Ideation_Threads/Compression_Test_DSL.json"
 
     if not spec_path or not os.path.exists(spec_path):
         print_result("Physical Coverage", False, "Missing Spec for coverage scanning.")

@@ -1,0 +1,10 @@
+[
+    {
+        "id": "GOVERN_PROT_001",
+        "gate_enable": 1,
+        "cov_scan": 1,
+        "cert_sign": 1,
+        "sync_lock": 1,
+        "comment": "Verification of the Governance Hard-Gating protocol logic."
+    }
+]

@@ -1,35 +1,77 @@
- Unit         | 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .
-------------------------------------------------------------------------------------------
- fpadd_0      | .  .  .  .  .  .  .  0a 1a 2a 3a 4a 5a 6a 7a 8a 9a .  .  .  .  .  .  .  .  . 
- fpmul_0      | .  .  0m 1m 2m 3m 4m 5m 6m 7m 8m 9m .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- ur_read_0    | 0r 1r 2r 3r 4r 5r 6r 7r 8r 9r .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- ur_read_1    | 0r 1r 2r 3r 4r 5r 6r 7r 8r 9r .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- ur_read_2    | 0r .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- ur_read_3    | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- ur_write_0   | .  .  .  .  .  .  .  .  .  .  .  .  0w 1w 2w 3w 4w 5w 6w 7w 8w 9w .  .  .  . 
- ur_write_1   | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- ur_write_2   | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- ur_write_3   | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- rtovr_0      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- rtovr_1      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- rtovr_2      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- rtovr_3      | .  0o 1o 2o 3o 4o 5o 6o 7o 8o 9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- rtovr_4      | .  0o 1o 2o 3o 4o 5o 6o 7o 8o 9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- rtovr_5      | .  .  .  .  .  .  0o 1o 2o 3o 4o 5o 6o 7o 8o 9o .  .  .  .  .  .  .  .  .  . 
- rtovr_6      | .  .  .  .  .  .  0o 1o 2o 3o 4o 5o 6o 7o 8o 9o .  .  .  .  .  .  .  .  .  . 
- rtovr_7      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
- rtovr_35     | .  .  .  .  .  .  .  .  .  .  .  0o 1o 2o 3o 4o 5o 6o 7o 8o 9o .  .  .  .  . 
+ Unit         | 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .  . 0
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ fpadd_0      | .  .  .  .  .  .  0a .  .  .  .  .  1a .  .  .  0a .  2a .  .  .  1a .  3a .  0a .  2a .  4a .  1a .  3a .  5a 0a 2a .  4a .  6a 1a 3a .  5a 0a 7a 2a 4a .  6a 1a 8a 3a 5a 0a 7a 2a 9a 4a 6a 1a 8a 3a .  5a 7a 2a 9a 4a .  6a 8a 3a .  5a .  7a 9a 4a .  6a .  8a .  5a .  7a .  9a .  6a .  8a .  .  .  7a .  9a .  .  .  8a .  .  .  .  .  9a .  .  .  .  .  .  .  .  . 
+ fpmul_0      | .  0m .  .  .  .  .  1m .  .  .  0m .  2m .  .  .  1m .  3m .  0m .  2m .  4m .  1m .  3m .  5m 0m 2m .  4m .  6m 1m 3m .  5m 0m 7m 2m 4m .  6m 1m 8m 3m 5m 0m 7m 2m 9m 4m 6m 1m 8m 3m .  5m 7m 2m 9m 4m .  6m 8m 3m .  5m .  7m 9m 4m .  6m .  8m .  5m .  7m .  9m .  6m .  8m .  .  .  7m .  9m .  .  .  8m .  .  .  .  .  9m .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_read_0    | 0r .  0r .  .  .  1r .  .  .  .  .  2r .  .  .  .  .  3r .  .  .  .  .  4r .  .  .  .  .  5r .  .  .  .  .  6r .  .  .  .  .  7r .  .  .  .  .  8r .  .  .  .  .  9r .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_read_1    | 0r 0r 0r .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_read_2    | 0r 0r .  0r .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_read_3    | 0r .  .  .  .  .  1r .  .  .  .  .  2r .  .  .  .  .  3r .  .  .  .  .  4r .  .  .  .  .  5r .  .  .  .  .  6r .  .  .  .  .  7r .  .  .  .  .  8r .  .  .  .  .  9r .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_write_0   | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0w .  .  .  .  .  1w .  .  .  .  .  2w .  .  .  .  .  3w .  .  .  .  .  4w .  .  .  .  .  5w .  .  .  .  .  6w .  .  .  .  .  7w .  .  .  .  .  8w .  .  .  .  .  9w .  .  .  . 
+ ur_write_1   | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_write_2   | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_write_3   | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_0      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  .  .  1o .  0o .  .  0o 2o .  1o .  0o 1o 3o .  2o 0o 1o 2o 4o .  3o 1o 2o 3o 5o .  4o 2o 3o 4o 6o .  5o 3o 4o 5o 7o .  6o 4o 5o 6o 8o .  7o 5o 6o 7o 9o .  8o 6o 7o 8o .  .  9o 7o 8o 9o .  .  .  8o 9o .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_1      | .  .  .  .  .  .  .  .  .  .  0o .  .  .  .  .  1o .  .  .  0o .  2o .  0o .  1o .  3o .  1o .  2o .  4o .  2o .  3o .  5o .  3o .  4o .  6o .  4o .  5o .  7o .  5o .  0o .  8o .  6o 0o 1o .  9o .  7o 1o 2o .  .  .  8o 2o 3o .  .  .  9o 3o 4o .  .  .  .  4o 5o .  .  .  .  5o 6o .  .  .  .  6o 7o .  .  .  .  7o 8o .  .  .  .  8o 9o .  .  .  .  9o .  .  .  .  . 
+ rtovr_2      | .  .  .  .  .  0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o 0o .  .  .  .  5o 1o .  .  .  .  6o 2o .  .  .  .  7o 3o .  .  0o .  8o 4o .  .  1o .  9o 5o .  .  2o .  .  6o .  .  3o .  .  7o .  .  4o .  .  8o .  .  5o .  .  9o .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_3      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_4      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_5      | .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_6      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_7      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_10     | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_11     | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_12     | .  .  .  .  .  .  .  .  .  0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_13     | 0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_15     | .  .  .  0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_8      | 0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_9      | .  .  .  .  .  .  0o .  .  .  .  .  1o .  .  .  .  .  2o .  .  .  .  .  3o .  .  .  .  .  4o .  .  .  .  .  5o .  .  .  .  .  6o .  .  .  .  .  7o .  .  .  .  .  8o .  .  .  .  .  9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
 
 💠 AOS 3.5 TRUTH-ALIGNED MICRO-INSTRUCTION DUMP
 ============================================================
-fpadd_0     : HEAD:[VLD:1|DLY:7|LOOPS:9|INC:0|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|UP_STAT_EN:0|ADD_OR_SUB:0|SMC_ID_EN:31]
-fpmul_0     : HEAD:[VLD:1|DLY:2|LOOPS:9|INC:0|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|SMC_ID_EN:31]
-rtovr_3     : HEAD:[VLD:1|DLY:1|LOOPS:9|INC:0|INC_EMBED:0] | BODY:[SEL:30]
-rtovr_35    : HEAD:[VLD:1|DLY:11|LOOPS:9|INC:0|INC_EMBED:0] | BODY:[SEL:4]
-rtovr_4     : HEAD:[VLD:1|DLY:1|LOOPS:9|INC:0|INC_EMBED:0] | BODY:[SEL:32]
-rtovr_5     : HEAD:[VLD:1|DLY:6|LOOPS:9|INC:0|INC_EMBED:0] | BODY:[SEL:3]
-rtovr_6     : HEAD:[VLD:1|DLY:6|LOOPS:9|INC:0|INC_EMBED:0] | BODY:[SEL:31]
-ur_read_0   : HEAD:[VLD:1|DLY:0|LOOPS:9|INC:0|INC_EMBED:0] | BODY:[BANK:1|ADDR:0|SMC_ID_EN:31]
-ur_read_1   : HEAD:[VLD:1|DLY:0|LOOPS:9|INC:0|INC_EMBED:0] | BODY:[BANK:2|ADDR:0|SMC_ID_EN:31]
-ur_read_2   : HEAD:[VLD:1|DLY:0|LOOPS:0|INC:0|INC_EMBED:0] | BODY:[BANK:0|ADDR:0|SMC_ID_EN:31]
-ur_write_0  : HEAD:[VLD:1|DLY:12|LOOPS:9|INC:0|INC_EMBED:0] | BODY:[BANK:3|ADDR:0|WBE:0|SMC_ID_EN:31]
+fpadd_0[0]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:4|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|UP_STAT_EN:0|ADD_OR_SUB:0|SMC_ID_EN:31]
+fpadd_0[1]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:10|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|UP_STAT_EN:0|ADD_OR_SUB:0|SMC_ID_EN:31]
+fpadd_0[2]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:16|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|UP_STAT_EN:0|ADD_OR_SUB:0|SMC_ID_EN:31]
+fpadd_0[3]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:22|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|UP_STAT_EN:0|ADD_OR_SUB:0|SMC_ID_EN:31]
+fpadd_0[4]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:28|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|UP_STAT_EN:0|ADD_OR_SUB:0|SMC_ID_EN:31]
+fpadd_0[5]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:34|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|UP_STAT_EN:0|ADD_OR_SUB:0|SMC_ID_EN:31]
+fpmul_0[0]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:1|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|SMC_ID_EN:31]
+fpmul_0[1]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:7|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|SMC_ID_EN:31]
+fpmul_0[2]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:13|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|SMC_ID_EN:31]
+fpmul_0[3]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:19|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|SMC_ID_EN:31]
+fpmul_0[4]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:25|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|SMC_ID_EN:31]
+fpmul_0[5]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:31|INC:6|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|SMC_ID_EN:31]
+rtovr_0[0]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:15|INC:6|INC_EMBED:0] | BODY:[SEL:3]
+rtovr_0[1]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:21|INC:6|INC_EMBED:0] | BODY:[SEL:3]
+rtovr_0[2]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:24|INC:6|INC_EMBED:0] | BODY:[SEL:4]
+rtovr_0[3]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:27|INC:6|INC_EMBED:0] | BODY:[SEL:3]
+rtovr_0[4]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:33|INC:6|INC_EMBED:0] | BODY:[SEL:33]
+rtovr_1[0]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:6|INC:6|INC_EMBED:0] | BODY:[SEL:4]
+rtovr_1[1]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:12|INC:6|INC_EMBED:0] | BODY:[SEL:4]
+rtovr_1[2]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:24|INC:6|INC_EMBED:0] | BODY:[SEL:30]
+rtovr_1[3]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:33|INC:6|INC_EMBED:0] | BODY:[SEL:3]
+rtovr_1[4]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:1|LOOPS:9|COND:0|DLY:36|INC:6|INC_EMBED:0] | BODY:[SEL:4]
+rtovr_10    : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:15|INC:6|INC_EMBED:0] | BODY:[SEL:30]
+rtovr_11    : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:18|INC:6|INC_EMBED:0] | BODY:[SEL:4]
+rtovr_12    : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:9|INC:6|INC_EMBED:0] | BODY:[SEL:32]
+rtovr_13    : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:0|INC:6|INC_EMBED:0] | BODY:[SEL:30]
+rtovr_15    : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:3|INC:6|INC_EMBED:0] | BODY:[SEL:31]
+rtovr_2[0]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:3|INC:6|INC_EMBED:0] | BODY:[SEL:3]
+rtovr_2[1]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:30|INC:6|INC_EMBED:0] | BODY:[SEL:4]
+rtovr_2[2]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:30|INC:6|INC_EMBED:0] | BODY:[SEL:30]
+rtovr_3     : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:9|INC:6|INC_EMBED:0] | BODY:[SEL:3]
+rtovr_4     : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:18|INC:6|INC_EMBED:0] | BODY:[SEL:30]
+rtovr_5     : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:12|INC:6|INC_EMBED:0] | BODY:[SEL:30]
+rtovr_6     : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:27|INC:6|INC_EMBED:0] | BODY:[SEL:32]
+rtovr_7     : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:21|INC:6|INC_EMBED:0] | BODY:[SEL:31]
+rtovr_8     : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:0|INC:6|INC_EMBED:0] | BODY:[SEL:30]
+rtovr_9     : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:6|INC:6|INC_EMBED:0] | BODY:[SEL:30]
+ur_read_0[0]: HEAD:[VALID:1|JUMP:0|EMBED:1|EMBED_END:0|LOOPS:9|COND:0|DLY:0|INC:0|INC_EMBED:0] | BODY:[BANK:0|ADDR:0|SMC_ID_EN:31]
+ur_read_0[1]: HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:0|COND:0|DLY:0|INC:0|INC_EMBED:0] | BODY:[BANK:2|ADDR:0|SMC_ID_EN:31]
+ur_read_1[0]: HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:0|COND:0|DLY:0|INC:0|INC_EMBED:0] | BODY:[BANK:1|ADDR:1|SMC_ID_EN:31]
+ur_read_1[1]: HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:0|COND:0|DLY:0|INC:0|INC_EMBED:0] | BODY:[BANK:2|ADDR:2|SMC_ID_EN:31]
+ur_read_1[2]: HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:0|COND:0|DLY:0|INC:0|INC_EMBED:0] | BODY:[BANK:2|ADDR:1|SMC_ID_EN:31]
+ur_read_2[0]: HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:0|COND:0|DLY:0|INC:0|INC_EMBED:0] | BODY:[BANK:1|ADDR:3|SMC_ID_EN:31]
+ur_read_2[1]: HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:0|COND:0|DLY:0|INC:0|INC_EMBED:0] | BODY:[BANK:1|ADDR:2|SMC_ID_EN:31]
+ur_read_2[2]: HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:0|COND:0|DLY:0|INC:0|INC_EMBED:0] | BODY:[BANK:1|ADDR:0|SMC_ID_EN:31]
+ur_read_3   : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:9|COND:0|DLY:0|INC:6|INC_EMBED:0] | BODY:[BANK:0|ADDR:0|SMC_ID_EN:31]
+ur_write_0  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:1|LOOPS:9|COND:0|DLY:37|INC:6|INC_EMBED:0] | BODY:[BANK:3|ADDR:0|WBE:0|SMC_ID_EN:31]

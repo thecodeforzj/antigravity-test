@@ -48,12 +48,17 @@ def generate_manifest(hw_dir):
             else:
                 count = global_cfg.get("hardware_params", {}).get("unit_capacity", {}).get(u_name, 1)
 
+            iq_info = u.get("iq_info", {})
+            en_loops = iq_info.get("EN_LOOPS", True) # Default to true for compute
+
             # Minimal mapping for SMT solver
             manifest["hardware"]["units"].append({
                 "name": u_name,
                 "latency": u.get("latency", 1),
                 "count": count,
                 "type": u.get("type", "compute"),
+                "en_loops": en_loops,
+                "ports_to_rtovr": u.get("ports_to_rtovr", {}),
                 "fields": u.get("fields", [])
             })
             

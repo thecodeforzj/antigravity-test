@@ -33,8 +33,9 @@ def generate_reports(result_path, manifest_path):
         dsl_data = json.load(f)
 
     timeline = {} # t -> {unit_id -> symbol}
-    unit_micro_instrs = {} # unit_id -> formatted_string
+    unit_micro_instrs = {} # unit_id -> list of formatted_strings
     
+    ii = res.get("ii", 1)
     for inst in dsl_data:
         op = inst["op"].lower()
         t_base = schedule.get(inst["id"], 0)
@@ -45,11 +46,23 @@ def generate_reports(result_path, manifest_path):
         loops = inst.get("loops", 0)
         inc = inst.get("inc", 0)
         inc_embed = inst.get("inc_embed", 0)
+        embed = inst.get("embed", 0)
+        embed_end = inst.get("embed_end", 0)
         symbol = SYM_MAP.get(op, "u")
         
-        # --- Physical Field Mapping ---
-        # 🟢 HEAD: Universal IQ Header (vld=1 always for active insts in this report)
-        head = [f"VLD:1", f"DLY:{dly}", f"LOOPS:{loops}", f"INC:{inc}", f"INC_EMBED:{inc_embed}"]
+        # --- 💠 AOS 3.9: ISA-Aligned IQ Header (Spatial Support) ---
+        real_inc = ii if (loops > 0 and embed == 0) else inc
+        head = [
+            f"VALID:1",             # 1-bit
+            f"JUMP:0",              # 1-bit
+            f"EMBED:{embed}",       # 3-bit
+            f"EMBED_END:{embed_end}",# 6-bit
+            f"LOOPS:{loops}",       # 10-bit
+            f"COND:0",              # 7-bit
+            f"DLY:{dly}",           # 3-bit
+            f"INC:{real_inc}",      # 4-bit
+            f"INC_EMBED:{inc_embed}" # 6-bit
+        ]
         
         # 🟢 BODY: Unit Private Payload
         unit_meta = next((u for u in manifest["units"] if u["name"].lower() == op), {})
@@ -61,13 +74,15 @@ def generate_reports(result_path, manifest_path):
             fval = inst.get(f_meta["name"], f_meta.get("default", 0))
             body.append(f"{fname.upper()}:{fval}")
             
-        unit_micro_instrs[unit_id] = f"HEAD:[{'|'.join(head)}] | BODY:[{'|'.join(body)}]"
+        if unit_id not in unit_micro_instrs: unit_micro_instrs[unit_id] = []
+        unit_micro_instrs[unit_id].append(f"HEAD:[{'|'.join(head)}] | BODY:[{'|'.join(body)}]")
 
         # Timeline Expansion
         for k in range(loops + 1):
-            t_curr = t_base + dly + k
+            # 🟢 AOS 3.7: Visual Interleaving (Stride = II)
+            t_curr = t_base + dly + k * ii
             if t_curr not in timeline: timeline[t_curr] = {}
-            timeline[t_curr][unit_id] = f"{k}{symbol}"
+            timeline[t_curr][unit_id] = f"{k % 10}{symbol}"
 
     # 2. Build Timing Diagram
     active_ids = set()
@@ -106,7 +121,9 @@ def generate_reports(result_path, manifest_path):
     # 3. Build Microcode Report
     microcode = ["💠 AOS 3.5 TRUTH-ALIGNED MICRO-INSTRUCTION DUMP", "="*60]
     for uid in sorted(unit_micro_instrs.keys()):
-        microcode.append(f"{uid:12}: {unit_micro_instrs[uid]}")
+        for idx, mcode in enumerate(unit_micro_instrs[uid]):
+            tag = f"{uid}[{idx}]" if len(unit_micro_instrs[uid]) > 1 else uid
+            microcode.append(f"{tag:12}: {mcode}")
 
     return "\n".join(diagram) + "\n\n" + "\n".join(microcode)
 

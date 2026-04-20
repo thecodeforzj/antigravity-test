@@ -122,30 +122,32 @@ def check_hardware_field_coverage(task_id):
     
     # 提取表格中加粗的字段名，例如 | **VLD** |
     required_fields = set(re.findall(r'\|\s*\*\*([A-Z_0-9]+)\*\*\s*\|', spec_content))
+    
     if not required_fields:
         print_result("Physical Coverage", True, "No mandatory bitfields found in Spec.")
-        return True
+        # Continue to signing logic
+        coverage = 100.0
+        missing = set()
+    else:
+        print(f"🔍 Spec defined {len(required_fields)} mandatory fields: {required_fields}")
+        
+        # 3. 检查 DSL 覆盖率
+        if not os.path.exists(dsl_pattern):
+            print_result("Physical Coverage", False, f"DSL file {dsl_pattern} not found.")
+            return False
 
-    print(f"🔍 Spec defined {len(required_fields)} mandatory fields: {required_fields}")
+        with open(dsl_pattern, 'r', encoding='utf-8') as f:
+            dsl_data = json.load(f)
+        
+        covered_fields = set()
+        for inst in dsl_data:
+            inst_keys = {k.upper() for k in inst.keys()}
+            for field in required_fields:
+                if field.upper() in inst_keys:
+                    covered_fields.add(field.upper())
 
-    # 3. 检查 DSL 覆盖率
-    if not os.path.exists(dsl_pattern):
-        print_result("Physical Coverage", False, f"DSL file {dsl_pattern} not found.")
-        return False
-
-    with open(dsl_pattern, 'r', encoding='utf-8') as f:
-        dsl_data = json.load(f)
-    
-    covered_fields = set()
-    for inst in dsl_data:
-        # 🟢 AOS 3.5: Case-insensitive field discovery
-        inst_keys = {k.upper() for k in inst.keys()}
-        for field in required_fields:
-            if field.upper() in inst_keys:
-                covered_fields.add(field.upper())
-
-    missing = required_fields - covered_fields
-    coverage = len(covered_fields) / len(required_fields) * 100
+        missing = required_fields - covered_fields
+        coverage = len(covered_fields) / len(required_fields) * 100
 
     if missing:
         print_result("Physical Coverage", False, f"Coverage: {coverage:.1f}%. Missing fields: {missing}")

@@ -61,14 +61,21 @@ class SMTDSLParser:
         print("[PARSER] Static Integrity Passed (No Cycles).")
         return True
 
-    def solve_modulo(self, ii):
+    def solve_modulo(self, initial_ii=1, max_ii=100):
         self.check_integrity()
-        # Pass hashes to meta? No, core does it for manifest. 
-        # Parser can add DSL hash here.
-        res = self.scheduler.solve_modulo(ii, self.raw_deps, strict_compact=False)
-        if res:
-            final = self.scheduler.solve_modulo(ii, self.raw_deps, strict_compact=True)
-            if final:
-                final["metadata"]["dsl_hash"] = self.dsl_hash
-            return final
+        
+        current_ii = initial_ii
+        while current_ii <= max_ii:
+            print(f"[PARSER] Attempting II={current_ii}...")
+            # 1. First find a non-compact solution
+            res = self.scheduler.solve_modulo(current_ii, self.raw_deps, strict_compact=False)
+            if res:
+                # 2. Then optimize for performance
+                final = self.scheduler.solve_modulo(current_ii, self.raw_deps, strict_compact=True)
+                if final:
+                    final["metadata"]["dsl_hash"] = self.dsl_hash
+                    return final
+            current_ii += 1
+            
+        print(f"[PARSER] Exhausted II up to {max_ii}. No solution.")
         return None

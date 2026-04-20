@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "manifest_hash": "ab3d6dc6eb129a578a9d6dd9d8ecd8cda329c08085c6888eb69e07973e65d986",
+    "spec_dna": "UNKNOWN",
+    "model_version": "AOS-2.6-CEP",
+    "truth_signature": "54bb5171696b62d77173275012392e7544c760a10830781d6c30a837393ba661"
+  },
+  "ii": 1,
+  "schedule": {
+    "K_MUL": 0,
+    "K_ADD": 5
+  },
+  "unit_assignments": {
+    "K_MUL": 0,
+    "K_ADD": 0
+  },
+  "status": "CERTIFIED"
+}

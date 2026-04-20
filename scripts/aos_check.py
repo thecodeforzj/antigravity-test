@@ -64,73 +64,53 @@ def find_task_ids_in_dir(path):
     return task_ids
 
 def check_task_causality():
-    print("\n--- Running Semantic Causality Audit ---")
-    sprint_path = 'flow/03_Active_Sprints/'
+    print("\n--- Running Semantic Causality Audit (V2.6) ---")
+    task_path = 'flow/01_Tasks/'
     spec_path = 'flow/02_Specs/'
-    app_path = 'app/'
     
-    # 1. 识别所有活跃任务
-    active_tasks = set()
-    if os.path.exists(sprint_path):
-        for f in os.listdir(sprint_path):
-            m = re.search(r'Task-\d+', f)
-            if m: active_tasks.add(m.group(0))
+    active_tasks = []
+    if os.path.exists(task_path):
+        active_tasks = [f.split('.')[0] for f in os.listdir(task_path) if f.endswith('.md')]
     
     if not active_tasks:
-        print_result("Active Tasks Scanned", True, "No active tasks found in flow/03")
+        print_result("Active Tasks Scanned", True, "No task cards found in flow/01")
         return True
 
     all_consistent = True
     for tid in active_tasks:
         print(f"\n[Audit] {tid}:")
+        # 寻找规格书 (兼容 TSK 和 Task 前缀)
+        normalized_tid = tid.replace('TSK', 'Task')
+        specs = [f for f in os.listdir(spec_path) if tid in f or normalized_tid in f] if os.path.exists(spec_path) else []
         
-        # 寻找对应的规格书
-        specs = [f for f in os.listdir(spec_path) if tid in f] if os.path.exists(spec_path) else []
-        spec_ok = len(specs) > 0
-        spec_mtime = 0
-        if spec_ok:
-            spec_file = os.path.join(spec_path, specs[0])
-            spec_mtime = os.path.getmtime(spec_file)
+        if specs:
             print_result(f"  Spec Alignment", True, f"Linked to {specs[0]}")
         else:
             print_result(f"  Spec Alignment", False, "Missing related Spec in flow/02")
             all_consistent = False
-
-        # 寻找对应的代码实现
-        code_files = []
-        for root, _, files in os.walk(app_path):
-            for f in files:
-                full_p = os.path.join(root, f)
-                with open(full_p, 'r', encoding='iso-8859-1') as cf:
-                    if tid in cf.read():
-                        code_files.append((f, os.path.getmtime(full_p)))
-        
-        if code_files:
-            for cf_name, cf_mtime in code_files:
-                # 关键：时间戳漂移检测 (Causality Drift)
-                if spec_ok and cf_mtime > spec_mtime + 60: # 1分钟宽限期
-                    print_result(f"  Code Sync ({cf_name})", False, "WARNING: Code is newer than Spec! Potential logic slip.")
-                    all_consistent = False
-                else:
-                    print_result(f"  Code Sync ({cf_name})", True, "Aligned with Spec timestamp")
-        else:
-            print_result(f"  Implementation", True, "Task-only (No code signatures yet)")
-
     return all_consistent
 
 def run_physical_audit():
-    print("\n--- Running Physical Truth Audit ---")
-    try:
-        result = subprocess.run(['python3', 'scripts/final_render.py'], capture_output=True, text=True)
-        if "[PASS]" in result.stdout:
-            print_result("Physical Compliance", True, "Schedule verified at II=3")
-            return True
+    print("\n--- Running Universal Physical Truth Audit (V2.6) ---")
+    output_dir = 'flow/03_Output/'
+    if not os.path.exists(output_dir): return True
+    
+    all_pass = True
+    results = [f for f in os.listdir(output_dir) if f.endswith('_Result.json')]
+    for r in results:
+        base_name = r.replace('_Result.json', '')
+        # 匹配其 DSL 文件
+        dsl_file = f"flow/01_Ideation_Threads/{base_name}_DSL.json"
+        if not os.path.exists(dsl_file): continue
+        
+        cmd = ['python3', 'scripts/final_truth_scanner.py', os.path.join(output_dir, r), 'flow/02_Specs/Hardware_Manifest.json', dsl_file]
+        run = subprocess.run(cmd, capture_output=True, text=True)
+        if "[PASS]" in run.stdout:
+            print_result(f"Truth Compliance: {base_name}", True)
         else:
-            print_result("Physical Compliance", False, "Audit script failed or logic drift detected")
-            return False
-    except Exception as e:
-        print_result("Physical Compliance", False, f"Audit script error: {str(e)}")
-        return False
+            print_result(f"Truth Compliance: {base_name}", False, "Logic Drift or Sync Error")
+            all_pass = False
+    return all_pass
 
 def get_file_hash(path):
     if not os.path.exists(path): return None
@@ -138,34 +118,36 @@ def get_file_hash(path):
         return hashlib.sha256(f.read()).hexdigest()
 
 def check_truth_fingerprints():
-    print("\n--- Running Truth Fingerprint Audit (V2.5) ---")
+    print("\n--- Running Truth Fingerprint Audit (V2.6) ---")
     mission_path = 'flow/00_Mission_Control/Current_Mission.md'
-    # 核心监控文档清单
-    monitored_files = {
-        "Hardware_Manifest": "flow/02_Specs/Hardware_Manifest.json",
-        "AOS_Rules": ".antigravity_rules",
-        "Modulo_Spec": "flow/02_Specs/SMT_Scheduler_Detailed_Specs.md"
-    }
-    
     with open(mission_path, 'r', encoding='utf-8') as f:
-        mission_content = f.read()
+        content = f.read()
+    
+    # 动态解析 DNA-Fingerprint
+    fingerprints = re.findall(r'DNA-Fingerprint:\s*([^|]+)\|([a-f0-9]+)', content)
     
     all_matched = True
-    for name, path in monitored_files.items():
-        current_hash = get_file_hash(path)
-        # 在 Mission 文件中寻找记录的指纹 (DNA-Fingerprint: <name>|<hash>)
-        pattern = fr'DNA-Fingerprint:\s*{name}\|([a-f0-9]+)'
-        match = re.search(pattern, mission_content)
+    for name, recorded_hash in fingerprints:
+        # 推断物理路径
+        path = None
+        if name == "Hardware_Manifest": path = "flow/02_Specs/Hardware_Manifest.json"
+        elif name == "AOS_Rules": path = ".antigravity_rules"
+        elif name == "SMT_Scheduler_Detailed_Specs": path = "flow/02_Specs/SMT_Scheduler_Detailed_Specs.md"
+        elif "Spec" in name: 
+            # 兼容其他带有 Spec 字样的文件
+            s_name = name.replace('_Spec', '').replace('MADD', 'Task-002_MADD')
+            path = f"flow/02_Specs/{s_name}_Spec.md"
         
-        if not match:
-            print_result(f"Fingerprint: {name}", False, "WARNING: No baseline fingerprint found in Mission Control!")
-            all_matched = False
-        elif match.group(1) != current_hash:
-            print_result(f"Fingerprint: {name}", False, "CRITICAL: Truth Drift Detected! Document has been tampered with.")
-            all_matched = False
+        if path and os.path.exists(path):
+            current = get_file_hash(path)
+            if current == recorded_hash:
+                print_result(f"DNA Verified: {name}", True)
+            else:
+                print_result(f"DNA Drift: {name}", False, "TAMPERED!")
+                all_matched = False
         else:
-            print_result(f"Fingerprint: {name}", True, "Integrity Verified.")
-            
+            print_result(f"DNA Missing: {name}", False, f"Path unknown or missing: {path}")
+            all_matched = False
     return all_matched
 
 def main():

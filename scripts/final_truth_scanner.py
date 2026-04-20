@@ -75,7 +75,10 @@ def check_truth(schedule_file, manifest_file, dsl_file, num_iters=10):
 
 if __name__ == "__main__":
     target = sys.argv[1] if len(sys.argv) > 1 else "flow/03_Output/Taylor3_Result.json"
-    v = check_truth(target, "flow/02_Specs/Hardware_Manifest.json", "flow/01_Ideation_Threads/Taylor3_Arr10_DSL.json")
+    manifest = sys.argv[2] if len(sys.argv) > 2 else "flow/02_Specs/Hardware_Manifest.json"
+    dsl = sys.argv[3] if len(sys.argv) > 3 else "flow/01_Ideation_Threads/Taylor3_Arr10_DSL.json"
+    
+    v = check_truth(target, manifest, dsl)
     if not v:
         print("[PASS] PHYSICAL TRUTH SCAN: ALL CLEAR. Schedule is 100% compliant.")
     else:

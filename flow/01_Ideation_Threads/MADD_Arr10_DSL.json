@@ -1,0 +1,8 @@
+[
+  { "id": "R_A", "op": "ur_read", "bank": 0 },
+  { "id": "R_B", "op": "ur_read", "bank": 1 },
+  { "id": "R_C", "op": "ur_read", "bank": 2 },
+  { "id": "M1", "op": "fpmul", "deps": [ ["R_A", 0], ["R_C", 0] ] },
+  { "id": "A1", "op": "fpadd", "deps": [ ["R_B", 0], ["M1", 0] ] },
+  { "id": "W_OUT", "op": "ur_write", "bank": 3, "deps": [ ["A1", 0] ] }
+]

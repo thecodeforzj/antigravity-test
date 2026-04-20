@@ -300,7 +300,7 @@
       {
         "name": "UR_WRITE",
         "latency": 1,
-        "count": 1,
+        "count": 4,
         "type": "memory_access",
         "fields": [
           {
@@ -423,7 +423,7 @@
       {
         "name": "UR_READ",
         "latency": 1,
-        "count": 1,
+        "count": 4,
         "type": "memory_access",
         "fields": [
           {

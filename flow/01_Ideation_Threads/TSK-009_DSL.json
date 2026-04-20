@@ -1,0 +1,48 @@
+[
+    {
+        "id": "R_C",
+        "op": "ur_read",
+        "bank": 0,
+        "VECTOR_LEN": 10,
+        "FMA_CHIAIN": 1,
+        "SCALAR_REUSE": 1,
+        "PSEUDO_GEN": 1,
+        "comment": "Read Scalar C (only once)"
+    },
+    {
+        "id": "R_A",
+        "op": "ur_read",
+        "bank": 1,
+        "loops": 9,
+        "comment": "Read Vector A[0-9]"
+    },
+    {
+        "id": "R_B",
+        "op": "ur_read",
+        "bank": 2,
+        "loops": 9,
+        "comment": "Read Vector B[0-9]"
+    },
+    {
+        "id": "M_Y",
+        "op": "fpmul",
+        "deps": [["R_A", 0], ["R_C", 0]],
+        "loops": 9,
+        "comment": "Multiply A[i] * C (loops=9)"
+    },
+    {
+        "id": "A_Y",
+        "op": "fpadd",
+        "deps": [["M_Y", 0], ["R_B", 0]],
+        "loops": 9,
+        "comment": "Add (A[i]*C) + B[i] (loops=9)"
+    },
+    {
+        "id": "W_Y",
+        "op": "ur_write",
+        "bank": 3,
+        "deps": [["A_Y", 0]],
+        "loops": 9,
+        "comment": "Write Result Y[0-9]"
+    }
+]

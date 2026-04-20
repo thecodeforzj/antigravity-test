@@ -35,12 +35,22 @@ def generate_manifest(hw_dir):
         if not unit_file.endswith(".yaml"): continue
         with open(os.path.join(units_dir, unit_file), 'r') as f:
             u = yaml.safe_load(f)
-            u_name = u.get("name")
+            u_name = u.get("name").upper()
+            
+            # 🟢 AOS 3.5: Dynamic Capacity Mapping
+            # For memory units, count is determined by PORTS
+            if u_name == "UR_READ":
+                count = global_cfg.get("hardware_params", {}).get("UR_READ_PORTS", 1)
+            elif u_name == "UR_WRITE":
+                count = global_cfg.get("hardware_params", {}).get("UR_WRITE_PORTS", 1)
+            else:
+                count = global_cfg.get("hardware_params", {}).get("unit_capacity", {}).get(u_name, 1)
+
             # Minimal mapping for SMT solver
             manifest["hardware"]["units"].append({
                 "name": u_name,
                 "latency": u.get("latency", 1),
-                "count": global_cfg.get("hardware_params", {}).get("unit_capacity", {}).get(u_name, 1),
+                "count": count,
                 "type": u.get("type", "compute"),
                 "fields": u.get("fields", [])
             })

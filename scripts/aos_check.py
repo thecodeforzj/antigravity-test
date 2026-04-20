@@ -138,9 +138,11 @@ def check_hardware_field_coverage(task_id):
     
     covered_fields = set()
     for inst in dsl_data:
+        # 🟢 AOS 3.5: Case-insensitive field discovery
+        inst_keys = {k.upper() for k in inst.keys()}
         for field in required_fields:
-            if field.lower() in inst:
-                covered_fields.add(field)
+            if field.upper() in inst_keys:
+                covered_fields.add(field.upper())
 
     missing = required_fields - covered_fields
     coverage = len(covered_fields) / len(required_fields) * 100

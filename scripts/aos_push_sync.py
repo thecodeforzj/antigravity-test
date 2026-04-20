@@ -32,11 +32,12 @@ def atomic_sync_v4(task_id, message):
     # 3. Main Repo (Atomic List Only)
     print("\n[Layer 2] Executing Precise Main-Repo Sync...")
     for art in artifacts:
+        # 即使文件在本地被删除，也要尝试阶段性提交其删除状态 (git add 会自动处理已跟踪文件的删除)
+        run_git_command(['add', art])
         if os.path.exists(art):
-            run_git_command(['add', art])
             print(f"   Staged: {art}")
         else:
-            print(f"   ⚠️ Skipping missing artifact: {art}")
+            print(f"   Staged (Deletion): {art}")
 
     # 4. Mandatory Constitutional Files
     run_git_command(['add', 'global_brain', 'flow/00_Mission_Control/Current_Mission.md', task_card])

@@ -1,18 +1,25 @@
-# 📜 Antigravity AI Native SDLC Rules (V2.2 - "Lockdown" Version)
+# 📜 Antigravity AI Native SDLC Rules (V2.3 - "Industrial Baseline")
 
-## 0. 引导协议 (Boot Loader - CRITICAL)
-- **Auto-Sync**: 任何新会话的第一步，必须先读取 `flow/00_Mission_Control` 和 `global_brain/03_AOS_Core/Agent_System_Manifest.md`。
-- **Status Check**: 判定当前项目处于 P0-P4 的哪个阶段。
+## 0. 引导协议 (Boot Loader - MANDATORY)
+- **Auto-Sync**: 任何新会话的第一步，必须执行 `[SYNC]`。必须优先解析 `Mission_DNA`。
+- **Rigor Baseline**: 本仓库默认为 `rigor_level: CRITICAL`。严禁在未经审计的情况下执行代码变动。
 
-## 1. 关键词中断指令 (Keyword Interruption Hooks)
-一旦识别到以下关键词，必须严格按照 `global_brain/02_Template_Library/AOS_Modules/` 下的对应 Workflow 执行，严禁发散：
-- **`[INIT]`** -> 调用 Workflow_INIT
-- **`[SYNC]`** -> 调用 Workflow_SYNC
-- **`[FREEZE]`** -> 调用 Workflow_FREEZE
-- **`[EXEC]`** -> 调用 Workflow_EXEC
-- **`[DISTILL]`** -> 调用 Workflow_DISTILL
+## 1. 关键词中断指令 (Standard Hooks)
+一旦识别到以下关键词，必须严格按照 `global_brain/02_Template_Library/AOS_Modules/` 执行：
+- **`[INIT]`** -> 初始化项目基因。
+- **`[SYNC]`** -> 强制性环境握手与 DNA 探测。
+- **`[FREEZE]`** -> **规格冻结**。此后 `flow/02` 进入只读保护。
+- **`[EXEC]`** -> **受控执行**。激活三权分立与三失败熔断。
+- **`[ITER]`** -> **故障回溯**。强制输出 FMEA 报告。
+- **`[CHECK]`** -> **系统自检**。运行 `scripts/aos_check.py` 诊断环境与基因对齐。
+- **`[SYNC_COMMIT]`** -> **原子暂存提交**。快速自检并提交至开发分支，用于日常进度保存。
+- **`[MERGE]`** -> **专家级准入合并**。执行全量回归审计与 Impact Review，准予代码并入主线。
+- **`[DISTILL]`** -> **知识提纯**。将任务经验同步至 Global_Brain。
 
 ## 2. 工程红线 (Engineering Red Lines)
-- **AI 失控 = 0 AI**：禁止跳过设计（02）直接写代码（app/）。禁止在未自检（VERIFY）的情况下提交。
-- **输出标准化**：所有输出必须符合 `global_brain/02_Template_Library/AOS_Modules` 中的 [OUTPUT] 契约。
-- **路径强制**：代码永远在 `app/`，知识永远在 `flow/`。
+- **物理真理绝对化**：严禁为了修正 Bug 而微调 `flow/02` 中的硬件参数（除非触发 [ITER] 流程）。
+- **审计优先**：所有 `app/` 修改必须通过 `scripts/final_render.py` 或同等审计工具的物理扫描。
+- **三失败熔断**：针对同一原子任务，连续 3 次失败即判定为“架构性阻塞”，强制终止开发并请求人类介入。
+
+## 3. 分布式同步 (Global Sync)
+- **子模块优先**：在 `global_brain` 变动后，必须先在子目录内推送，严禁产生“孤立指针”。

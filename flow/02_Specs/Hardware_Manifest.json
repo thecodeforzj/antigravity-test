@@ -1,41 +1,69 @@
 {
+  "model_meta": {
+    "name": "AIACC-Alpha-NPU-Model",
+    "version": "2.4.0",
+    "mission_id": "SMT-MODULO-001",
+    "rigor_baseline": "CRITICAL",
+    "last_crystallized": "2026-04-20"
+  },
   "hardware": {
+    "clock_domain": "1.2GHz",
+    "power_envelope": "Standard-25W",
     "units": [
       {
+        "id": "FU_0",
         "name": "fpadd",
         "latency": 4,
         "count": 1,
-        "input_ports": [0, 1]
+        "resource_id": "HW_IP_ALU_FP_ADD",
+        "input_ports": [0, 1],
+        "topology": "crossbar_left_wing"
       },
       {
+        "id": "FU_1",
         "name": "fpmul",
         "latency": 4,
         "count": 1,
-        "input_ports": [2, 3]
+        "resource_id": "HW_IP_ALU_FP_MUL",
+        "input_ports": [2, 3],
+        "topology": "crossbar_left_wing"
       },
       {
+        "id": "MEM_IO_0",
         "name": "ur_read",
         "latency": 1,
         "count": 4,
-        "input_ports": []
+        "resource_id": "HW_IP_DMA_READ",
+        "input_ports": [],
+        "topology": "dma_bridge_0"
       },
       {
+        "id": "MEM_IO_1",
         "name": "ur_write",
         "latency": 1,
         "count": 4,
+        "resource_id": "HW_IP_DMA_WRITE",
         "port_map": [4, 5, 6, 7],
-        "note": "ur_write_i is tied to port_map[i]"
+        "topology": "dma_bridge_1"
       },
       {
+        "id": "RT_0",
         "name": "rtovr",
         "latency": 0,
         "is_pulse": true,
-        "count": 8
+        "count": 8,
+        "note": "Virtual Register Routing",
+        "topology": "register_file_mesh"
       }
     ],
-    "memory": {
+    "memory_system": {
       "banks": 8,
-      "size_per_bank": 1024
+      "size_per_bank": 1024,
+      "conflict_policy": "STALL_ON_BANK_HIT"
+    },
+    "audit_params": {
+      "strict_timing": true,
+      "bit_exact_mode": "BFLOAT16"
     }
   }
 }

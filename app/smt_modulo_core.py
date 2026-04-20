@@ -10,6 +10,7 @@ class SMTModuloScheduler:
             self.manifest_hash = hashlib.sha256(raw_data.encode('utf-8')).hexdigest()
             data = json.loads(raw_data)
             self.manifest = data["hardware"]
+            self.model_meta = data.get("model_meta", {})
         self.instructions = []
         
     def add_instruction(self, inst_id, unit_name, bank_id=None):
@@ -56,7 +57,7 @@ class SMTModuloScheduler:
                     i1, i2 = relevant[idx], relevant[jdx]
                     s.add(Implies(i1["t_var"] % ii == i2["t_var"] % ii, i1["u_idx"] != i2["u_idx"]))
 
-        for b_id in range(self.manifest["memory"]["banks"]):
+        for b_id in range(self.manifest["memory_system"]["banks"]):
             for m_cycle in range(ii):
                 m_ops = [(i["t_var"] % ii == m_cycle, 1) for i in self.instructions if i["bank_id"] == b_id]
                 if m_ops: s.add(PbLe(m_ops, 1))

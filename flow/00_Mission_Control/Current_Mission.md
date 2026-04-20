@@ -1,7 +1,7 @@
 ---
 project_name: "SMT-Scheduler-Modulo"
 creation_date: 2026-04-19
-status: "IDEATION"
+status: "DEVELOPMENT"
 aos_stage: "P0"
 mission_id: "SMT-MODULO-001"
 

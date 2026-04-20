@@ -72,31 +72,39 @@ class SMTModuloScheduler:
             for p_id, d in parents:
                 parent_obj = next((pi for pi in self.instructions if pi["id"] == p_id), None)
                 if parent_obj:
-                    # 🟢 AOS 3.5: DLY-Aware Dependency Chain
-                    s.add(i["t_var"] + i["dly"] >= parent_obj["t_var"] + parent_obj["dly"] + parent_obj["latency"] + d + 1)
+                    # 🟢 AOS 3.5: Back-to-Back Alignment (Allow start at exact end cycle)
+                    s.add(i["t_var"] + i["dly"] >= parent_obj["t_var"] + parent_obj["dly"] + parent_obj["latency"] + d)
 
         for unit_meta in self.manifest["units"]:
-            # AOS 3.0: 脉冲单元同样受到硬件并行度限制 (count 约束)
+            # 🟢 AOS 3.5: Macro-Compression Aware Resource Audit
+            # In a macro-compressed loop, multiple iterations 'k' of the SAME instruction 'i' 
+            # do NOT conflict with each other because they are executed sequentially by the hardware.
+            # They only conflict with iterations of OTHER instructions.
             relevant = [i for i in self.instructions if i["unit"].upper() == unit_meta["name"].upper()]
-            for idx in range(len(relevant)):
-                for jdx in range(idx + 1, len(relevant)):
-                    i1, i2 = relevant[idx], relevant[jdx]
-                    # 🟢 AOS 3.5: Cyclic Expansion for LOOPS
-                    # If any of the expanded cycles of i1 conflicts with i2's expanded cycles
-                    for k1 in range(i1["loops"] + 1):
-                        for k2 in range(i2["loops"] + 1):
-                            s.add(Implies((i1["t_var"] + k1) % ii == (i2["t_var"] + k2) % ii, i1["u_idx"] != i2["u_idx"]))
+            for m_cycle in range(ii):
+                for u_idx in range(unit_meta["count"]):
+                    # For each physical unit instance u_idx
+                    # At most ONE instruction can start an operation that hits this modulo cycle
+                    m_ops = []
+                    for i in self.instructions:
+                        if i["unit"].upper() == unit_meta["name"].upper():
+                            # If ANY of its iterations hit this modulo cycle and this unit instance
+                            # Note: For macro-compressed instructions, we launch the WHOLE loop as one.
+                            # So spatial conflict only happens between DIFFERENT instructions.
+                            condition = Or([ (i["t_var"] + k) % ii == m_cycle for k in range(i["loops"] + 1) ])
+                            m_ops.append((And(condition, i["u_idx"] == u_idx), 1))
+                    if m_ops: s.add(PbLe(m_ops, 1))
 
-        # 🟢 AOS 3.5: Support Real-HW param 'UR_BANK_NUM'
+        # Memory Banks (Similarly updated)
         bank_count = self.manifest["params"].get("UR_BANK_NUM", 4)
         for b_id in range(bank_count):
             for m_cycle in range(ii):
-                # 🟢 AOS 3.5: Bank Occupancy also expanded by LOOPS
                 m_ops = []
                 for i in self.instructions:
                     if i["bank_id"] == b_id:
-                        for k in range(i["loops"] + 1):
-                            m_ops.append(((i["t_var"] + k) % ii == m_cycle, 1))
+                        # Internal loop iterations don't conflict with self
+                        condition = Or([ (i["t_var"] + k) % ii == m_cycle for k in range(i["loops"] + 1) ])
+                        m_ops.append((condition, 1))
                 if m_ops: s.add(PbLe(m_ops, 1))
 
         if strict_compact:

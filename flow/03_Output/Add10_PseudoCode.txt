@@ -2,97 +2,91 @@
 ============================================================
 
 Cycle 000:
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 0 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 0 | ADDR: 0 | SMC_ID_EN: 31
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
+  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 0 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 0 | ADDR: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 001:
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
+  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 002:
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 003:
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 004:
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 005:
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 006:
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 007:
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 008:
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 009:
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
   [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 010:
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 011:
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 012:
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
+  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 013:
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
+  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 014:
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
+  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 015:
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
+  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 016:
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
+  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 017:
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
+  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------
 Cycle 018:
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 019:
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 020:
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 021:
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
+  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
 ------------------------------------------------------------

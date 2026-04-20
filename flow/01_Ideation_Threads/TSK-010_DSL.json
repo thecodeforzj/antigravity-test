@@ -1,0 +1,57 @@
+[
+    {
+        "id": "R_A",
+        "op": "ur_read",
+        "bank": 1,
+        "loops": 9,
+        "dly": 0,
+        "INC_EMBED": 1,
+        "MACRO_VMA": 1,
+        "DLY_ALIGNED": 1,
+        "AUTO_INC": 1,
+        "comment": "Vector A readout starts at T=0"
+    },
+    {
+        "id": "R_B",
+        "op": "ur_read",
+        "bank": 2,
+        "loops": 9,
+        "dly": 0,
+        "INC_EMBED": 1,
+        "comment": "Vector B readout starts at T=0"
+    },
+    {
+        "id": "R_C",
+        "op": "ur_read",
+        "bank": 0,
+        "loops": 0,
+        "dly": 0,
+        "comment": "Scalar C readout starts at T=0"
+    },
+    {
+        "id": "MUL_Y",
+        "op": "fpmul",
+        "loops": 9,
+        "dly": 1,
+        "deps": [["R_A", 0], ["R_C", 0]],
+        "comment": "FPMUL launched at T=0, hard-delayed to T=1 internally"
+    },
+    {
+        "id": "ADD_Y",
+        "op": "fpadd",
+        "loops": 9,
+        "dly": 5,
+        "deps": [["MUL_Y", 0], ["R_B", 0]],
+        "comment": "FPADD launched at T=0, hard-delayed to T=5 (1+4) internally"
+    },
+    {
+        "id": "WR_Y",
+        "op": "ur_write",
+        "bank": 3,
+        "loops": 9,
+        "dly": 6,
+        "deps": [["ADD_Y", 0]],
+        "INC_EMBED": 1,
+        "comment": "UR_WRITE launched at T=0, hard-delayed to T=6 (5+1) internally"
+    }
+]

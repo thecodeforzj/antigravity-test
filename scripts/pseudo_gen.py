@@ -17,8 +17,8 @@ def generate_pseudo_code(result_path, manifest_path):
     # We need access to the original DSL to get compression fields (loops, dly, etc.)
     # In a real pipeline, we'd pass the full inst objects.
     # For now, we'll try to find the DSL based on naming.
-    task_id = res["metadata"]["spec_dna"] # TSK-009
-    dsl_path = f"flow/01_Ideation_Threads/TSK-009_DSL.json"
+    task_id = res["metadata"].get("spec_dna", "TSK-010")
+    dsl_path = f"flow/01_Ideation_Threads/{task_id}_DSL.json"
     
     with open(dsl_path, 'r') as f:
         dsl_data = json.load(f)
@@ -49,8 +49,9 @@ def generate_pseudo_code(result_path, manifest_path):
             ("INC_EMBED", inst.get("inc_embed", 0))
         ]
         
+        dly = inst.get("dly", 0)
         for k in range(loops + 1):
-            t_curr = t_base + k
+            t_curr = t_base + dly + k
             if t_curr not in timeline: timeline[t_curr] = {}
             if u_name not in timeline[t_curr]: timeline[t_curr][u_name] = []
             
@@ -79,7 +80,7 @@ def generate_pseudo_code(result_path, manifest_path):
     return "\n".join(output_lines)
 
 def main():
-    res_path = "flow/03_Output/TSK-009_Result.json"
+    res_path = sys.argv[1] if len(sys.argv) > 1 else "flow/03_Output/TSK-010_Result.json"
     manifest_path = "flow/02_Specs/Hardware_Manifest.json"
     
     if not os.path.exists(res_path):

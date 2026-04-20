@@ -46,7 +46,9 @@ def deploy_new_kernel(dsl_name):
     if audit_res == 0:
         print(f"\n✨ [SUCCESS] Kernel {dsl_name} is now CERTIFIED and DEPLOYED.")
     else:
-        print(f"\n🛑 [REJECTED] Kernel {dsl_name} failed Physical Audit. check your Spec.")
+        print(f"\n🛑 [REJECTED] Kernel {dsl_name} failed Physical Audit. Clean up output.")
+        if os.path.exists(output_path): os.remove(output_path) # 物理销毁非认证工件
+        sys.exit(1)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

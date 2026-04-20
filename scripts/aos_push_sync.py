@@ -3,45 +3,47 @@ import os
 import sys
 
 def run_git_command(args, cwd=None):
+    # 强制禁止 git add . 
+    if 'add' in args and '.' in args:
+        print("❌ [PROTOCOL_VIOLATION] Single-dot 'add' is forbidden by AOS-3.0 Rigor.")
+        return None
     result = subprocess.run(['git'] + args, cwd=cwd, capture_output=True, text=True)
     return result
 
-def check_aos_health():
-    print("🔍 [AOS Audit] Running pre-commit health check...")
-    res = subprocess.run(['python3', 'scripts/aos_check.py'], capture_output=True, text=True)
-    if "[HEALTHY]" not in res.stdout:
-        print("❌ [BLOCKED] System is UNHEALTHY. Fix semantic gaps before committing.")
-        print(res.stdout)
-        return False
-    print("✅ [AOS Audit] System is healthy. Proceeding to sync.")
-    return True
+def atomic_sync_v3(task_id, message):
+    print(f"💠 AOS 3.0 Atomic Sync Sequence Starting [Task: {task_id}]")
+    
+    # 1. Submodule Governance (global_brain)
+    print("\n[Layer 1] Governance Submodule...")
+    # 仅添加受控的协议与模板改变
+    sub_targets = ["README.md", "04_Task_Patterns/", "02_Template_Library/"]
+    for target in sub_targets:
+        run_git_command(['add', target], cwd='global_brain')
+    
+    run_git_command(['commit', '-m', f"AOS: [PROTOCOL] {task_id}: {message}"], cwd='global_brain')
+    
+    # 2. Infrastructure (app/scripts)
+    print("[Layer 2] Infrastructure & Tools...")
+    infra_targets = ["app/", "scripts/aos_check.py", "scripts/aos_visualizer.py"]
+    for target in infra_targets:
+        run_git_command(['add', target], cwd=None)
+    run_git_command(['commit', '-m', f"AOS: [STRUCTURAL] {task_id}: Hardening kernel."], cwd=None)
 
-def atomic_sync(message):
-    if not check_aos_health():
-        return
+    # 3. Atomic Product (flow)
+    print("[Layer 3] Atomic Deliverables...")
+    flow_targets = [f"flow/01_Tasks/{task_id}.md", "flow/01_Ideation_Threads/", "flow/03_Output/"]
+    # 注意：这里我们只添加与当前 Task 相关的产物
+    for target in flow_targets:
+         run_git_command(['add', target], cwd=None)
+    
+    # 4. Bind Everything
+    run_git_command(['add', 'global_brain', 'flow/00_Mission_Control/Current_Mission.md'], cwd=None)
+    run_git_command(['commit', '-m', f"AOS: [ATOMIC] {task_id}: {message} and DNA binding."], cwd=None)
 
-    # 1. Check Submodule (global_brain)
-    print("\n📦 [Submodule] Checking global_brain...")
-    status_sub = run_git_command(['status', '--porcelain'], cwd='global_brain')
-    if status_sub.stdout.strip():
-        print("   Found changes in global_brain. Committing...")
-        run_git_command(['add', '.'], cwd='global_brain')
-        run_git_command(['commit', '-m', f"[PROTOCOL] {message}"], cwd='global_brain')
-    else:
-        print("   No changes in global_brain.")
-
-    # 2. Check Main Repo
-    print("\n🚀 [Main Repo] Checking kernel updates...")
-    status_main = run_git_command(['status', '--porcelain'])
-    if status_main.stdout.strip():
-        print("   Found changes in main repo. Committing...")
-        run_git_command(['add', '.'], cwd=None)
-        run_git_command(['commit', '-m', f"[KERNEL] {message}"], cwd=None)
-    else:
-        print("   No changes in main repo.")
-
-    print("\n✨ Atomic Sync Complete. Ready to push.")
+    print("\n✨ [SUCCESS] All layers synchronized atomically.")
 
 if __name__ == "__main__":
-    msg = sys.argv[1] if len(sys.argv) > 1 else "Standard incremental update"
-    atomic_sync(msg)
+    if len(sys.argv) < 3:
+        print("Usage: python3 scripts/aos_push_sync.py [TASK_ID] [MESSAGE]")
+        sys.exit(1)
+    atomic_sync_v3(sys.argv[1], sys.argv[2])

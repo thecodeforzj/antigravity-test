@@ -38,3 +38,4 @@ sync_mode: "SUBMODULE-HUB"  # 强制执行双重 Git 提交流程
 - [x] **Task-002**: 核心 SMT 建模（Modulo & Bank Constraints） [COMPLETED]
 - [x] **Task-003**: 建立工业边界控制协议 (SMT/Hard-Rigor) [COMPLETED]
 - [x] **Task-004**: 泰勒 4 阶流水线验证 (回归原生流程) [COMPLETED]
+- [x] **Task-005**: 仓库代码与文档深度清理 (Sanitization) [COMPLETED]

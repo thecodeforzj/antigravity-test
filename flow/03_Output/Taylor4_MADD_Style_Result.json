@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "manifest_hash": "ab3d6dc6eb129a578a9d6dd9d8ecd8cda329c08085c6888eb69e07973e65d986",
+    "spec_dna": "TSK-004",
+    "model_version": "AOS-3.0-Hrigor",
+    "truth_signature": "4ea02f4f52800e8d499a7250bfa616acfb8fb13218cb3f06281dfa40b326b075",
+    "dsl_hash": "61fbe80f683d6bd0a0041acc4538a074154454f56c253b3f3b60871d235f7da9"
+  },
+  "ii": 4,
+  "schedule": {
+    "R_X": 0,
+    "R_C4": 0,
+    "R_C3": 1,
+    "R_C2": 1,
+    "R_C1": 1,
+    "R_C0": 0,
+    "M1": 2,
+    "A1": 7,
+    "M2": 12,
+    "A2": 17,
+    "M3": 23,
+    "A3": 28,
+    "M4": 33,
+    "A4": 38,
+    "W_OUT": 43
+  },
+  "unit_assignments": {
+    "R_X": 3,
+    "R_C4": 1,
+    "R_C3": 0,
+    "R_C2": 2,
+    "R_C1": 1,
+    "R_C0": 0,
+    "M1": 0,
+    "A1": 0,
+    "M2": 0,
+    "A2": 0,
+    "M3": 0,
+    "A3": 0,
+    "M4": 0,
+    "A4": 0,
+    "W_OUT": 0
+  },
+  "status": "CERTIFIED"
+}

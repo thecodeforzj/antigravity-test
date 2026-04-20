@@ -1,0 +1,22 @@
+[
+  { "id": "R_X",  "op": "ur_read", "bank": 0 },
+  { "id": "R_C4", "op": "ur_read", "bank": 1 },
+  { "id": "R_C3", "op": "ur_read", "bank": 2 },
+  { "id": "R_C2", "op": "ur_read", "bank": 0 },
+  { "id": "R_C1", "op": "ur_read", "bank": 1 },
+  { "id": "R_C0", "op": "ur_read", "bank": 2 },
+
+  { "id": "M1", "op": "fpmul", "deps": [ ["R_C4", 0], ["R_X", 0] ] },
+  { "id": "A1", "op": "fpadd", "deps": [ ["M1", 0], ["R_C3", 0] ] },
+
+  { "id": "M2", "op": "fpmul", "deps": [ ["A1", 0], ["R_X", 0] ] },
+  { "id": "A2", "op": "fpadd", "deps": [ ["M2", 0], ["R_C2", 0] ] },
+
+  { "id": "M3", "op": "fpmul", "deps": [ ["A2", 0], ["R_X", 0] ] },
+  { "id": "A3", "op": "fpadd", "deps": [ ["M3", 0], ["R_C1", 0] ] },
+
+  { "id": "M4", "op": "fpmul", "deps": [ ["A3", 0], ["R_X", 0] ] },
+  { "id": "A4", "op": "fpadd", "deps": [ ["M4", 0], ["R_C0", 0] ] },
+
+  { "id": "W_OUT", "op": "ur_write", "bank": 3, "deps": [ ["A4", 0] ] }
+]

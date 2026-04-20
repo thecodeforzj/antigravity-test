@@ -1,33 +1,37 @@
 {
-  "metadata": {
-    "manifest_hash": "4d84f5ba0e59e2dcdf9fb79a41a9607b3fa9a3c3c3a3290241f10a0136e1a495",
-    "spec_dna": "TSK-010",
-    "model_version": "AOS-3.0-Hrigor",
-    "truth_signature": "c6fecda99abb088c5c57b32c4d4d1602a850b65e0295e430447edacef595166f",
-    "dsl_hash": "8e78c870106d89ad7a86f7083bdf8bb04b26829cbe51256157c5e20dac0534ca"
-  },
+  "status": "CERTIFIED",
   "ii": 1,
   "schedule": {
     "R_A": 0,
     "R_B": 0,
     "R_C": 0,
-    "O_MUL": 0,
+    "O_MUL_S0": 0,
+    "O_MUL_S1": 0,
     "MUL_Y": 0,
-    "O_ADD": 0,
+    "O_ADD_S0": 0,
+    "O_ADD_S1": 0,
     "ADD_Y": 0,
     "O_WR": 0,
     "WR_Y": 0
   },
   "unit_assignments": {
-    "R_A": 2,
+    "R_A": 0,
     "R_B": 1,
-    "R_C": 3,
-    "O_MUL": 34,
+    "R_C": 2,
+    "O_MUL_S0": 3,
+    "O_MUL_S1": 4,
     "MUL_Y": 0,
-    "O_ADD": 39,
+    "O_ADD_S0": 5,
+    "O_ADD_S1": 6,
     "ADD_Y": 0,
-    "O_WR": 17,
+    "O_WR": 35,
     "WR_Y": 0
   },
-  "status": "CERTIFIED"
+  "metadata": {
+    "manifest_hash": "cc6d63d33a6a27fe56b727d1c110ce8e58262ecfbb1cb90634f4847e7a386a63",
+    "model_version": "AOS-3.0-Hrigor",
+    "truth_signature": "91f20665230c2e669fea3d69102c93049e0c91c3444eae1124343d171ce5c421",
+    "dsl_hash": "c281babd414e1f86bbdf2ef0550c9462dd80f9571f937d2cf2cc407637bd9f03",
+    "spec_dna": "TSK-010"
+  }
 }

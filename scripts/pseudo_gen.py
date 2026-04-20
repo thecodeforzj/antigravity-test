@@ -2,11 +2,22 @@ import json
 import os
 import sys
 
-# 💠 AOS 3.5 High-Resolution Logic Analyzer & CodeGen
-# Generates ASCII Timing Diagrams and Micro-instruction field dumps.
+# 💠 AOS 3.5 Bit-Perfect Phase Analyzer & CodeGen
+# Protocol: Unified HEAD (Control) + Unit BODY (Payload)
+# Alignment: ports_to_rtovr hard-wiring compliance.
+
+SYM_MAP = {
+    "ur_read": "r",
+    "ur_write": "w",
+    "fpmul": "m",
+    "fpadd": "a",
+    "rtovr": "o",
+    "fptfp": "x",
+    "fptint": "i"
+}
 
 def generate_reports(result_path, manifest_path):
-    print(f"🛠️  Analyzing Logic from {os.path.basename(result_path)}...")
+    print(f"🛠️  Authenticating Physical Truth: {os.path.basename(result_path)}...")
     
     with open(result_path, 'r') as f:
         res = json.load(f)
@@ -14,54 +25,78 @@ def generate_reports(result_path, manifest_path):
         manifest = json.load(f)["hardware"]
         
     schedule = res["schedule"]
+    unit_assignments = res.get("unit_assignments", {})
     task_id = res["metadata"].get("spec_dna", "TSK-010")
     dsl_path = f"flow/01_Ideation_Threads/{task_id}_DSL.json"
     
     with open(dsl_path, 'r') as f:
         dsl_data = json.load(f)
 
-    # 1. Expand Activity Timeline
     timeline = {} # t -> {unit_id -> symbol}
-    unit_micro_instrs = {} # unit_id -> [fields]
+    unit_micro_instrs = {} # unit_id -> formatted_string
     
-    # Track units count to handle indexing (e.g. ur_read_0, ur_read_1)
-    unit_counters = {} 
-    
-    # Sort DSL by id for consistent assignment
     for inst in dsl_data:
-        op = inst["op"].upper()
-        if op not in unit_counters: unit_counters[op] = 0
-        unit_id = f"{op.lower()}_{unit_counters[op]}"
-        unit_counters[op] += 1
-        
+        op = inst["op"].lower()
         t_base = schedule.get(inst["id"], 0)
+        u_idx = unit_assignments.get(inst["id"], 0) 
+        unit_id = f"{op}_{u_idx}"
+        
         dly = inst.get("dly", 0)
         loops = inst.get("loops", 0)
-        symbol = inst["op"][0] if inst["op"] != "rtovr" else "o"
+        inc = inst.get("inc", 0)
+        inc_embed = inst.get("inc_embed", 0)
+        symbol = SYM_MAP.get(op, "u")
         
-        # Microcode Fields
-        unit_meta = next((u for u in manifest["units"] if u["name"].upper() == op), {})
-        fields = ["VLD: 1", f"DLY: {dly}", f"LOOPS: {loops}"]
+        # --- Physical Field Mapping ---
+        # 🟢 HEAD: Universal IQ Header (vld=1 always for active insts in this report)
+        head = [f"VLD:1", f"DLY:{dly}", f"LOOPS:{loops}", f"INC:{inc}", f"INC_EMBED:{inc_embed}"]
+        
+        # 🟢 BODY: Unit Private Payload
+        unit_meta = next((u for u in manifest["units"] if u["name"].lower() == op), {})
+        body = []
+        reserved = ["vld", "dly", "loops", "inc", "inc_embed"]
         for f_meta in unit_meta.get("fields", []):
-            fname = f_meta["name"].upper()
+            fname = f_meta["name"].lower()
+            if fname in reserved: continue
             fval = inst.get(f_meta["name"], f_meta.get("default", 0))
-            fields.append(f"{fname}: {fval}")
-        unit_micro_instrs[unit_id] = " | ".join(fields)
+            body.append(f"{fname.upper()}:{fval}")
+            
+        unit_micro_instrs[unit_id] = f"HEAD:[{'|'.join(head)}] | BODY:[{'|'.join(body)}]"
 
-        # Timeline
+        # Timeline Expansion
         for k in range(loops + 1):
             t_curr = t_base + dly + k
             if t_curr not in timeline: timeline[t_curr] = {}
             timeline[t_curr][unit_id] = f"{k}{symbol}"
 
     # 2. Build Timing Diagram
-    all_units = sorted(unit_micro_instrs.keys())
+    active_ids = set()
+    for t_data in timeline.values():
+        active_ids.update(t_data.keys())
+
+    # Industry Standard Base Set
+    base_units = [
+        "fpadd_0", "fpmul_0", 
+        "ur_read_0", "ur_read_1", "ur_read_2", "ur_read_3",
+        "ur_write_0", "ur_write_1", "ur_write_2", "ur_write_3",
+        "rtovr_0", "rtovr_1", "rtovr_2", "rtovr_3", "rtovr_4", "rtovr_5", "rtovr_6", "rtovr_7"
+    ]
+    
+    display_units = []
+    seen = set()
+    for uid in base_units:
+        display_units.append(uid)
+        seen.add(uid)
+    for uid in sorted(active_ids):
+        if uid not in seen:
+            display_units.append(uid)
+    
     max_t = max(timeline.keys()) if timeline else 0
-    header = " Unit         | " + " ".join([f"{t % 10}" if t % 10 == 0 else "." for t in range(max_t + 5)])
+    header = " Unit         | " + " ".join([f"{t % 10}" if t % 10 == 0 else " ." for t in range(max_t + 5)])
     separator = "-" * len(header)
     
     diagram = [header, separator]
-    for uid in all_units:
+    for uid in display_units:
         row = f" {uid:12} |"
         for t in range(max_t + 5):
             cell = timeline.get(t, {}).get(uid, ".")
@@ -69,8 +104,8 @@ def generate_reports(result_path, manifest_path):
         diagram.append(row)
         
     # 3. Build Microcode Report
-    microcode = ["💠 AOS 3.5 ACTIVE UNIT MICRO-INSTRUCTION DUMP", "="*60]
-    for uid in all_units:
+    microcode = ["💠 AOS 3.5 TRUTH-ALIGNED MICRO-INSTRUCTION DUMP", "="*60]
+    for uid in sorted(unit_micro_instrs.keys()):
         microcode.append(f"{uid:12}: {unit_micro_instrs[uid]}")
 
     return "\n".join(diagram) + "\n\n" + "\n".join(microcode)
@@ -87,7 +122,7 @@ def main():
     output_txt = "flow/03_Output/Add10_PseudoCode.txt"
     with open(output_txt, 'w') as f:
         f.write(report)
-    print(f"✅ Visual Logic Analysis saved: {output_txt}")
+    print(f"✅ Truth-Aligned Analysis Output: {output_txt}")
 
 if __name__ == "__main__":
     main()

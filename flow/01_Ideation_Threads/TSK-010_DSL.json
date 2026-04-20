@@ -1,78 +1,47 @@
 [
     {
-        "id": "R_A",
-        "op": "ur_read",
-        "bank": 1,
-        "loops": 9,
-        "dly": 0,
-        "INC_EMBED": 1,
-        "MACRO_VMA": 1,
-        "DLY_ALIGNED": 1,
-        "AUTO_INC": 1,
-        "comment": "Vector A readout starts at T=0"
+        "id": "R_A", "op": "ur_read", "u_idx": 0, "bank": 1, "loops": 9, "dly": 0,
+        "MACRO_VMA": 1, "DLY_ALIGNED": 1, "AUTO_INC": 1,
+        "comment": "A -> Bus Index 30"
     },
     {
-        "id": "R_B",
-        "op": "ur_read",
-        "bank": 2,
-        "loops": 9,
-        "dly": 0,
-        "INC_EMBED": 1,
-        "comment": "Vector B readout starts at T=0"
+        "id": "R_B", "op": "ur_read", "u_idx": 1, "bank": 2, "loops": 9, "dly": 0,
+        "comment": "B -> Bus Index 31"
     },
     {
-        "id": "R_C",
-        "op": "ur_read",
-        "bank": 0,
-        "loops": 0,
-        "dly": 0,
-        "comment": "Scalar C readout starts at T=0"
+        "id": "R_C", "op": "ur_read", "u_idx": 2, "bank": 0, "loops": 0, "dly": 0,
+        "comment": "C -> Bus Index 32"
     },
     {
-        "id": "O_MUL",
-        "op": "rtovr",
-        "loops": 9,
-        "dly": 1,
-        "comment": "Routing operands to FPMUL"
+        "id": "O_MUL_S0", "op": "rtovr", "u_idx": 3, "sel": 30, "loops": 9, "dly": 1,
+        "comment": "rtovr_3 picks A (30)"
     },
     {
-        "id": "MUL_Y",
-        "op": "fpmul",
-        "loops": 9,
-        "dly": 2,
-        "deps": [["R_A", 0], ["R_C", 0]],
-        "comment": "FPMUL delayed to T=2"
+        "id": "O_MUL_S1", "op": "rtovr", "u_idx": 4, "sel": 32, "loops": 9, "dly": 1,
+        "comment": "rtovr_4 picks C (32)"
     },
     {
-        "id": "O_ADD",
-        "op": "rtovr",
-        "loops": 9,
-        "dly": 6,
-        "comment": "Routing operands to FPADD"
+        "id": "MUL_Y", "op": "fpmul", "u_idx": 0, "loops": 9, "dly": 2,
+        "comment": "FPMUL outputs to Index 3"
     },
     {
-        "id": "ADD_Y",
-        "op": "fpadd",
-        "loops": 9,
-        "dly": 7,
-        "deps": [["MUL_Y", 0], ["R_B", 0]],
-        "comment": "FPADD delayed to T=7"
+        "id": "O_ADD_S0", "op": "rtovr", "u_idx": 5, "sel": 3, "loops": 9, "dly": 6,
+        "comment": "rtovr_5 picks MUL_Y (3)"
     },
     {
-        "id": "O_WR",
-        "op": "rtovr",
-        "loops": 9,
-        "dly": 11,
-        "comment": "Routing result to write port"
+        "id": "O_ADD_S1", "op": "rtovr", "u_idx": 6, "sel": 31, "loops": 9, "dly": 6,
+        "comment": "rtovr_6 picks B (31)"
     },
     {
-        "id": "WR_Y",
-        "op": "ur_write",
-        "bank": 3,
-        "loops": 9,
-        "dly": 12,
-        "deps": [["ADD_Y", 0]],
-        "INC_EMBED": 1,
-        "comment": "UR_WRITE starts at T=12"
+        "id": "ADD_Y", "op": "fpadd", "u_idx": 0, "loops": 9, "dly": 7,
+        "comment": "FPADD outputs to Index 4"
+    },
+    {
+        "id": "O_WR", "op": "rtovr", "u_idx": 35, "sel": 4, "loops": 9, "dly": 11,
+        "comment": "rtovr_35 picks ADD_Y (4)"
+    },
+    {
+        "id": "WR_Y", "op": "ur_write", "u_idx": 0, "bank": 3, "loops": 9, "dly": 12,
+        "comment": "UR_WRITE receives from rtovr_35"
     }
 ]

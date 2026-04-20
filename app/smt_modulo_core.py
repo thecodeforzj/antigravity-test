@@ -1,17 +1,16 @@
-import json
 import hashlib
+import json
+import os
 from z3 import *
 
 class SMTModuloScheduler:
     def __init__(self, manifest_path):
-        with open(manifest_path, 'r', encoding='utf-8') as f:
-            raw_data = f.read()
-            # 🟢 AOS 2.3: Capture Manifest Fingerprint
-            self.manifest_hash = hashlib.sha256(raw_data.encode('utf-8')).hexdigest()
-            data = json.loads(raw_data)
-            self.manifest = data["hardware"]
-            self.model_meta = data.get("model_meta", {})
+        with open(manifest_path, 'r') as f:
+            self.manifest = json.load(f)["hardware"]
         self.instructions = []
+        self.unit_vars = {} # inst_id -> u_idx (Z3 Int)
+        self.t_vars = {}    # inst_id -> t_start (Z3 Int)
+        self.manifest_hash = hashlib.sha256(open(manifest_path, 'rb').read()).hexdigest()
         
     def add_instruction(self, inst_id, unit_name, bank_id=None, **kwargs):
         # 🟢 AOS 3.5: Case-insensitive unit lookup for Real-HW compatibility
@@ -19,36 +18,46 @@ class SMTModuloScheduler:
         if not unit_meta:
             raise KeyError(f"❌ Unit '{unit_name}' not found. Manifest: {[u['name'] for u in self.manifest['units']]}")
 
-        self.instructions.append({
-            "id": inst_id, "unit": unit_name,
+        inst_obj = {
+            "id": inst_id, 
+            "unit": unit_name,
             "latency": unit_meta["latency"],
             "t_var": Int(f"t_{inst_id}"),
             "u_idx": Int(f"u_idx_{inst_id}"), 
             "bank_id": bank_id,
             "input_ports": unit_meta.get("input_ports", []),
             "port_map": unit_meta.get("port_map", []),
-            # 💠 AOS 3.5: Extended Compression Fields
-            "dly": kwargs.get("dly", 0),
-            "loops": kwargs.get("loops", 0),
-            "embed": kwargs.get("embed", 0),
-            "vld": kwargs.get("vld", 1),
-            "jump": kwargs.get("jump", 0)
-        })
+            # Defaults for compression fields
+            "dly": 0,
+            "loops": 0,
+            "embed": 0,
+            "vld": 1,
+            "jump": 0,
+            "u_idx_fixed": None
+        }
+        # Override with kwargs (u_idx_fixed, loops, dly, etc.)
+        inst_obj.update(kwargs)
+        # Handle special case where u_idx might be passed as u_idx_fixed
+        if "u_idx" in kwargs and "u_idx_fixed" not in kwargs:
+            inst_obj["u_idx_fixed"] = kwargs["u_idx"]
+            
+        self.instructions.append(inst_obj)
+
     def _pre_flight_check(self, ii):
-        """🟢 AOS 2.6: Generic Resource Density Audit"""
+        """🟢 AOS PFC: Prevent Resource Over-saturation"""
         for unit_meta in self.manifest["units"]:
-            # AOS 3.0: 包含脉冲单元的强度校核
-            needed = len([i for i in self.instructions if i["unit"].upper() == unit_meta["name"].upper()])
-            capacity = unit_meta["count"] * ii
-            if needed > capacity:
-                return {
-                    "safe": False,
-                    "reason": f"Resource Over-saturation: Unit '{unit_meta['name']}' requires {needed} time-slots, but II={ii} only provides {capacity}."
-                }
+            relevant = [i for i in self.instructions if i["unit"].upper() == unit_meta["name"].upper()]
+            required_slots = 0
+            for i in relevant:
+                # If a unit doesn't support internal loops, it must occupy slots sequentially
+                # BUT for PFC we count emission slots. In II=1, we only have 1 emission slot per unit.
+                required_slots += 1
+            
+            if required_slots > unit_meta["count"] * ii:
+                return {"safe": False, "reason": f"Unit '{unit_meta['name']}' requires {required_slots} time-slots, but II={ii} only provides {unit_meta['count'] * ii}."}
         return {"safe": True}
 
     def solve_modulo(self, ii, dependencies_list, strict_compact=True):
-        # 🟢 AOS 2.6: Mandatory PFC Check before SMT Heavy-Lift
         pfc = self._pre_flight_check(ii)
         if not pfc["safe"]:
             return {"status": "UNVERIFIED", "error": f"[PFC_BLOCK] {pfc['reason']}"}
@@ -57,83 +66,67 @@ class SMTModuloScheduler:
         s = opt 
         s.set("timeout", 20000)
         
-        # 🟢 AOS 2.3: Integrate Hashes into Metadata
-        # (This is returned only on SAT)
-        
         for i in self.instructions:
             t, u = i["t_var"], i["u_idx"]
             unit_meta = next(um for um in self.manifest["units"] if um["name"].upper() == i["unit"].upper())
             s.add(t >= 0)
-            s.add(u >= 0, u < unit_meta["count"])
             
-        for i in self.instructions:
-            # Find all (parent_id, extra_delay) for this child
-            parents = [(p_id, d) for c_id, p_id, d in dependencies_list if c_id == i["id"]]
-            for p_id, d in parents:
-                parent_obj = next((pi for pi in self.instructions if pi["id"] == p_id), None)
-                if parent_obj:
-                    # 🟢 AOS 3.5: Back-to-Back Alignment (Allow start at exact end cycle)
-                    s.add(i["t_var"] + i["dly"] >= parent_obj["t_var"] + parent_obj["dly"] + parent_obj["latency"] + d)
+            if i.get("u_idx_fixed") is not None:
+                # 🟢 AOS 3.5: Physical Hard-Wiring Compliance
+                s.add(u == i["u_idx_fixed"])
+            else:
+                s.add(u >= 0, u < unit_meta["count"])
+            
+        for child_id, parent_id, extra_delay in dependencies_list:
+            child = next(inst for inst in self.instructions if inst["id"] == child_id)
+            parent = next(inst for inst in self.instructions if inst["id"] == parent_id)
+            # 🟢 AOS 3.5: DLY-Aware Causality
+            s.add(child["t_var"] + child.get("dly", 0) >= 
+                  parent["t_var"] + parent.get("dly", 0) + parent["latency"] + extra_delay)
 
         for unit_meta in self.manifest["units"]:
             # 🟢 AOS 3.5: Macro-Compression Aware Resource Audit
-            # In a macro-compressed loop, multiple iterations 'k' of the SAME instruction 'i' 
-            # do NOT conflict with each other because they are executed sequentially by the hardware.
-            # They only conflict with iterations of OTHER instructions.
-            relevant = [i for i in self.instructions if i["unit"].upper() == unit_meta["name"].upper()]
             for m_cycle in range(ii):
-                for u_idx in range(unit_meta["count"]):
-                    # For each physical unit instance u_idx
-                    # At most ONE instruction can start an operation that hits this modulo cycle
+                for u_idx_val in range(unit_meta["count"]):
                     m_ops = []
                     for i in self.instructions:
                         if i["unit"].upper() == unit_meta["name"].upper():
-                            # If ANY of its iterations hit this modulo cycle and this unit instance
-                            # Note: For macro-compressed instructions, we launch the WHOLE loop as one.
-                            # So spatial conflict only happens between DIFFERENT instructions.
-                            condition = Or([ (i["t_var"] + k) % ii == m_cycle for k in range(i["loops"] + 1) ])
-                            m_ops.append((And(condition, i["u_idx"] == u_idx), 1))
+                            # Iterations k=0..LOOPS
+                            condition = Or([ (i["t_var"] + k) % ii == m_cycle for k in range(i.get("loops", 0) + 1) ])
+                            m_ops.append((And(condition, i["u_idx"] == u_idx_val), 1))
                     if m_ops: s.add(PbLe(m_ops, 1))
 
-        # Memory Banks (Similarly updated)
+        # Memory Banks
         bank_count = self.manifest["params"].get("UR_BANK_NUM", 4)
         for b_id in range(bank_count):
             for m_cycle in range(ii):
                 m_ops = []
                 for i in self.instructions:
                     if i["bank_id"] == b_id:
-                        # Internal loop iterations don't conflict with self
-                        condition = Or([ (i["t_var"] + k) % ii == m_cycle for k in range(i["loops"] + 1) ])
+                        condition = Or([ (i["t_var"] + k) % ii == m_cycle for k in range(i.get("loops", 0) + 1) ])
                         m_ops.append((condition, 1))
                 if m_ops: s.add(PbLe(m_ops, 1))
 
         if strict_compact:
-            s.minimize(Sum([i["t_var"] for i in self.instructions]))
+            total_time = Int('total_time')
+            s.add(total_time == sum([i["t_var"] for i in self.instructions]))
+            opt.minimize(total_time)
 
         if s.check() == sat:
-            model = s.model()
-            # 🟢 AOS 3.0: 确保所有指令（含脉冲型）都在生成的 Schedule 中
-            schedule = {}
-            unit_assignments = {}
-            for i in self.instructions:
-                val = model[i["t_var"]]
-                schedule[i["id"]] = val.as_long() if val is not None else 0
-                u_val = model[i["u_idx"]]
-                unit_assignments[i["id"]] = u_val.as_long() if u_val is not None else 0
-
-            # 生成增强型 Work-Product Signature
-            content_fingerprint = hashlib.sha256(json.dumps(schedule, sort_keys=True).encode()).hexdigest()
+            m = s.model()
+            schedule = {i["id"]: m.eval(i["t_var"]).as_long() for i in self.instructions}
+            # Correctly map physical unit assignments
+            unit_assignments = {i["id"]: m.eval(i["u_idx"]).as_long() for i in self.instructions}
             
             return {
-                "metadata": {
-                    "manifest_hash": self.manifest_hash,
-                    "spec_dna": self.model_meta.get("task_id", "TSK-004"),
-                    "model_version": "AOS-3.0-Hrigor",
-                    "truth_signature": content_fingerprint
-                },
-                "ii": ii, 
+                "status": "CERTIFIED",
+                "ii": ii,
                 "schedule": schedule,
                 "unit_assignments": unit_assignments,
-                "status": "CERTIFIED"
+                "metadata": {
+                    "manifest_hash": self.manifest_hash,
+                    "model_version": "AOS-3.0-Hrigor",
+                    "truth_signature": hashlib.sha256(str(schedule).encode()).hexdigest()
+                }
             }
-        return {"status": "UNVERIFIED", "error": "No SAT solution found"}
+        return None

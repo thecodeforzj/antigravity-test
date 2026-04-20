@@ -16,13 +16,23 @@ def main():
     parser = SMTDSLParser(manifest_path)
     parser.load_instructions(dsl_path)
     
-    # 强制搜索 II=1 (Single Instruction Bundle)
-    # 我们知道 DLY 已经对齐了，所以 II=1 应该是可行的。
-    result = parser.solve_modulo(initial_ii=1, max_ii=1)
+    # 💠 AOS 3.6: 理论 II 下限预判 (基于指令交叉存取)
+    ii_min = 1
+    for unit_meta in parser.scheduler.manifest["units"]:
+        u_name = unit_meta["name"].upper()
+        # 统计该单元上承担的指令流数量
+        total_insts = len([i for i in parser.scheduler.instructions if i["unit"].upper() == u_name])
+        # 理论下限 = 指令流数 / 单元实例数
+        u_ii_min = (total_insts + unit_meta["count"] - 1) // unit_meta["count"]
+        ii_min = max(ii_min, u_ii_min)
+    
+    print(f"📊 Resource Audit: Theoretical II_min = {ii_min}")
+    
+    # 从理论下限开始搜索
+    result = parser.solve_modulo(initial_ii=ii_min, max_ii=ii_min + 32)
     
     if result:
-        print(f"✅ SUCCESS! Single-Instruction Macro-Compression Certified (II=1).")
-        result["metadata"]["spec_dna"] = "TSK-010"
+        print(f"✅ SUCCESS! Macro-Compression Certified (II={result['ii']}).")
         
         output_path = "flow/03_Output/TSK-010_Result.json"
         with open(output_path, 'w') as f:

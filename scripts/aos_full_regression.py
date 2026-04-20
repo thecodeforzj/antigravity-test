@@ -46,12 +46,24 @@ def run_step(cmd, desc):
         return False, res.stderr
 
 def main():
-    print("🚀 AOS 3.11 Production Regression Suite: FULL COVERAGE\n" + "="*50)
+    print("🚀 AOS 3.11 Production Regression Suite: SELECTIVE EXECUTION\n" + "="*50)
     
+    # 🟢 AOS 3.11.5: Selective Execution CLI
+    target_id = sys.argv[1].upper() if len(sys.argv) > 1 else None
+    
+    active_cases = TEST_CASES
+    if target_id:
+        active_cases = [c for c in TEST_CASES if c["id"] == target_id]
+        if not active_cases:
+            print(f"❌ [ABORT] Test Case '{target_id}' not found.")
+            print(f"Available cases: {[c['id'] for c in TEST_CASES]}")
+            sys.exit(1)
+        print(f"🎯 Target Acquired: {target_id}")
+
     passed = 0
-    total = len(TEST_CASES)
+    total = len(active_cases)
     
-    for case in TEST_CASES:
+    for case in active_cases:
         cid = case["id"]
         print(f"\n▶️ CASE: {cid} | Target $II={case['ii_min']}")
         

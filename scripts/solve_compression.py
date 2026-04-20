@@ -20,7 +20,7 @@ def main():
         return
 
     parser = SMTDSLParser(manifest_path)
-    dsl_path = "flow/01_Ideation_Threads/Nested_Loop_Compression_DSL.json"
+    dsl_path = "flow/01_Ideation_Threads/Compression_Test_DSL.json"
     parser.load_instructions(dsl_path)
     
     result = parser.solve_modulo(initial_ii=1)

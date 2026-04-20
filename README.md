@@ -1,6 +1,6 @@
-# 💠 Antigravity Agentic OS (AOS) Project Root
+# 💠 Antigravity Agentic OS (AOS) Project Root (V2.6)
 
-这是一个基于 **AOS 2.3 (Industrial Edition)** 协议构建的工业级调度系统开发仓库。
+这是一个基于 **AOS 2.6 (Truth Guardian Edition)** 协议构建的工业级、具备自我进化能力的调度开发仓库。
 
 ---
 
@@ -29,13 +29,15 @@ graph TD
     scripts --> P2
 ```
 
-## 🚥 AOS 2.3 标准协议 (Standard Operating Procedure)
+## 🚥 AOS 2.6 核心治理链条 (The Chain)
 
-- **P0 (Mission)**: 确立物理目标。
-- **P1 (Ideate)**: 任务拆解与 DSL 生成 (Taylor 展开配置)。
-- **P2 (Specs)**: **[物理真理]** 锁定硬件清单 `Hardware_Manifest.json`。
-- **P3 (Develop)**: 调度引擎求解。核心位于 `app/`。
-- **P4 (Retro)**: 知识提纯，同步至 `global_brain`。
+本项目执行严格的 **“协议阶位锁”**，任何跳过流程的行为都会触发布防熔断：
+
+1.  **[STATUS] 管线感知**: 识别系统当前的协议阶位（SYNCED -> DEVELOPING -> AUDITED）。
+2.  **[CRYSTAL] 意图结晶**: 所有的口头对话必须转化为结晶文档（Skills/Specs）。
+3.  **[DOC_SURGERY] 外科手术**: 对核心规格的修改必须执行影子起草与语义 Diff 审计。
+4.  **[TRUTH_GUARD] 真理护卫**: 核心规格受 SHA-256 指纹锁定，防止逻辑漂移。
+5.  **[PIVOT] 递归治愈**: 任务阻塞时自动执行失败模式分析 (FMEA) 并重新粉碎任务。
 
 ---
 
@@ -79,16 +81,16 @@ python scripts/final_render.py
 
 ## 📂 目录职能速查表
 
-| 目录 | 角色 | 迁移重要性 |
+| 目录 | 角色 | 核心守卫脚本 |
 | :--- | :--- | :--- |
-| **`app/`** | 调度引擎内核 (SMT Core) | **极高** (计算大脑) |
-| **`scripts/`** | 编排与真理审计工具 | **极高** (交付认证) |
-| **`global_brain/`**| AOS 治理协议子库 | **极高** (合规定义) |
-| **`flow/`** | 任务输入与认证工件 | **高** (II 认证数据) |
+| **`app/`** | 调度引擎内核 (SMT Core) | `final_truth_scanner.py` |
+| **`scripts/`** | 编排、同步与管线管控 | `aos_pipeline.py` / `aos_push_sync.py` |
+| **`global_brain/`**| AOS 治理协议与各阶位 Workflow | `aos_doc_guard.py` |
+| **`flow/`** | 任务输入、指纹库与导出工件 | `aos_check.py` |
 
 ---
 
-## 🔐 版本信息
-- **AOS Core**: v2.3-Industrial
-- **Compiler Engine**: SMT-based Modulo Scheduler
-- **Brain Mode**: Distributed (Submodule Sync)
+## 🔐 版本与状态信息
+- **AOS Core**: v2.6-Truth_Guardian
+- **Pipeline Lock**: Enabled (Active State Machine)
+- **Causality Audit**: Full Traceability (Sha-256 Bound)

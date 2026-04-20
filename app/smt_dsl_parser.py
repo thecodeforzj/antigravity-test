@@ -35,7 +35,8 @@ class SMTDSLParser:
                 loops=inst.get("loops", 0),
                 embed=inst.get("embed", 0),
                 vld=inst.get("vld", 1),
-                jump=inst.get("jump", 0)
+                jump=inst.get("jump", 0),
+                u_idx_fixed=inst.get("u_idx")
             )
 
     def check_integrity(self):

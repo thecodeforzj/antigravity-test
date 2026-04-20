@@ -1,0 +1,45 @@
+[
+    {
+        "id": "INST_001",
+        "op": "ur_read",
+        "bank": 0,
+        "vld": 1,
+        "embed": 2,
+        "inc": 8,
+        "comment": "Outer loop Level 2 Setup with INC=8"
+    },
+    {
+        "id": "INST_002",
+        "op": "ur_read",
+        "bank": 1,
+        "embed": 1,
+        "inc": 4,
+        "comment": "Middle loop Level 1 Setup with INC=4"
+    },
+    {
+        "id": "INST_003",
+        "op": "fpmul",
+        "embed": 0,
+        "loops": 5,
+        "dly": 2,
+        "cond": 1,
+        "inc_embed": 3,
+        "embed_end": 1,
+        "comment": "Inner loop EXEC (EMBED=0) with 6 loops, DLY, COND wait, and INC_EMBED stacking from level 1&2. Ends Level 1."
+    },
+    {
+        "id": "INST_004",
+        "op": "ur_write",
+        "jump": 1,
+        "cond": 0,
+        "vld": 1,
+        "inc": 16,
+        "comment": "Jump instruction to test JUMP field and remaining INC coverage."
+    },
+    {
+        "id": "INST_005",
+        "op": "ur_read",
+        "vld": 0,
+        "comment": "NOP instruction to test VLD=0 coverage."
+    }
+]

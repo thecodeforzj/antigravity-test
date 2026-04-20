@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "manifest_hash": "f6f65cc55251dbc99cef9046f67dff8440528a18071fcaec25d899868179608c",
+    "spec_dna": "TSK-009",
+    "model_version": "AOS-3.0-Hrigor",
+    "truth_signature": "2469f108228e4bc45d00f685cf7037369f1111371144ed559e0575c23b373b3e",
+    "dsl_hash": "ba0fe4ef74af8af76ef547df686fc93b570da5819adf6efac93031d4e544c003"
+  },
+  "ii": 10,
+  "schedule": {
+    "R_C": 0,
+    "R_A": 0,
+    "R_B": 0,
+    "M_Y": 2,
+    "A_Y": 7,
+    "W_Y": 12
+  },
+  "unit_assignments": {
+    "R_C": 0,
+    "R_A": 1,
+    "R_B": 2,
+    "M_Y": 0,
+    "A_Y": 0,
+    "W_Y": 0
+  },
+  "status": "CERTIFIED"
+}

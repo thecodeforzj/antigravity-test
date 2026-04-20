@@ -26,7 +26,7 @@ sync_mode: "SUBMODULE-HUB"  # 强制执行双重 Git 提交流程
 - DNA-Fingerprint: Taylor4_Logic|Verified (II=4)
 - DNA-Fingerprint: Operator_Deployment_SOP|V1.0
 - DNA-Fingerprint: AOS_Rules|f2486e45fad833ddd9efc03c5b8aeb41beca6bf1763f4251b47362f5ba7eac04
-- DNA-Fingerprint: Hardware_Manifest|f6f65cc55251dbc99cef9046f67dff8440528a18071fcaec25d899868179608c
+- DNA-Fingerprint: Hardware_Manifest|4d84f5ba0e59e2dcdf9fb79a41a9607b3fa9a3c3c3a3290241f10a0136e1a495
 
 ## 📅 AOS 阶段性路线图 (V-Model)
 1. **P1 (Ideation)**: 算法可行性分析与 Z3 建模。

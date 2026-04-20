@@ -29,29 +29,50 @@
         "comment": "Scalar C readout starts at T=0"
     },
     {
+        "id": "O_MUL",
+        "op": "rtovr",
+        "loops": 9,
+        "dly": 1,
+        "comment": "Routing operands to FPMUL"
+    },
+    {
         "id": "MUL_Y",
         "op": "fpmul",
         "loops": 9,
-        "dly": 1,
+        "dly": 2,
         "deps": [["R_A", 0], ["R_C", 0]],
-        "comment": "FPMUL launched at T=0, hard-delayed to T=1 internally"
+        "comment": "FPMUL delayed to T=2"
+    },
+    {
+        "id": "O_ADD",
+        "op": "rtovr",
+        "loops": 9,
+        "dly": 6,
+        "comment": "Routing operands to FPADD"
     },
     {
         "id": "ADD_Y",
         "op": "fpadd",
         "loops": 9,
-        "dly": 5,
+        "dly": 7,
         "deps": [["MUL_Y", 0], ["R_B", 0]],
-        "comment": "FPADD launched at T=0, hard-delayed to T=5 (1+4) internally"
+        "comment": "FPADD delayed to T=7"
+    },
+    {
+        "id": "O_WR",
+        "op": "rtovr",
+        "loops": 9,
+        "dly": 11,
+        "comment": "Routing result to write port"
     },
     {
         "id": "WR_Y",
         "op": "ur_write",
         "bank": 3,
         "loops": 9,
-        "dly": 6,
+        "dly": 12,
         "deps": [["ADD_Y", 0]],
         "INC_EMBED": 1,
-        "comment": "UR_WRITE launched at T=0, hard-delayed to T=6 (5+1) internally"
+        "comment": "UR_WRITE starts at T=12"
     }
 ]

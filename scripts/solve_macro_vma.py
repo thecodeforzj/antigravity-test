@@ -6,7 +6,7 @@ import json
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'app'))
 
 from smt_dsl_parser import SMTDSLParser
-from pseudo_gen import generate_pseudo_code
+from pseudo_gen import generate_reports
 
 def main():
     print("🚀 AOS 3.5 [II=1] Macro-Vector FMA Challenge")
@@ -28,8 +28,8 @@ def main():
         with open(output_path, 'w') as f:
             json.dump(result, f, indent=2)
             
-        # Call Pseudo Generator
-        report = generate_pseudo_code(output_path, manifest_path)
+        # Call Reports Generator
+        report = generate_reports(output_path, manifest_path)
         with open("flow/03_Output/Add10_PseudoCode.txt", "w") as f:
             f.write(report)
         print(f"💾 PseudoCode report updated with II=1 Macro-instructions.")

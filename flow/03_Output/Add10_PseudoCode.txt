@@ -1,92 +1,23 @@
-💠 AOS 3.5 PSEUDO-INSTRUCTION AUTOMATIC GENERATION REPORT
-============================================================
+ Unit         | 0 . . . . . . . . . 0 . . . . . . . . . 0 . . . . .
+-------------------------------------------------------------------
+ fpadd_0      | .  .  .  .  .  .  .  0f 1f 2f 3f 4f 5f 6f 7f 8f 9f .  .  .  .  .  .  .  .  . 
+ fpmul_0      | .  .  0f 1f 2f 3f 4f 5f 6f 7f 8f 9f .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_0      | .  0o 1o 2o 3o 4o 5o 6o 7o 8o 9o .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_1      | .  .  .  .  .  .  0o 1o 2o 3o 4o 5o 6o 7o 8o 9o .  .  .  .  .  .  .  .  .  . 
+ rtovr_2      | .  .  .  .  .  .  .  .  .  .  .  0o 1o 2o 3o 4o 5o 6o 7o 8o 9o .  .  .  .  . 
+ ur_read_0    | 0u 1u 2u 3u 4u 5u 6u 7u 8u 9u .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_read_1    | 0u 1u 2u 3u 4u 5u 6u 7u 8u 9u .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_read_2    | 0u .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_write_0   | .  .  .  .  .  .  .  .  .  .  .  .  0u 1u 2u 3u 4u 5u 6u 7u 8u 9u .  .  .  . 
 
-Cycle 000:
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 0 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 0 | ADDR: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 001:
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 002:
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 003:
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 004:
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 005:
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 006:
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 007:
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 008:
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 009:
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
-  [UR_READ   ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 0 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 010:
-  [FPMUL     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 1 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 011:
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 012:
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 013:
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 014:
-  [FPADD     ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 5 | INC: 0 | INC_EMBED: 0 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 015:
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 016:
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 017:
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
-Cycle 018:
-  [UR_WRITE  ] VALID: 1 | JUMP: 0 | EMBED: 0 | EMBED_END: 0 | LOOPS: 9 | COND: 0 | DLY: 6 | INC: 0 | INC_EMBED: 0 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31
-------------------------------------------------------------
+💠 AOS 3.5 ACTIVE UNIT MICRO-INSTRUCTION DUMP
+============================================================
+fpadd_0     : VLD: 1 | DLY: 7 | LOOPS: 9 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | UP_STAT_EN: 0 | ADD_OR_SUB: 0 | SMC_ID_EN: 31
+fpmul_0     : VLD: 1 | DLY: 2 | LOOPS: 9 | VLD: 1 | SRC_PREC: 1 | DST_PREC: 1 | SMC_ID_EN: 31
+rtovr_0     : VLD: 1 | DLY: 1 | LOOPS: 9 | VLD: 1 | SEL: 30
+rtovr_1     : VLD: 1 | DLY: 6 | LOOPS: 9 | VLD: 1 | SEL: 30
+rtovr_2     : VLD: 1 | DLY: 11 | LOOPS: 9 | VLD: 1 | SEL: 30
+ur_read_0   : VLD: 1 | DLY: 0 | LOOPS: 9 | VLD: 1 | BANK: 1 | ADDR: 0 | SMC_ID_EN: 31
+ur_read_1   : VLD: 1 | DLY: 0 | LOOPS: 9 | VLD: 1 | BANK: 2 | ADDR: 0 | SMC_ID_EN: 31
+ur_read_2   : VLD: 1 | DLY: 0 | LOOPS: 0 | VLD: 1 | BANK: 0 | ADDR: 0 | SMC_ID_EN: 31
+ur_write_0  : VLD: 1 | DLY: 12 | LOOPS: 9 | VLD: 1 | BANK: 3 | ADDR: 0 | WBE: 0 | SMC_ID_EN: 31

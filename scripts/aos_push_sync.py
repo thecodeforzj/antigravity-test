@@ -23,10 +23,26 @@ def atomic_sync_v4(task_id, message):
     artifacts = re.findall(r'`([^`]+)`', content)
     print(f"📦 Identified {len(artifacts)} target artifacts from task card.")
 
+    # 1.5 强制流水线硬切断 (AOS 3.5 Hard-Gating)
+    print(f"\n[Layer 0] Governance Gatekeeper: Formal Audit...")
+    audit_cmd = [sys.executable, "scripts/aos_check.py", "--task", task_id]
+    audit_res = subprocess.run(audit_cmd, capture_output=True, text=True)
+    
+    if audit_res.returncode != 0:
+        print(f"❌ [BLOCK] Governance Audit Failed for {task_id}.")
+        print(audit_res.stdout)
+        sys.exit(1)
+    
+    cert_path = f"flow/03_Output/{task_id}_Audit_Certificate.json"
+    if not os.path.exists(cert_path):
+        print(f"❌ [BLOCK] Audit Certificate missing! Sync aborted.")
+        sys.exit(1)
+    print(f"✅ Audit Certificate Verified: {cert_path}")
+
     # 2. Submodule (global_brain)
-    # 我们知道 global_brain 的变更是跨任务的，需要独立处理
+    # ... rest of the code ...
     print("\n[Layer 1] Governance Submodule (global_brain)...")
-    run_git_command(['add', '.'], cwd='global_brain') # 子模块内部依然受控
+    run_git_command(['add', '.'], cwd='global_brain') 
     run_git_command(['commit', '-m', f"[PROTOCOL] {task_id}: SOP Sealing."], cwd='global_brain')
     
     # 3. Main Repo (Atomic List Only)
@@ -40,11 +56,11 @@ def atomic_sync_v4(task_id, message):
             print(f"   Staged (Deletion): {art}")
 
     # 4. Mandatory Constitutional Files
-    run_git_command(['add', 'global_brain', 'flow/00_Mission_Control/Current_Mission.md', task_card])
+    run_git_command(['add', 'global_brain', 'flow/00_Mission_Control/Current_Mission.md', task_card, cert_path])
     
     # 5. Commit
     run_git_command(['commit', '-m', f"AOS: [{task_id}] {message}"])
-    print("\n✨ [SUCCESS] Task atomic state captured and sealed.")
+    print(f"\n✨ [SUCCESS] Task sealed with Audit Certificate: {cert_path}")
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:

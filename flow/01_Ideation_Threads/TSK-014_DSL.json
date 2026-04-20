@@ -8,7 +8,9 @@
         "loops": 1,
         "dly": 0,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A1_SETUP_L1",
@@ -19,7 +21,9 @@
         "loops": 1,
         "dly": 0,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A2_SETUP_L1",
@@ -30,7 +34,9 @@
         "loops": 1,
         "dly": 0,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A3_SETUP_L1",
@@ -41,7 +47,9 @@
         "loops": 1,
         "dly": 0,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A4_SETUP_L1",
@@ -52,7 +60,9 @@
         "loops": 1,
         "dly": 0,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A5_SETUP_L1",
@@ -63,7 +73,9 @@
         "loops": 1,
         "dly": 0,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A6_SETUP_L1",
@@ -74,7 +86,9 @@
         "loops": 1,
         "dly": 0,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_X_SETUP_L1",
@@ -85,7 +99,9 @@
         "loops": 1,
         "dly": 0,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_0_SETUP_L1",
@@ -96,7 +112,9 @@
         "dly": 0,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_1_SETUP_L1",
@@ -107,7 +125,9 @@
         "dly": 0,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_2_SETUP_L1",
@@ -116,7 +136,9 @@
         "loops": 1,
         "dly": 1,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_3_SETUP_L1",
@@ -127,7 +149,9 @@
         "dly": 3,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_4_SETUP_L1",
@@ -138,7 +162,9 @@
         "dly": 3,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_5_SETUP_L1",
@@ -147,7 +173,9 @@
         "loops": 1,
         "dly": 4,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_6_SETUP_L1",
@@ -158,7 +186,9 @@
         "dly": 6,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_7_SETUP_L1",
@@ -169,7 +199,9 @@
         "dly": 6,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_8_SETUP_L1",
@@ -178,7 +210,9 @@
         "loops": 1,
         "dly": 7,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_9_SETUP_L1",
@@ -189,7 +223,9 @@
         "dly": 9,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_10_SETUP_L1",
@@ -200,7 +236,9 @@
         "dly": 9,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_11_SETUP_L1",
@@ -209,7 +247,9 @@
         "loops": 1,
         "dly": 10,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_12_SETUP_L1",
@@ -220,7 +260,9 @@
         "dly": 12,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_13_SETUP_L1",
@@ -231,7 +273,9 @@
         "dly": 12,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_14_SETUP_L1",
@@ -240,7 +284,9 @@
         "loops": 1,
         "dly": 13,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_15_SETUP_L1",
@@ -251,7 +297,9 @@
         "dly": 15,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_16_SETUP_L1",
@@ -262,7 +310,9 @@
         "dly": 15,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_17_SETUP_L1",
@@ -271,7 +321,9 @@
         "loops": 1,
         "dly": 16,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_18_SETUP_L1",
@@ -282,7 +334,9 @@
         "dly": 18,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_19_SETUP_L1",
@@ -293,7 +347,9 @@
         "dly": 18,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_20_SETUP_L1",
@@ -302,7 +358,9 @@
         "loops": 1,
         "dly": 19,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_21_SETUP_L1",
@@ -313,7 +371,9 @@
         "dly": 21,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_22_SETUP_L1",
@@ -324,7 +384,9 @@
         "dly": 21,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_23_SETUP_L1",
@@ -333,7 +395,9 @@
         "loops": 1,
         "dly": 22,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_24_SETUP_L1",
@@ -344,7 +408,9 @@
         "dly": 24,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_25_SETUP_L1",
@@ -355,7 +421,9 @@
         "dly": 24,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_26_SETUP_L1",
@@ -364,7 +432,9 @@
         "loops": 1,
         "dly": 25,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_27_SETUP_L1",
@@ -375,7 +445,9 @@
         "dly": 27,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_28_SETUP_L1",
@@ -386,7 +458,9 @@
         "dly": 27,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_29_SETUP_L1",
@@ -395,7 +469,9 @@
         "loops": 1,
         "dly": 28,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_30_SETUP_L1",
@@ -406,7 +482,9 @@
         "dly": 30,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_31_SETUP_L1",
@@ -417,7 +495,9 @@
         "dly": 30,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_32_SETUP_L1",
@@ -426,7 +506,9 @@
         "loops": 1,
         "dly": 31,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_33_SETUP_L1",
@@ -437,7 +519,9 @@
         "dly": 33,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_34_SETUP_L1",
@@ -448,7 +532,9 @@
         "dly": 33,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_35_SETUP_L1",
@@ -457,7 +543,9 @@
         "loops": 1,
         "dly": 34,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_36_SETUP_L1",
@@ -468,7 +556,9 @@
         "dly": 36,
         "embed": 1,
         "embed_end": 0,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "WR_Y_SETUP_L1",
@@ -478,7 +568,9 @@
         "loops": 1,
         "dly": 37,
         "embed": 1,
-        "inc": 9
+        "inc": 9,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A0",
@@ -490,7 +582,9 @@
         "dly": 0,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A1",
@@ -502,7 +596,9 @@
         "dly": 0,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A2",
@@ -514,7 +610,9 @@
         "dly": 0,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A3",
@@ -526,7 +624,9 @@
         "dly": 0,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A4",
@@ -538,7 +638,9 @@
         "dly": 0,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A5",
@@ -550,7 +652,9 @@
         "dly": 0,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_A6",
@@ -562,7 +666,9 @@
         "dly": 0,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "READ_X",
@@ -574,7 +680,9 @@
         "dly": 0,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_0",
@@ -585,7 +693,9 @@
         "dly": 0,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_1",
@@ -596,7 +706,9 @@
         "dly": 0,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_2",
@@ -616,7 +728,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_3",
@@ -633,7 +747,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_4",
@@ -644,7 +760,9 @@
         "dly": 3,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_5",
@@ -664,7 +782,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_6",
@@ -681,7 +801,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_7",
@@ -692,7 +814,9 @@
         "dly": 6,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_8",
@@ -712,7 +836,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_9",
@@ -729,7 +855,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_10",
@@ -740,7 +868,9 @@
         "dly": 9,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_11",
@@ -760,7 +890,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_12",
@@ -777,7 +909,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_13",
@@ -788,7 +922,9 @@
         "dly": 12,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_14",
@@ -808,7 +944,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_15",
@@ -825,7 +963,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_16",
@@ -836,7 +976,9 @@
         "dly": 15,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_17",
@@ -856,7 +998,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_18",
@@ -873,7 +1017,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_19",
@@ -884,7 +1030,9 @@
         "dly": 18,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_20",
@@ -904,7 +1052,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_21",
@@ -921,7 +1071,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_22",
@@ -932,7 +1084,9 @@
         "dly": 21,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_23",
@@ -952,7 +1106,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_24",
@@ -969,7 +1125,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_25",
@@ -980,7 +1138,9 @@
         "dly": 24,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_26",
@@ -1000,7 +1160,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_27",
@@ -1017,7 +1179,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_28",
@@ -1028,7 +1192,9 @@
         "dly": 27,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_29",
@@ -1048,7 +1214,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_30",
@@ -1065,7 +1233,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_31",
@@ -1076,7 +1246,9 @@
         "dly": 30,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPMUL_32",
@@ -1096,7 +1268,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_33",
@@ -1113,7 +1287,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_34",
@@ -1124,7 +1300,9 @@
         "dly": 33,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "FPADD_35",
@@ -1144,7 +1322,9 @@
             ]
         ],
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "O_WIRE_36",
@@ -1161,7 +1341,9 @@
                 0
             ]
         ],
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     },
     {
         "id": "WR_Y",
@@ -1172,6 +1354,8 @@
         "dly": 37,
         "embed": 0,
         "embed_end": 1,
-        "inc_embed": 2
+        "inc_embed": 2,
+        "STAGGERED_SETUP": true,
+        "ZERO_OCCUPANCY": true
     }
 ]

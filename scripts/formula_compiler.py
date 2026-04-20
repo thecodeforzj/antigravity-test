@@ -13,11 +13,13 @@ class ResourceManager:
         self.mapping = {} # Name -> {bank, addr, is_scalar}
         
     def allocate(self, name, bank=0, is_scalar=False):
-        if name.startswith("A"):
+        # 🟢 AOS 3.11.3: Robust Parameter Prefetch
+        # Distribute Horner coefficients (A0-A9) to Bank 1/2
+        # Single-letter variables (A, B, C...) go to the requested base bank (usually Bank 0)
+        target_bank = bank
+        if name.startswith("A") and len(name) > 1 and name[1:].isdigit():
             idx = int(name[1:])
             target_bank = 1 if idx < 4 else 2 
-        else:
-            target_bank = bank
             
         if name in self.mapping:
             return self.mapping[name]

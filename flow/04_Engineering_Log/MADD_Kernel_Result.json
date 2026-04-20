@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "manifest_hash": "ab3d6dc6eb129a578a9d6dd9d8ecd8cda329c08085c6888eb69e07973e65d986",
+    "model_version": "AOS-2.3-STRICT"
+  },
+  "ii": 1,
+  "schedule": {
+    "K_MUL": 0,
+    "K_ADD": 5
+  },
+  "unit_assignments": {
+    "K_MUL": 0,
+    "K_ADD": 0
+  }
+}

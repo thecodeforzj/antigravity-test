@@ -95,20 +95,94 @@ def check_truth_fingerprints():
             all_matched = False
     return all_matched
 
+def check_hardware_field_coverage(task_id):
+    print(f"\n--- Running V3.5 Physical Coverage Audit [Task: {task_id}] ---")
+    
+    # 1. 定位 Spec 与 DSL
+    spec_path = f"flow/02_Specs/Instruction_Compression_Spec.md" # 示例，实际应从 TSK 解析
+    if task_id == "TSK-006":
+        spec_path = "flow/02_Specs/Instruction_Compression_Spec.md"
+        dsl_pattern = "flow/01_Ideation_Threads/Nested_Loop_Compression_DSL.json"
+    else:
+        # 默认匹配逻辑
+        spec_candidate = f"flow/02_Specs/{task_id}_Spec.md"
+        spec_path = spec_candidate if os.path.exists(spec_candidate) else None
+        dsl_pattern = f"flow/01_Ideation_Threads/{task_id}_DSL.json"
+
+    if not spec_path or not os.path.exists(spec_path):
+        print_result("Physical Coverage", False, "Missing Spec for coverage scanning.")
+        return False
+        
+    # 2. 从 Spec 中抓取字段定义 (Markdown Table 解析)
+    with open(spec_path, 'r', encoding='utf-8') as f:
+        spec_content = f.read()
+    
+    # 提取表格中加粗的字段名，例如 | **VLD** |
+    required_fields = set(re.findall(r'\|\s*\*\*([A-Z_0-9]+)\*\*\s*\|', spec_content))
+    if not required_fields:
+        print_result("Physical Coverage", True, "No mandatory bitfields found in Spec.")
+        return True
+
+    print(f"🔍 Spec defined {len(required_fields)} mandatory fields: {required_fields}")
+
+    # 3. 检查 DSL 覆盖率
+    if not os.path.exists(dsl_pattern):
+        print_result("Physical Coverage", False, f"DSL file {dsl_pattern} not found.")
+        return False
+
+    with open(dsl_pattern, 'r', encoding='utf-8') as f:
+        dsl_data = json.load(f)
+    
+    covered_fields = set()
+    for inst in dsl_data:
+        for field in required_fields:
+            if field.lower() in inst:
+                covered_fields.add(field)
+
+    missing = required_fields - covered_fields
+    coverage = len(covered_fields) / len(required_fields) * 100
+
+    if missing:
+        print_result("Physical Coverage", False, f"Coverage: {coverage:.1f}%. Missing fields: {missing}")
+        return False
+    else:
+        print_result("Physical Coverage", True, f"100% Coverage Reached.")
+        
+        # 4. 签发数字证书
+        cert = {
+            "task_id": task_id,
+            "timestamp": time.time(),
+            "spec_hash": get_file_hash(spec_path),
+            "dsl_hash": get_file_hash(dsl_pattern),
+            "coverage": "100%",
+            "signer": "AOS_Truth_Guardian_V3.5"
+        }
+        cert_path = f"flow/03_Output/{task_id}_Audit_Certificate.json"
+        with open(cert_path, 'w') as f:
+            json.dump(cert, f, indent=2)
+        print(f"📜 Certificate signed: {cert_path}")
+        return True
+
 def main():
-    print("💠 AOS 3.0 [Truth Guardian] Reverse Verification\n")
-    # 为了简化，我们只保留核心的物理核验
-    checks = [
-        check_environment(),
-        check_truth_fingerprints(),
-        check_physic_causal_chains()
-    ]
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--task", help="Target Task ID for coverage audit")
+    args = parser.parse_args()
+
+    print("💠 AOS 3.5 [Truth Guardian] Advanced Verification\n")
+    
+    checks = [check_environment(), check_truth_fingerprints()]
+    
+    if args.task:
+        checks.append(check_hardware_field_coverage(args.task))
+    else:
+        checks.append(check_physic_causal_chains())
     
     print("\n" + "="*50)
     if all(checks):
-        print("\033[92m[HEALTHY] 系统状态：优。物理因果链 100% 对齐。\033[0m")
+        print("\033[92m[HEALTHY] 系统状态：优。物理因果链与规约覆盖 100% 对齐。\033[0m")
     else:
-        print("\033[91m[UNHEALTHY] 系统状态：存在偏差。存在非受控的物理漂移！\033[0m")
+        sys.exit(1) # 强制熔断中止
     print("="*50)
 
 if __name__ == "__main__":

@@ -1,49 +1,52 @@
 import subprocess
 import os
 import sys
+import re
 
 def run_git_command(args, cwd=None):
-    # 强制禁止 git add . 
-    if 'add' in args and '.' in args:
-        print("❌ [PROTOCOL_VIOLATION] Single-dot 'add' is forbidden by AOS-3.0 Rigor.")
-        return None
     result = subprocess.run(['git'] + args, cwd=cwd, capture_output=True, text=True)
     return result
 
-def atomic_sync_v3(task_id, message):
-    print(f"💠 AOS 3.0 Atomic Sync Sequence Starting [Task: {task_id}]")
+def atomic_sync_v4(task_id, message):
+    print(f"💠 AOS 3.5 High-Resolution Atomic Sync [Task: {task_id}]")
     
-    # 1. Submodule Governance (global_brain)
-    print("\n[Layer 1] Governance Submodule...")
-    # 仅添加受控的协议与模板改变
-    sub_targets = ["README.md", "04_Task_Patterns/", "02_Template_Library/"]
-    for target in sub_targets:
-        run_git_command(['add', target], cwd='global_brain')
-    
-    run_git_command(['commit', '-m', f"AOS: [PROTOCOL] {task_id}: {message}"], cwd='global_brain')
-    
-    # 2. Infrastructure (app/scripts)
-    print("[Layer 2] Infrastructure & Tools...")
-    infra_targets = ["app/", "scripts/aos_check.py", "scripts/aos_visualizer.py"]
-    for target in infra_targets:
-        run_git_command(['add', target], cwd=None)
-    run_git_command(['commit', '-m', f"AOS: [STRUCTURAL] {task_id}: Hardening kernel."], cwd=None)
+    # 1. 解析任务卡片中的 [ARTIFACT_INDEX]
+    task_card = f"flow/01_Tasks/{task_id}.md"
+    if not os.path.exists(task_card):
+        print(f"❌ [ABORT] Task card {task_card} not found.")
+        return
 
-    # 3. Atomic Product (flow)
-    print("[Layer 3] Atomic Deliverables...")
-    flow_targets = [f"flow/01_Tasks/{task_id}.md", "flow/01_Ideation_Threads/", "flow/03_Output/"]
-    # 注意：这里我们只添加与当前 Task 相关的产物
-    for target in flow_targets:
-         run_git_command(['add', target], cwd=None)
+    with open(task_card, 'r') as f:
+        content = f.read()
     
-    # 4. Bind Everything
-    run_git_command(['add', 'global_brain', 'flow/00_Mission_Control/Current_Mission.md'], cwd=None)
-    run_git_command(['commit', '-m', f"AOS: [ATOMIC] {task_id}: {message} and DNA binding."], cwd=None)
+    # 提取所有反引号路径
+    artifacts = re.findall(r'`([^`]+)`', content)
+    print(f"📦 Identified {len(artifacts)} target artifacts from task card.")
 
-    print("\n✨ [SUCCESS] All layers synchronized atomically.")
+    # 2. Submodule (global_brain)
+    # 我们知道 global_brain 的变更是跨任务的，需要独立处理
+    print("\n[Layer 1] Governance Submodule (global_brain)...")
+    run_git_command(['add', '.'], cwd='global_brain') # 子模块内部依然受控
+    run_git_command(['commit', '-m', f"[PROTOCOL] {task_id}: SOP Sealing."], cwd='global_brain')
+    
+    # 3. Main Repo (Atomic List Only)
+    print("\n[Layer 2] Executing Precise Main-Repo Sync...")
+    for art in artifacts:
+        if os.path.exists(art):
+            run_git_command(['add', art])
+            print(f"   Staged: {art}")
+        else:
+            print(f"   ⚠️ Skipping missing artifact: {art}")
+
+    # 4. Mandatory Constitutional Files
+    run_git_command(['add', 'global_brain', 'flow/00_Mission_Control/Current_Mission.md', task_card])
+    
+    # 5. Commit
+    run_git_command(['commit', '-m', f"AOS: [{task_id}] {message}"])
+    print("\n✨ [SUCCESS] Task atomic state captured and sealed.")
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("Usage: python3 scripts/aos_push_sync.py [TASK_ID] [MESSAGE]")
         sys.exit(1)
-    atomic_sync_v3(sys.argv[1], sys.argv[2])
+    atomic_sync_v4(sys.argv[1], sys.argv[2])

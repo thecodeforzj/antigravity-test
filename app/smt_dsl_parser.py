@@ -67,14 +67,18 @@ class SMTDSLParser:
         current_ii = initial_ii
         while current_ii <= max_ii:
             print(f"[PARSER] Attempting II={current_ii}...")
-            # 1. First find a non-compact solution
+            # 1. First find a non-compact solution to test feasibility
             res = self.scheduler.solve_modulo(current_ii, self.raw_deps, strict_compact=False)
-            if res:
-                # 2. Then optimize for performance
+            if res and res.get("status") == "CERTIFIED":
+                # 2. Then optimize for minimum latency
                 final = self.scheduler.solve_modulo(current_ii, self.raw_deps, strict_compact=True)
-                if final:
+                if final and final.get("status") == "CERTIFIED":
                     final["metadata"]["dsl_hash"] = self.dsl_hash
                     return final
+            else:
+                if res and "error" in res:
+                    print(f"  [II={current_ii}] {res['error']}")
+            
             current_ii += 1
             
         print(f"[PARSER] Exhausted II up to {max_ii}. No solution.")

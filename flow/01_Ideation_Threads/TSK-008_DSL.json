@@ -1,0 +1,9 @@
+[
+    {
+        "id": "HW_ALIGN_TEST",
+        "global_cfg": 1,
+        "unit_latency": 1,
+        "isa_bitmap": 1,
+        "comment": "Verification of the Real-HW alignment logic coverage."
+    }
+]

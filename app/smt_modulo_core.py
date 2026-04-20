@@ -14,7 +14,11 @@ class SMTModuloScheduler:
         self.instructions = []
         
     def add_instruction(self, inst_id, unit_name, bank_id=None, **kwargs):
-        unit_meta = next((u for u in self.manifest["units"] if u["name"] == unit_name), None)
+        # 🟢 AOS 3.5: Case-insensitive unit lookup for Real-HW compatibility
+        unit_meta = next((u for u in self.manifest["units"] if u["name"].upper() == unit_name.upper()), None)
+        if not unit_meta:
+            raise KeyError(f"❌ Unit '{unit_name}' not found. Manifest: {[u['name'] for u in self.manifest['units']]}")
+
         self.instructions.append({
             "id": inst_id, "unit": unit_name,
             "latency": unit_meta["latency"],
@@ -34,7 +38,7 @@ class SMTModuloScheduler:
         """🟢 AOS 2.6: Generic Resource Density Audit"""
         for unit_meta in self.manifest["units"]:
             # AOS 3.0: 包含脉冲单元的强度校核
-            needed = len([i for i in self.instructions if i["unit"] == unit_meta["name"]])
+            needed = len([i for i in self.instructions if i["unit"].upper() == unit_meta["name"].upper()])
             capacity = unit_meta["count"] * ii
             if needed > capacity:
                 return {
@@ -58,7 +62,7 @@ class SMTModuloScheduler:
         
         for i in self.instructions:
             t, u = i["t_var"], i["u_idx"]
-            unit_meta = next(um for um in self.manifest["units"] if um["name"] == i["unit"])
+            unit_meta = next(um for um in self.manifest["units"] if um["name"].upper() == i["unit"].upper())
             s.add(t >= 0)
             s.add(u >= 0, u < unit_meta["count"])
             
@@ -73,7 +77,7 @@ class SMTModuloScheduler:
 
         for unit_meta in self.manifest["units"]:
             # AOS 3.0: 脉冲单元同样受到硬件并行度限制 (count 约束)
-            relevant = [i for i in self.instructions if i["unit"] == unit_meta["name"]]
+            relevant = [i for i in self.instructions if i["unit"].upper() == unit_meta["name"].upper()]
             for idx in range(len(relevant)):
                 for jdx in range(idx + 1, len(relevant)):
                     i1, i2 = relevant[idx], relevant[jdx]
@@ -83,7 +87,9 @@ class SMTModuloScheduler:
                         for k2 in range(i2["loops"] + 1):
                             s.add(Implies((i1["t_var"] + k1) % ii == (i2["t_var"] + k2) % ii, i1["u_idx"] != i2["u_idx"]))
 
-        for b_id in range(self.manifest["memory_system"]["banks"]):
+        # 🟢 AOS 3.5: Support Real-HW param 'UR_BANK_NUM'
+        bank_count = self.manifest["params"].get("UR_BANK_NUM", 4)
+        for b_id in range(bank_count):
             for m_cycle in range(ii):
                 # 🟢 AOS 3.5: Bank Occupancy also expanded by LOOPS
                 m_ops = []

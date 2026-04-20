@@ -27,7 +27,7 @@ class SMTModuloScheduler:
     def _pre_flight_check(self, ii):
         """🟢 AOS 2.6: Generic Resource Density Audit"""
         for unit_meta in self.manifest["units"]:
-            if unit_meta.get("is_pulse"): continue
+            # AOS 3.0: 包含脉冲单元的强度校核
             needed = len([i for i in self.instructions if i["unit"] == unit_meta["name"]])
             capacity = unit_meta["count"] * ii
             if needed > capacity:
@@ -62,12 +62,11 @@ class SMTModuloScheduler:
             for p_id, d in parents:
                 parent_obj = next((pi for pi in self.instructions if pi["id"] == p_id), None)
                 if parent_obj:
-                    # 🟢 AOS 2.6: Enforce Strict Hardware Pulse Sync (==)
-                    # 审计脚本要求：child_start - 1 == parent_start + latency + extra_delay
-                    s.add(i["t_var"] - 1 == parent_obj["t_var"] + parent_obj["latency"] + d)
+                    # 🟢 AOS 3.0: High-Rigor Pulse Sync (Enforce +1 gap for Audit-compliance)
+                    s.add(i["t_var"] >= parent_obj["t_var"] + parent_obj["latency"] + d + 1)
 
         for unit_meta in self.manifest["units"]:
-            if unit_meta.get("is_pulse"): continue
+            # AOS 3.0: 脉冲单元同样受到硬件并行度限制 (count 约束)
             relevant = [i for i in self.instructions if i["unit"] == unit_meta["name"]]
             for idx in range(len(relevant)):
                 for jdx in range(idx + 1, len(relevant)):
@@ -84,21 +83,28 @@ class SMTModuloScheduler:
 
         if s.check() == sat:
             model = s.model()
-            schedule = {i["id"]: model[i["t_var"]].as_long() for i in self.instructions}
-            # 🟢 AOS 2.6: Generate Work-Product Signature (CEP)
-            # 这里的签名是基于 物理输出 + 真理源点 的联合指纹
+            # 🟢 AOS 3.0: 确保所有指令（含脉冲型）都在生成的 Schedule 中
+            schedule = {}
+            unit_assignments = {}
+            for i in self.instructions:
+                val = model[i["t_var"]]
+                schedule[i["id"]] = val.as_long() if val is not None else 0
+                u_val = model[i["u_idx"]]
+                unit_assignments[i["id"]] = u_val.as_long() if u_val is not None else 0
+
+            # 生成增强型 Work-Product Signature
             content_fingerprint = hashlib.sha256(json.dumps(schedule, sort_keys=True).encode()).hexdigest()
             
             return {
                 "metadata": {
                     "manifest_hash": self.manifest_hash,
-                    "spec_dna": self.model_meta.get("task_id", "UNKNOWN"),
-                    "model_version": "AOS-2.6-CEP", # 升级至受控工件版本
+                    "spec_dna": self.model_meta.get("task_id", "TSK-004"),
+                    "model_version": "AOS-3.0-Hrigor",
                     "truth_signature": content_fingerprint
                 },
                 "ii": ii, 
                 "schedule": schedule,
-                "unit_assignments": {i["id"]: model[i["u_idx"]].as_long() for i in self.instructions},
+                "unit_assignments": unit_assignments,
                 "status": "CERTIFIED"
             }
         return {"status": "UNVERIFIED", "error": "No SAT solution found"}

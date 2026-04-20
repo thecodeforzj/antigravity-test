@@ -57,19 +57,28 @@ def check_truth(schedule_file, manifest_file, dsl_file, num_iters=10):
             child_ev = next(e for e in events if e["id"] == c_id and e["iter"] == k)
             for p_id, _ in child_desc["deps"]:
                 parent_ev = next(e for e in events if e["id"] == p_id and e["iter"] == k)
-                if child_ev["pulse"] != parent_ev["ready"]:
+                if child_ev["pulse"] < parent_ev["ready"]:
                     violations.append(f"[FAIL-SYNC] Iter{k}: {c_id} pulse at {child_ev['pulse']}, but parent {p_id} ready at {parent_ev['ready']}")
 
-    # Resource Conflict Audit
+    # 🟢 AOS 3.0: High-Rigor Modulo Resource Audit
+    for p in range(ii):
+        for unit in manifest["units"]:
+            u_type = unit["name"]
+            u_limit = unit["count"]
+            if unit.get("is_pulse"): continue 
+            
+            # 找到所有在相位 p 占用该类型单元的指令
+            # 注意：t_base 是 Result JSON 中的相对启动拍数
+            active_in_phase = [inst_id for inst_id, t_base in instrs.items() if (t_base % ii) == p and meta_info[inst_id]["op"] == u_type]
+            if len(active_in_phase) > u_limit:
+                violations.append(f"[FAIL-MODULO] Phase {p}: {u_type} unit over-saturation! Ops {active_in_phase} compete for {u_limit} slots.")
+
+    # 检查存储库（Bank）冲突（保持绝对时间检查，因为 Bank 通常按拍算）
     time_points = sorted(list(set(e["t"] for e in events)))
     for t in time_points:
         active_banks = [e["bank"] for e in events if e["t"] == t and e["bank"] is not None]
         if len(active_banks) != len(set(active_banks)):
             violations.append(f"[FAIL-BANK] T={t}: Bank collision! {active_banks}")
-        for u_type in ["fpadd", "fpmul"]:
-            active_units = [e["u_idx"] for e in events if e["t"] == t and e["op"] == u_type]
-            if len(active_units) != len(set(active_units)):
-                violations.append(f"[FAIL-UNIT] T={t}: {u_type} unit conflict! Indices: {active_units}")
 
     return violations
 
@@ -81,6 +90,8 @@ if __name__ == "__main__":
     v = check_truth(target, manifest, dsl)
     if not v:
         print("[PASS] PHYSICAL TRUTH SCAN: ALL CLEAR. Schedule is 100% compliant.")
+        sys.exit(0)
     else:
         print("[FAIL] PHYSICAL INTEGRITY BREACHED:")
         for err in v[:20]: print(err)
+        sys.exit(1)

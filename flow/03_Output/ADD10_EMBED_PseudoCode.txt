@@ -1,0 +1,30 @@
+ Unit         | 0  .  .  .  .  .  .  .  .  . 0  .  .  .  .  .  .  .  .
+----------------------------------------------------------------------
+ fpadd_0      | .  .  0a .  .  .  .  0.0a 0.1a 0.2a 0.3a 0.4a 0.5a 0.6a 0.7a .  .  .  . 
+ fpmul_0      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_read_0    | 0r .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_read_1    | 0.0r 0.1r 0.2r 0.3r 0.4r 0.5r 0.6r 0.7r 0.8r .  .  .  .  .  .  .  .  .  . 
+ ur_read_2    | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_read_3    | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_write_0   | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_write_1   | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_write_2   | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ ur_write_3   | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_0      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_1      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_2      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_3      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_4      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+ rtovr_5      | .  0o .  .  .  .  0.0o 0.1o 0.2o 0.3o 0.4o 0.5o 0.6o 0.7o .  .  .  .  . 
+ rtovr_6      | .  0.0o 0.1o 0.2o 0.3o 0.4o 0.5o 0.6o 0.7o 0.8o .  .  .  .  .  .  .  .  . 
+ rtovr_7      | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 
+
+💠 AOS 3.5 TRUTH-ALIGNED MICRO-INSTRUCTION DUMP
+============================================================
+fpadd_0[0]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:0|COND:0|DLY:1|INC:0|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|UP_STAT_EN:0|ADD_OR_SUB:0|SMC_ID_EN:31]
+fpadd_0[1]  : HEAD:[VALID:1|JUMP:0|EMBED:7|EMBED_END:0|LOOPS:0|COND:0|DLY:5|INC:0|INC_EMBED:0] | BODY:[SRC_PREC:1|DST_PREC:1|UP_STAT_EN:0|ADD_OR_SUB:0|SMC_ID_EN:31]
+rtovr_5[0]  : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:0|COND:0|DLY:1|INC:0|INC_EMBED:0] | BODY:[SEL:30]
+rtovr_5[1]  : HEAD:[VALID:1|JUMP:0|EMBED:7|EMBED_END:0|LOOPS:0|COND:0|DLY:5|INC:0|INC_EMBED:0] | BODY:[SEL:4]
+rtovr_6     : HEAD:[VALID:1|JUMP:0|EMBED:8|EMBED_END:0|LOOPS:0|COND:0|DLY:1|INC:0|INC_EMBED:0] | BODY:[SEL:31]
+ur_read_0   : HEAD:[VALID:1|JUMP:0|EMBED:0|EMBED_END:0|LOOPS:0|COND:0|DLY:0|INC:0|INC_EMBED:0] | BODY:[BANK:0|ADDR:0|SMC_ID_EN:31]
+ur_read_1   : HEAD:[VALID:1|JUMP:0|EMBED:8|EMBED_END:0|LOOPS:0|COND:0|DLY:0|INC:0|INC_EMBED:1] | BODY:[BANK:1|ADDR:0|SMC_ID_EN:31]

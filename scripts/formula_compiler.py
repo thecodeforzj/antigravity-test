@@ -19,7 +19,10 @@ class ResourceManager:
         target_bank = bank
         if name.startswith("A") and len(name) > 1 and name[1:].isdigit():
             idx = int(name[1:])
-            target_bank = 1 if idx < 4 else 2 
+            target_bank = (idx % 7) + 1 # Banks 1-7 for coeffs
+        else:
+            # 🟢 AOS 3.11: Round-robin across all 8 banks
+            target_bank = len(self.mapping) % 8
             
         if name in self.mapping:
             return self.mapping[name]
@@ -44,11 +47,22 @@ class AOSASTCompiler:
         src_id, src_idx, src_f_dly = src_info
         rid = f"O_WIRE_{self.var_count}"
         self.var_count += 1
+        
+        # 🟢 AOS 3.11: RTOVR Dependency Injection
+        deps = []
+        if src_id: deps.append([src_id, 0])
+        
+        # If RTOVR selects a UR_READ port, it must depend on the corresponding READ instruction
+        sorted_inputs = sorted(self.active_inputs)
+        for idx, name in enumerate(sorted_inputs):
+            if src_idx == (30 + idx):
+                deps.append([f"READ_{name}", 0])
+
         inst = {
             "id": rid, "op": "rtovr", "u_idx": target_u_idx, 
-            "sel": src_idx, "loops": loops, "dly": dly, "embed": embed, "embed_end": embed_end
+            "sel": src_idx, "loops": loops, "dly": dly, "embed": embed, "embed_end": embed_end,
+            "deps": deps
         }
-        if src_id: inst["deps"] = [[src_id, 0]]
         self.dsl.append(inst)
         return rid, dly
 

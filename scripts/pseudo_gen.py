@@ -17,7 +17,7 @@ SYM_MAP = {
     "fptint": "i"
 }
 
-def generate_reports(result_path, manifest_path):
+def generate_reports(result_path, manifest_path, dsl_path=None):
     print(f"🛠️  Authenticating Physical Truth: {os.path.basename(result_path)}...")
     
     with open(result_path, 'r') as f:
@@ -27,8 +27,10 @@ def generate_reports(result_path, manifest_path):
         
     schedule = res["schedule"]
     unit_assignments = res.get("unit_assignments", {})
-    task_id = res["metadata"].get("spec_dna", "TSK-010")
-    dsl_path = f"flow/01_Ideation_Threads/{task_id}_DSL.json"
+    
+    if not dsl_path:
+        task_id = res["metadata"].get("spec_dna", "TSK-010")
+        dsl_path = f"flow/01_Ideation_Threads/{task_id}_DSL.json"
     
     with open(dsl_path, 'r') as f:
         dsl_data = json.load(f)
@@ -80,10 +82,15 @@ def generate_reports(result_path, manifest_path):
 
         # Timeline Expansion
         for k in range(loops + 1):
-            # 🟢 AOS 3.7: Visual Interleaving (Stride = II)
-            t_curr = t_base + dly + k * ii
-            if t_curr not in timeline: timeline[t_curr] = {}
-            timeline[t_curr][unit_id] = f"{k % 10}{symbol}"
+            for e in range(embed + 1):
+                # 🟢 AOS 3.11: Multi-Dimensional Expansion (Outer=LOOPS, Inner=EMBED)
+                # Inner loops typically issue at 1-cycle throughput
+                t_curr = t_base + dly + k * ii + e
+                if t_curr not in timeline: timeline[t_curr] = {}
+                
+                # Iteration Label: OuterIndex.InnerIndex (e.g., 0.0, 0.1)
+                iter_label = f"{k}.{e}" if embed > 0 else f"{k}"
+                timeline[t_curr][unit_id] = f"{iter_label}{symbol}"
 
     # 2. Build Timing Diagram
     active_ids = set()

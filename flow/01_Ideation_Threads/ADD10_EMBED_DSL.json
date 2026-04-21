@@ -1,0 +1,73 @@
+[
+    {
+        "id": "READ_A",
+        "op": "ur_read",
+        "u_idx": 0,
+        "bank": 0,
+        "addr": 0,
+        "loops": 0,
+        "dly": 0,
+        "embed": 0,
+        "embed_end": 0,
+        "inc_embed": 0
+    },
+    {
+        "id": "READ_B_J",
+        "op": "ur_read",
+        "u_idx": 1,
+        "bank": 1,
+        "addr": 0,
+        "loops": 0,
+        "dly": 0,
+        "embed": 8,
+        "inc_embed": 1,
+        "embed_end": 0
+    },
+    {
+        "id": "RTOVR_A",
+        "op": "rtovr",
+        "u_idx": 5,
+        "sel": 30,
+        "loops": 0,
+        "dly": 1,
+        "embed": 0,
+        "deps": [["READ_A", 0]]
+    },
+    {
+        "id": "RTOVR_B_J",
+        "op": "rtovr",
+        "u_idx": 6,
+        "sel": 31,
+        "loops": 0,
+        "dly": 1,
+        "embed": 8,
+        "deps": [["READ_B_J", 0]]
+    },
+    {
+        "id": "FPADD_INIT",
+        "op": "fpadd",
+        "u_idx": 0,
+        "loops": 0,
+        "dly": 1,
+        "deps": [["RTOVR_A", 0], ["RTOVR_B_J", 0]]
+    },
+    {
+        "id": "RTOVR_FEEDBACK",
+        "op": "rtovr",
+        "u_idx": 5,
+        "sel": 4,
+        "loops": 0,
+        "dly": 5,
+        "embed": 7,
+        "deps": [["FPADD_INIT", 0]]
+    },
+    {
+        "id": "FPADD_ACC",
+        "op": "fpadd",
+        "u_idx": 0,
+        "loops": 0,
+        "dly": 5,
+        "embed": 7,
+        "deps": [["RTOVR_FEEDBACK", 0], ["RTOVR_B_J", 1]]
+    }
+]

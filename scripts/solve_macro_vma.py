@@ -14,7 +14,8 @@ def main():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument("--ii", type=int, default=1)
     arg_parser.add_argument("--dsl", type=str, default="flow/01_Ideation_Threads/TSK-010_DSL.json")
-    arg_parser.add_argument("--output", type=str, default="flow/03_Output/TSK-010_Result.json")
+    arg_parser.add_argument("--out", type=str, default="flow/03_Output/TSK-010_Result.json")
+    arg_parser.add_argument("--report", type=str, default="flow/03_Output/TSK-010_PseudoCode.txt")
     args = arg_parser.parse_args()
 
     manifest_path = "flow/02_Specs/Hardware_Manifest.json"
@@ -40,10 +41,13 @@ def main():
     
     if result:
         print(f"✅ SUCCESS! Macro-Compression Certified (II={result['ii']}).")
-        
-        with open(args.output, 'w') as f:
+        with open(args.out, 'w') as f:
             json.dump(result, f, indent=2)
-        print(f"✅ Truth-Aligned Result stored: {args.output}")
+            
+        report = generate_reports(args.out, manifest_path, dsl_path=args.dsl)
+        with open(args.report, 'w') as f:
+            f.write(report)
+        print(f"💾 Report saved: {args.report}")
     else:
         print("❌ FAILED: II=1 is not feasible with current constraints or DLY alignment.")
 

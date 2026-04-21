@@ -71,8 +71,8 @@ class SMTModuloScheduler:
             unit_meta = next(um for um in self.manifest["units"] if um["name"].upper() == i["unit"].upper())
             s.add(t >= 0)
             
-            if i.get("u_idx_fixed") is not None and i["unit"].upper() not in ["UR_READ", "RTOVR"]:
-                # 🟢 AOS 3.5: Physical Hard-Wiring Compliance
+            if i.get("u_idx_fixed") is not None:
+                # 🟢 AOS 3.11: Mandatory Physical Hard-Wiring Compliance
                 s.add(u == i["u_idx_fixed"])
             else:
                 s.add(u >= 0, u < unit_meta["count"])
@@ -85,35 +85,25 @@ class SMTModuloScheduler:
                   parent["t_var"] + parent.get("dly", 0) + parent["latency"] + extra_delay)
 
         for unit_meta in self.manifest["units"]:
-            # 🟢 AOS 3.5: Macro-Compression Aware Resource Audit
             for m_cycle in range(ii):
                 for u_idx_val in range(unit_meta["count"]):
                     m_ops = []
                     for i in self.instructions:
                         if i["unit"].upper() == unit_meta["name"].upper():
-                            # 🟢 AOS 3.9.3: Precise Resource Occupancy
-                            # Scalar instructions (loops=0) only occupy t_var itself.
-                            # Loop instructions occupy the SAME phase (t % ii) in every iteration.
-                            if i.get("loops", 0) > 0:
-                                condition = (i["t_var"] % ii == m_cycle)
-                            else:
-                                # For scalars, it only collisions in the modulo window IF 
-                                # we consider the kernel as a single burst.
-                                # Actually, AOS hardware usually treats them as setup. 
-                                # We'll allow them to occupy only ONE hit in the modulo model.
-                                condition = (i["t_var"] % ii == m_cycle)
-                                # (Wait, let's stick to % ii for now but allow floating ports)
+                            # 🟢 AOS 3.11: Correct Modulo Occupancy
+                            condition = (i["t_var"] % ii == m_cycle)
                             m_ops.append((And(condition, i["u_idx"] == u_idx_val), 1))
                     if m_ops: s.add(PbLe(m_ops, 1))
 
         # Memory Banks
-        bank_count = self.manifest["params"].get("UR_BANK_NUM", 4)
+        bank_count = self.manifest["params"].get("UR_BANK_NUM", 8)
         for b_id in range(bank_count):
             for m_cycle in range(ii):
                 m_ops = []
                 for i in self.instructions:
                     if i["bank_id"] == b_id:
-                        condition = Or([ (i["t_var"] + k) % ii == m_cycle for k in range(i.get("loops", 0) + 1) ])
+                        # 🟢 AOS 3.11: Bank access follows same phase (t % ii)
+                        condition = (i["t_var"] % ii == m_cycle)
                         m_ops.append((condition, 1))
                 if m_ops: s.add(PbLe(m_ops, 1))
 

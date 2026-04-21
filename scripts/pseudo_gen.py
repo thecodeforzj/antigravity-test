@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+import argparse
 
 # 💠 AOS 3.5 Bit-Perfect Phase Analyzer & CodeGen
 # Protocol: Unified HEAD (Control) + Unit BODY (Payload)
@@ -128,7 +129,12 @@ def generate_reports(result_path, manifest_path):
     return "\n".join(diagram) + "\n\n" + "\n".join(microcode)
 
 def main():
-    res_path = sys.argv[1] if len(sys.argv) > 1 else "flow/03_Output/TSK-010_Result.json"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--result", type=str, default="flow/03_Output/TSK-010_Result.json")
+    parser.add_argument("--report", type=str, default="flow/03_Output/Add10_PseudoCode.txt")
+    args = parser.parse_args()
+    
+    res_path = args.result
     manifest_path = "flow/02_Specs/Hardware_Manifest.json"
     
     if not os.path.exists(res_path):
@@ -136,7 +142,7 @@ def main():
         return
 
     report = generate_reports(res_path, manifest_path)
-    output_txt = "flow/03_Output/Add10_PseudoCode.txt"
+    output_txt = args.report
     with open(output_txt, 'w') as f:
         f.write(report)
     print(f"✅ Truth-Aligned Analysis Output: {output_txt}")

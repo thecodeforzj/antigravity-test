@@ -1,6 +1,7 @@
 import sys
 import os
 import json
+import argparse
 
 # Add app to path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'app'))
@@ -10,8 +11,14 @@ from pseudo_gen import generate_reports
 
 def main():
     print("🚀 AOS 3.5 [II=1] Macro-Vector FMA Challenge")
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument("--ii", type=int, default=1)
+    arg_parser.add_argument("--dsl", type=str, default="flow/01_Ideation_Threads/TSK-010_DSL.json")
+    arg_parser.add_argument("--output", type=str, default="flow/03_Output/TSK-010_Result.json")
+    args = arg_parser.parse_args()
+
     manifest_path = "flow/02_Specs/Hardware_Manifest.json"
-    dsl_path = "flow/01_Ideation_Threads/TSK-010_DSL.json"
+    dsl_path = args.dsl
     
     parser = SMTDSLParser(manifest_path)
     parser.load_instructions(dsl_path)
@@ -34,15 +41,9 @@ def main():
     if result:
         print(f"✅ SUCCESS! Macro-Compression Certified (II={result['ii']}).")
         
-        output_path = "flow/03_Output/TSK-010_Result.json"
-        with open(output_path, 'w') as f:
+        with open(args.output, 'w') as f:
             json.dump(result, f, indent=2)
-            
-        # Call Reports Generator
-        report = generate_reports(output_path, manifest_path)
-        with open("flow/03_Output/Add10_PseudoCode.txt", "w") as f:
-            f.write(report)
-        print(f"💾 PseudoCode report updated with II=1 Macro-instructions.")
+        print(f"✅ Truth-Aligned Result stored: {args.output}")
     else:
         print("❌ FAILED: II=1 is not feasible with current constraints or DLY alignment.")
 

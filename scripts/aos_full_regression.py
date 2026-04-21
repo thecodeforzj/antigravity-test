@@ -86,16 +86,18 @@ with open("flow/01_Ideation_Threads/REGRESSION_DSL.json", "w") as f:
         s1, _ = run_step("python3 scripts/regression_trigger.py", "Compiling Formula")
         if not s1: continue
         
-        # 2. Solver
-        s2, stdout = run_step(f"python3 scripts/solve_macro_vma.py --ii {case['ii_min']} --dsl flow/01_Ideation_Threads/REGRESSION_DSL.json", "SMT Modulo Scheduling")
+        # 2. Solver (Dynamic Output)
+        res_json = f"flow/03_Output/{cid}_Result.json"
+        s2, stdout = run_step(f"python3 scripts/solve_macro_vma.py --ii {case['ii_min']} --dsl flow/01_Ideation_Threads/REGRESSION_DSL.json --output {res_json}", "SMT Modulo Scheduling")
         if not s2: continue
         
-        # 3. PseudoGen
-        s3, _ = run_step("python3 scripts/pseudo_gen.py flow/03_Output/TSK-010_Result.json", "Report Generation")
+        # 3. PseudoGen (Dynamic Report)
+        report_txt = f"flow/03_Output/{cid}_PseudoCode.txt"
+        s3, _ = run_step(f"python3 scripts/pseudo_gen.py --result {res_json} --report {report_txt}", "Report Generation")
         if not s3: continue
         
-        # 4. Reverse Validator
-        s4, _ = run_step("python3 scripts/aos_reverse_validator.py flow/03_Output/Add10_PseudoCode.txt flow/01_Ideation_Threads/REGRESSION_DSL.json", "Truth Circle Validation")
+        # 4. Reverse Validator (Dynamic Checks)
+        s4, _ = run_step(f"python3 scripts/aos_reverse_validator.py {report_txt} flow/01_Ideation_Threads/REGRESSION_DSL.json", "Truth Circle Validation")
         if not s4: continue
         
         passed += 1

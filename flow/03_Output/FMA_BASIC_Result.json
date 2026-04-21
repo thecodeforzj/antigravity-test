@@ -1,0 +1,36 @@
+{
+  "status": "CERTIFIED",
+  "ii": 21,
+  "schedule": {
+    "READ_A": 0,
+    "READ_B": 1,
+    "READ_X": 11,
+    "O_WIRE_0": 0,
+    "O_WIRE_1": 0,
+    "FPMUL_2": 0,
+    "O_WIRE_3": 2,
+    "O_WIRE_4": 0,
+    "FPADD_5": 2,
+    "O_WIRE_6": 4,
+    "WR_Y": 0
+  },
+  "unit_assignments": {
+    "READ_A": 1,
+    "READ_B": 0,
+    "READ_X": 0,
+    "O_WIRE_0": 0,
+    "O_WIRE_1": 3,
+    "FPMUL_2": 0,
+    "O_WIRE_3": 0,
+    "O_WIRE_4": 1,
+    "FPADD_5": 0,
+    "O_WIRE_6": 0,
+    "WR_Y": 0
+  },
+  "metadata": {
+    "manifest_hash": "e5836b1f1659917743f1f5be2385b4cfdfd5627b6640d61d10dea23cd5d6bcc4",
+    "model_version": "AOS-3.0-Hrigor",
+    "truth_signature": "dc89861b94957d96a8cfe2163f3f46421b67af7a13c46b7800d765e0f799eea1",
+    "dsl_hash": "9c46944aba45a140a6a52c413efdecb516f1e044cc892ff473a956655e56c5f5"
+  }
+}

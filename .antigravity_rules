@@ -1,30 +1,30 @@
-# 📜 Antigravity AI Native SDLC Rules (V2.3 - "Industrial Baseline")
+## 0. 核心原力：物理边界守卫 (Physical Guard)
+- **Framework Authority**: 绝对遵守 `AOS_Framework_Core.md`。
+- **Automated Enforcement**: 任何 `write_to_file` 操作后，AI **必须自动运行** `python scripts/aos_boundary_guard.py`。
+- **Hard Break**: 若脚本返回非零状态（FAIL），AI 必须立即停止任务并尝试自修复或报告越界详情。
 
-## 0. 引导协议 (Boot Loader - MANDATORY)
-- **Auto-Sync**: 任何新会话的第一步，必须执行 `[SYNC]`。必须优先解析 `Mission_DNA`。
-- **Rigor Baseline**: 本仓库默认为 `rigor_level: CRITICAL`。严禁在未经审计的情况下执行代码变动。
+## 1. 顶层指令与递归树 (The Execution Tree)
+- **`[GO] <Intent>`** -> **全自动执行与物理审计链**：
+  1. 意图蒸馏 -> 2. 执行实现 -> 3. **`scripts/aos_boundary_guard.py` (后置审计)** -> 4. `[CHECK]` (业务验证)。
+- **`[PLAN]`** -> 输出符合 AAA 标准的任务树。
 
-## 1. 关键词中断指令 (Standard Hooks)
-一旦识别到以下关键词，必须严格按照 `global_brain/02_Template_Library/AOS_Modules/` 执行：
-- **`[INIT]`** -> 初始化项目基因。
-- **`[SYNC]`** -> 强制性环境握手与 DNA 探测。
-- **`[FREEZE]`** -> **规格冻结**。此后 `flow/02` 进入只读保护。
-- **`[EXEC]`** -> **受控执行**。激活三权分立与三失败熔断。
-- **`[ITER]`** -> **故障回溯**。强制输出 FMEA 报告。
-- **`[STATUS]`** -> **管线看板**。显示当前系统所处的协议阶位。
-- **`[CHECK]`** -> **系统自检**。自检通过后，管线进入 `SYNCED` 状态。
-- **`[TRANSIT]`** -> **阶位迁移**。手动或自动触发生命周期状态切换。
-- **`[SYNC_COMMIT]`** -> **原子暂存提交**。快速自检并提交至开发分支。
-- **`[MERGE]`** -> **专家级准入合并**。执行全量回归审计与 Impact Review。
-- **`[DISTILL]`** -> **知识提纯**。将任务经验同步至 Global_Brain。
+- **`[SYNC]`** -> 对齐 DNA。
 
-## 2. 工程红线 (Engineering Red Lines)
-- **管线顺序一致性**：严禁越级操作。必须遵循 `[STATUS]` 报告的当前阶位。
-- **无状态不代码**：在阶位低于 `DEVELOPING` 时，禁止执行 `app/` 目录下任何业务逻辑的修改。
-- **文档外科手术**：严禁全量覆盖核心规格。必须使用 `replace_file_content`。
-- **物理真理绝对化**：严禁修正 Bug 时微调硬件参数。
-- **审计优先**：代码与文档变更必须通过 `final_render.py` 和 `aos_doc_guard.py`。
-- **三失败熔断**：针对同一原子任务，连续 3 次失败即判定为“架构性阻塞”，强制终止。
+## 2. 行为准则 (The Leaf SOPs)
+- **AAA 强制化**: 单点验证。
+- **预期对齐 (Pre-Exec)**: 输出预期行为矩阵。
+- **证据闭环 (Post-Exec)**: 物理日志对齐。
+- **[SELF_AUDIT] 输出**: 每次文件变动后，必须在回复中包含《AOS 边界审计报告》。
 
-## 3. 分布式同步 (Global Sync)
-- **子模块优先**：在 `global_brain` 变动后，必须先在子目录内推送，严禁产生“孤立指针”。
+## 3. 标准钩子定义 (Module Reference)
+- **`[EXEC]`** / **`[CHECK]`** / **`[STATUS]`** / **`[DISTILL]`** 等钩子保持 V3.5 定义。
+- **新增 `[SELF_AUDIT]`** -> 变更完整性与边界校验。
+
+## 4. 工程红线 (Engineering Red Lines)
+- **禁止臆想验证**: 无物理日志不成功。
+- **禁止破坏性覆盖**: 严禁删除有意义的历史代码/注释。
+- **三失败熔断**: 强制人类接入。
+
+
+
+

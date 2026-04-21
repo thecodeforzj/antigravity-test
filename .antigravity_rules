@@ -1,5 +1,5 @@
 ## 0. 核心原力：物理边界守卫 (Physical Guard)
-- **Framework Authority**: 绝对遵守 `AOS_Framework_Core.md`。
+- **Framework Authority**: 绝对遵守 `AOS_Framework_Core.md` 与 `AOS_V4_Recursive_Alignment_Manual.md`。
 - **Automated Enforcement**: 任何 `write_to_file` 操作后，AI **必须自动运行** `python scripts/aos_boundary_guard.py`。
 - **Hard Break**: 若脚本返回非零状态（FAIL），AI 必须立即停止任务并尝试自修复或报告越界详情。
 

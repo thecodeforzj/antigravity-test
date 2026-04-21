@@ -26,8 +26,8 @@ def audit_diff(diff):
     
     # 规则 1：严禁删除以 #, ##, ### 或 - ** 开头的核心定义行（除非是重命名）
     # 这里使用启发式搜索：如果删除行包含关键工程词汇，且没有对应的新增行
-    deleted_lines = re.findall(r'^- (.*)', diff, re.MULTILINE)
-    added_lines = re.findall(r'^\+ (.*)', diff, re.MULTILINE)
+    deleted_lines = re.findall(r'^-(.*)', diff, re.MULTILINE)
+    added_lines = re.findall(r'^\+(.*)', diff, re.MULTILINE)
     
     critical_keywords = ['Hook', 'Rule', 'Protocol', 'DNA', 'Spec', 'Requirement', 'Step']
     
@@ -52,7 +52,12 @@ def audit_diff(diff):
     return True
 
 def main():
-    print("💠 AOS 边界守卫 (Boundary Guard) V1.0\n")
+    # Force UTF-8 on stdout for Windows compatibility
+    if sys.stdout.encoding.lower() != 'utf-8':
+        import io
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
+    print(">>> AOS 边界守卫 (Boundary Guard) V1.0\n")
     
     # 1. 检查环境
     if not os.path.exists('.git'):

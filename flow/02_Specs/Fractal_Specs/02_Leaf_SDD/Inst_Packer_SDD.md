@@ -21,8 +21,13 @@ status: "STABLE"
 | bit [MSB-5:MSB-10] | EMBED_END | 6 | 循环结束掩码 |
 | bit [MSB-11:MSB-15] | DLY | 5 | 延迟计数 |
 | bit [MSB-16:MSB-21] | INC_EMBED | 6 | 增量控制位 |
-| bit [MSB-22:MSB-29] | LOOPS | 8 | 循环计数 |
-| bit [MSB-30:MSB-40] | OTHERS | 11 | COND/INC/RESERVED |
+| bit [MSB-22:MSB-29] | LOOPS | 8 | 循环计数 (e.g., 20 for 80-inputs) |
+| bit [MSB-30:MSB-35] | INC | 6 | 模间隔 (Mapped to II) |
+| bit [MSB-36:MSB-40] | OTHERS | 5 | COND/RESERVED |
+
+## 2. 物理映射逻辑 (Mapping Logic)
+1. **$II \to INC$**: 报头中的 `INC` 字段必须与 SMT 最优解 $II$ 保持 1:1 同步。
+2. **$Input\_Batch \to LOOPS$**: 针对 80 路输入分发的 20 个向量批次，填入 `LOOPS = 20`（或根据 0-indexed 协议）。
 
 ### 1.2 变长单元载荷 (Payload @ Following bits)
 - **起始位**: `MSB - 41`。

@@ -1,0 +1,16 @@
+💠 AOS 6.0 FULL HARDWARE TRACE (PHYSICAL ATOMS)
+============================================================
+
+--- 🛰️ PHYSICAL TIMELINE MATRIX ---
+FPADD        | .  .  .  .  .  0f .  1f .  2f .  3f .  4f .  5f .  6f .  7f 
+FPMUL        | .  0f .  1f .  2f .  3f .  4f .  5f .  6f .  7f .  8f .  9f 
+RTOVR        | .  .  .  .  .  .  .  .  .  .  0o .  1o .  2o .  3o .  4o .  
+UR_READ      | 0r .  1r .  2r .  3r .  4r .  5r .  6r .  7r .  8r .  9r .  
+UR_WRITE     | .  .  .  .  .  .  .  .  .  .  .  .  .  0w .  1w .  2w .  3w 
+
+--- MICRO-INSTRUCTION DUMP (PHYSICAL ATOM DLY) ---
+UR_RD_M1        : HEAD:[VALID:1|LOOPS:2|DLY:0|INC:2] | BODY:[UNIT:UR_READ|ID:UR_RD_M1|BANK:N/A]
+M1              : HEAD:[VALID:1|LOOPS:2|DLY:1|INC:2] | BODY:[UNIT:FPMUL|ID:M1|BANK:N/A]
+RTOVR_M1        : HEAD:[VALID:1|LOOPS:2|DLY:10|INC:2] | BODY:[UNIT:RTOVR|ID:RTOVR_M1|BANK:N/A]
+A1              : HEAD:[VALID:1|LOOPS:2|DLY:5|INC:2] | BODY:[UNIT:FPADD|ID:A1|BANK:N/A]
+UR_WR_A1        : HEAD:[VALID:1|LOOPS:2|DLY:13|INC:2] | BODY:[UNIT:UR_WRITE|ID:UR_WR_A1|BANK:7]

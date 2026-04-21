@@ -1,0 +1,14 @@
+💠 AOS 4.0 INDUSTRIAL PSEUDOCODE TRACE
+============================================================
+
+--- 🛰️ PHYSICAL TIMELINE MATRIX ---
+FPADD        | .  .  .  .  .  .  .  0a .  .  .  1a .  .  .  2a .  .  .  3a 0a .  .  4a 1a .  .  5a 2a .  .  6a 3a 0a .  7a 4a 1a .  8a 5a 2a .  9a 6a 3a 
+FPMUL        | 0m .  .  .  1m .  .  .  2m .  .  .  3m 0m .  .  4m 1m .  .  5m 2m .  .  6m 3m .  0m 7m 4m .  1m 8m 5m .  2m 9m 6m .  3m 10m7m .  4m 11m8m 
+
+--- MICRO-INSTRUCTION DUMP (DLY/INC ALIGNED) ---
+MUL_3        : HEAD:[VALID:1|LOOPS:20|DLY:0|INC:4] | BODY:[OP:FPMUL|ID:MUL_3|READ:0|WRITE:NONE]
+ADD_2        : HEAD:[VALID:1|LOOPS:20|DLY:7|INC:4] | BODY:[OP:FPADD|ID:ADD_2|READ:0|WRITE:NONE]
+MUL_2        : HEAD:[VALID:1|LOOPS:20|DLY:13|INC:4] | BODY:[OP:FPMUL|ID:MUL_2|READ:NONE|WRITE:NONE]
+ADD_1        : HEAD:[VALID:1|LOOPS:20|DLY:20|INC:4] | BODY:[OP:FPADD|ID:ADD_1|READ:0|WRITE:NONE]
+MUL_1        : HEAD:[VALID:1|LOOPS:20|DLY:27|INC:4] | BODY:[OP:FPMUL|ID:MUL_1|READ:NONE|WRITE:NONE]
+ADD_0        : HEAD:[VALID:1|LOOPS:20|DLY:33|INC:4] | BODY:[OP:FPADD|ID:ADD_0|READ:0|WRITE:7]

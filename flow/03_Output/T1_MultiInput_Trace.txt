@@ -1,0 +1,16 @@
+💠 AOS 7.0 FIDELITY PHYSICAL TRACE (INSTANCE-LEVEL)
+============================================================
+
+--- 🛰️ PHYSICAL TIMELINE MATRIX (INSTANCED) ---
+fpadd_0         | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0f .  1f .  2f .  3f 
+fpmul_0         | .  .  .  .  0f .  1f .  2f .  3f .  4f .  5f .  6f .  7f .  8f .  9f .  10f.  
+rtovr_5         | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  1o .  2o .  3o .  
+ur_read_0       | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0r .  1r .  2r .  3r .  
+ur_read_2       | .  .  .  0r .  1r .  2r .  3r .  4r .  5r .  6r .  7r .  8r .  9r .  10r.  11r
+
+--- MICRO-INSTRUCTION DUMP (UNIT BOUND) ---
+M3                 : HEAD:[VALID:1|LOOPS:1|DLY:4|INC:2] | BODY:[UNIT:FPMUL_0|BANK:N/A]
+UR_RD_M3           : HEAD:[VALID:1|LOOPS:1|DLY:3|INC:2] | BODY:[UNIT:UR_READ_2|BANK:1]
+A2                 : HEAD:[VALID:1|LOOPS:1|DLY:19|INC:2] | BODY:[UNIT:FPADD_0|BANK:N/A]
+UR_RD_A2           : HEAD:[VALID:1|LOOPS:1|DLY:18|INC:2] | BODY:[UNIT:UR_READ_0|BANK:N/A]
+RTOVR_A2_S0        : HEAD:[VALID:1|LOOPS:1|DLY:18|INC:2] | BODY:[UNIT:RTOVR_5|BANK:N/A]

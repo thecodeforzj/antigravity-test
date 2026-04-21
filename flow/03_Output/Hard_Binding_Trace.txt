@@ -1,0 +1,14 @@
+💠 AOS 7.0 FIDELITY PHYSICAL TRACE (INSTANCE-LEVEL)
+============================================================
+
+--- 🛰️ PHYSICAL TIMELINE MATRIX (INSTANCED) ---
+fpadd_0         | .  .  .  .  .  0f 1f 2f 3f 
+fpmul_0         | .  0f 1f 2f 3f 4f 5f 6f 7f 
+rtovr_5         | .  .  .  .  .  0o 1o 2o 3o 
+ur_read_0       | 0r 1r 2r 3r 4r 5r 6r 7r 8r 
+
+--- MICRO-INSTRUCTION DUMP (UNIT BOUND) ---
+MUL3               : HEAD:[VALID:1|LOOPS:1|DLY:1|INC:1] | BODY:[UNIT:FPMUL_0|BANK:N/A]
+UR_RD_MUL3         : HEAD:[VALID:1|LOOPS:1|DLY:0|INC:1] | BODY:[UNIT:UR_READ_0|BANK:N/A]
+ADD2               : HEAD:[VALID:1|LOOPS:1|DLY:5|INC:1] | BODY:[UNIT:FPADD_0|BANK:N/A]
+RTOVR_ADD2_S0      : HEAD:[VALID:1|LOOPS:1|DLY:5|INC:1] | BODY:[UNIT:RTOVR_5|BANK:N/A]

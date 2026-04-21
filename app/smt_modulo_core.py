@@ -57,8 +57,8 @@ class SMTModuloScheduler:
         if not pfc["safe"]:
             return {"status": "UNSAT", "reason": f"PFC_FAIL: {pfc['reason']}"}
             
-        s = Solver()
-        s.set("timeout", 20000)
+        s = Optimize()
+        # s.set("timeout", 20000) # Optimization doesn't always support this set
         
         # 1. Variables & Constraints mapping from SDD
         for i in self.instructions:
@@ -71,6 +71,9 @@ class SMTModuloScheduler:
                 s.assert_and_track(u == i["u_idx_fixed"], f"Fixed_Unit_{i['id']}")
             else:
                 s.assert_and_track(And(u >= 0, u < unit_meta["count"]), f"Range_Unit_{i['id']}")
+        
+        # 2. Minimize total latency (Tightness Objective)
+        s.minimize(Sum([i["t_var"] for i in self.instructions]))
             
         # 2. Dependencies
         for idx, (child_id, parent_id, extra_delay) in enumerate(dependencies_list):
@@ -99,7 +102,29 @@ class SMTModuloScheduler:
                     if len(m_ops) > 1:
                         s.assert_and_track(AtMost(*m_ops, 1), f"ModRes_{unit_meta['name']}_M{m_cycle}_U{u_idx_val}")
 
-        # 4. Bank Access (AX_05 + Multi-Read / Read-Write Conflict)
+        # 4. Anti-Overwrite / Life-time Constraint (AX_05: No-FIFO)
+        # If producer 'p' outputs data at T+Lat, and the next p starts at T+II,
+        # then the current data is only valid for II cycles before being overwritten.
+        # Consumer 'c' must read at T_c where T_p + Lat <= T_c < T_p + Lat + II
+        for child_id, parent_id, extra in dependencies_list:
+            c_inst = next(inst for inst in self.instructions if inst["id"] == child_id)
+            p_inst = next(inst for inst in self.instructions if inst["id"] == parent_id)
+            p_lat = p_inst["latency"]
+
+            # Anti-Overwrite window (adjusted for routing)
+            s.assert_and_track(
+                c_inst["t_var"] - p_inst["t_var"] < p_lat + ii + 1,
+                f"AntiOverwrite_{child_id}_vs_{parent_id}"
+            )
+
+            # 4.5 Routing Lag (AX_13): Instruction must follow Routing by 1 cycle
+            # T_child >= T_parent + Lat_parent + 1
+            s.assert_and_track(
+                c_inst["t_var"] >= p_inst["t_var"] + p_lat + 1,
+                f"RoutingLag_{child_id}_vs_{parent_id}"
+            )
+
+        # 5. Bank Access (Multi-Read / Read-Write Conflict)
         bank_count = self.manifest["params"].get("UR_BANK_NUM", 8)
         for b_id in range(bank_count):
             for m_cycle in range(ii):
@@ -110,8 +135,6 @@ class SMTModuloScheduler:
                     latency = i["latency"]
                     
                     # Determine if this instruction reads from/writes to this bank
-                    # bank_id (legacy) counts for both
-                    # read_bank/write_bank (new) are explicit
                     is_read = (i.get("bank_id") == b_id) or (i.get("read_bank") == b_id)
                     is_write = (i.get("bank_id") == b_id) or (i.get("write_bank") == b_id)
                     
@@ -123,6 +146,9 @@ class SMTModuloScheduler:
                         for offset in range(loops + 1):
                             write_ops.append((i["t_var"] + latency + 1 + offset) % ii == m_cycle)
                 
+                if len(read_ops) > 1:
+                    s.assert_and_track(AtMost(*read_ops, 1), f"BankReadConflict_B{b_id}_M{m_cycle}")
+
                 if len(write_ops) > 1:
                     s.assert_and_track(AtMost(*write_ops, 1), f"BankWriteConflict_B{b_id}_M{m_cycle}")
                 
@@ -149,6 +175,39 @@ class SMTModuloScheduler:
                 s.assert_and_track(AtMost(*global_reads, 4) , f"GlobalReadLimit_M{m_cycle}")
             if len(global_writes) > 4:
                 s.assert_and_track(AtMost(*global_writes, 4), f"GlobalWriteLimit_M{m_cycle}")
+
+        # 4.3 Routing / RTOVR Constraints (AX_11)
+        # Mapping units to specific RTOVR slots to prevent physical routing collision
+        rtovr_count = self.manifest["params"].get("RTOVR_NUM", 40)
+        for r_idx in range(rtovr_count):
+            r_tag = f"rtovr_{r_idx}"
+            for m_cycle in range(ii):
+                rtovr_ops = []
+                for i in self.instructions:
+                    unit_meta = next(um for um in self.manifest["units"] if um["name"].upper() == i["unit"].upper())
+                    ports = unit_meta.get("ports_to_rtovr", {})
+                    
+                    # Check if this instruction uses this RTOVR
+                    uses_rtovr = False
+                    for port_name, p_info in ports.items():
+                        target = p_info.get("target_rtovr")
+                        if target == r_tag:
+                            # Direct match (e.g. FPMUL -> rtovr_3)
+                            uses_rtovr = True
+                        elif f"_{r_idx}" in port_name and unit_meta["count"] > 1:
+                            # Instance-specific match (e.g. UR_WRITE port UVR_WDATA_0 used only if u_idx=0)
+                            # Logic: UVR_WDATA_k is used if and only if i["u_idx"] == k
+                            try:
+                                inst_k = int(port_name.split('_')[-1])
+                                uses_rtovr = (i["u_idx"] == inst_k)
+                            except: pass
+                    
+                    if uses_rtovr:
+                        # RTOVR is occupied during the issue cycle (t_var % ii)
+                        rtovr_ops.append((i["t_var"] % ii) == m_cycle)
+                
+                if len(rtovr_ops) > 1:
+                    s.assert_and_track(AtMost(*rtovr_ops, 1), f"RoutingConflict_{r_tag}_M{m_cycle}")
 
         if s.check() == sat:
             m = s.model()
@@ -208,7 +267,7 @@ class SMTModuloScheduler:
             bank_mii = max(bank_access_map.values())
             
         theory_min_ii = max(unit_mii, global_read_mii, bank_mii)
-        print(f"--- 📊 THEORETICAL AUDIT (MII) ---")
+        print(f"--- THEORETICAL AUDIT (MII) ---")
         print(f"   Unit MII: {unit_mii}, Global Port MII: {global_read_mii}, Bank MII: {bank_mii}")
         print(f"   PHYSICAL LIMIT (ResMII): {theory_min_ii}")
         

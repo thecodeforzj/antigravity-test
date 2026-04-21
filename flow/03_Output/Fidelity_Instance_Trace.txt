@@ -1,0 +1,25 @@
+💠 AOS 7.0 FIDELITY PHYSICAL TRACE (INSTANCE-LEVEL)
+============================================================
+
+--- 🛰️ PHYSICAL TIMELINE MATRIX (INSTANCED) ---
+fpmul_0         | .  .  .  .  0f 0f .  0f 1f 1f 0f 1f 2f 2f 1f 2f 3f 3f 2f 3f 4f 4f 3f 4f 5f 5f 4f 5f 6f 6f 5f 
+rtovr_4         | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  1o .  .  .  2o .  .  .  3o 
+rtovr_25        | .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  1o .  .  .  2o .  .  .  3o .  .  .  4o .  
+rtovr_30        | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  1o .  .  .  2o .  .  .  3o .  .  
+rtovr_34        | .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  0o .  .  .  1o .  .  .  2o .  .  .  3o .  .  .  
+ur_read_0       | .  0r .  .  .  1r 0r .  .  2r 1r .  .  3r 2r .  .  4r 3r .  .  5r 4r .  .  6r 5r .  .  7r 6r 
+ur_read_1       | 0r .  .  .  1r .  .  0r 2r .  .  1r 3r .  .  2r 4r .  .  3r 5r .  .  4r 6r .  .  5r 7r .  .  
+
+--- MICRO-INSTRUCTION DUMP (UNIT BOUND) ---
+UR_RD_R0           : HEAD:[VALID:1|LOOPS:1|DLY:7|INC:4] | BODY:[UNIT:UR_READ_1|BANK:N/A]
+R0                 : HEAD:[VALID:1|LOOPS:1|DLY:10|INC:4] | BODY:[UNIT:FPMUL_0|BANK:N/A]
+RTOVR_R0           : HEAD:[VALID:1|LOOPS:1|DLY:18|INC:4] | BODY:[UNIT:RTOVR_4|BANK:N/A]
+UR_RD_R1           : HEAD:[VALID:1|LOOPS:1|DLY:6|INC:4] | BODY:[UNIT:UR_READ_0|BANK:1]
+R1                 : HEAD:[VALID:1|LOOPS:1|DLY:7|INC:4] | BODY:[UNIT:FPMUL_0|BANK:N/A]
+RTOVR_R1           : HEAD:[VALID:1|LOOPS:1|DLY:15|INC:4] | BODY:[UNIT:RTOVR_34|BANK:N/A]
+UR_RD_R2           : HEAD:[VALID:1|LOOPS:1|DLY:1|INC:4] | BODY:[UNIT:UR_READ_0|BANK:2]
+R2                 : HEAD:[VALID:1|LOOPS:1|DLY:4|INC:4] | BODY:[UNIT:FPMUL_0|BANK:N/A]
+RTOVR_R2           : HEAD:[VALID:1|LOOPS:1|DLY:13|INC:4] | BODY:[UNIT:RTOVR_25|BANK:N/A]
+UR_RD_R3           : HEAD:[VALID:1|LOOPS:1|DLY:0|INC:4] | BODY:[UNIT:UR_READ_1|BANK:3]
+R3                 : HEAD:[VALID:1|LOOPS:1|DLY:5|INC:4] | BODY:[UNIT:FPMUL_0|BANK:N/A]
+RTOVR_R3           : HEAD:[VALID:1|LOOPS:1|DLY:16|INC:4] | BODY:[UNIT:RTOVR_30|BANK:N/A]

@@ -22,6 +22,12 @@
   - **局部公理**: 单个 Bank 每拍仅支持 1 次存取。
   - **全局公理**: 全系统每拍支持最大 4 路并行 `UR_READ` 和 4 路并行 `UR_WRITE`。
 - `AX_06`: ** bank_pinning_constraint**: 允许算子显式锁定特定 Bank ID（如常数库 Bank 7）。编译器必须在满足依赖链的前提下，解决该 Bank 的端口竞态。
+- `AX_07`: ** hierarchical_complexity_scaling**: 当输入 $N \ge 20$ 时，启用分群解算，弃用单平面搜索。
+- `AX_08`: ** header_phase_synchronization**: 偏移值映射至 Header 的 `INC/DLY` 字段，实现相位填空。
+- `AX_09`: ** hardware_loop_saturation**: 
+  - 对于大规模输入（如 80 路），通过 **“向量宽度分发（80/4=20）”** 转化为硬件循环。
+  - SMT 仅负责解算原子 Loop Body 指令集。
+  - Header 字段（`LOOP_COUNT=20`, `INC=3`）负责实现多批次数据的饱和式滚动喷发（Vector Pulsing）。
 
 ---
 **Location: flow/02_Specs/Fractal_Specs/01_Root_ADD/SMT_System_ADD.md**
